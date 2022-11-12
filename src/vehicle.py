@@ -8,3 +8,7 @@ class Vehicle:
 
     def isAmbulance(self) -> bool:
         return self.letterName == "A"
+    
+    def isVehicle(self) -> bool:
+        return self.letterName != "."
+        
