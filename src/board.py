@@ -20,3 +20,4 @@ class Board:
         #self.board[x][y] = 
 
 b1 = Board()
+print(b1)
