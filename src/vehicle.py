@@ -11,3 +11,6 @@ class Vehicle:
     
     def __isVehicle(self) -> bool:
         return self.letterName != "."
+    
+    def setRemainingFuel(self, remainingFuel):
+        self.remainingFuel = remainingFuel

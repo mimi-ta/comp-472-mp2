@@ -7,8 +7,8 @@ def main():
 
     for puzzle in parser.getPuzzles():
         board = Board(puzzle)
-        print(board)
-        print("")
+        #print(board)
+        #print("")
 
 
 if __name__ == "__main__":
