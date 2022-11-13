@@ -12,7 +12,7 @@ class Position:
         vehicleName = "None" if self.vehicle is None else self.vehicle.letterName
         return f"{vehicleName}@({convertXtoChar(self.x)},{self.y})"
 
-    def isExit(self):
+    def __isExit(self):
         return self.x == "f" and self.y == 3
 
 # a=1, b=2, ..., etc. bc I think it's easier... for the sake of the assignment?

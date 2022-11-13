@@ -6,9 +6,8 @@ class Vehicle:
     def __str__(self) -> str:
         return f"Vehicle {self.letterName} has {self.remainingFuel} remaining fuel units."
 
-    def isAmbulance(self) -> bool:
+    def __isAmbulance(self) -> bool:
         return self.letterName == "A"
     
-    def isVehicle(self) -> bool:
+    def __isVehicle(self) -> bool:
         return self.letterName != "."
-        
