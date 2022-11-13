@@ -28,5 +28,5 @@ class Parser:
     def __str__(self) -> str:
         return f"{self.puzzles}"
 
-    def getPuzzles(self):
+    def getPuzzles(self) -> list[list[str]]:
         return self.puzzles
