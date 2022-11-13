@@ -27,3 +27,6 @@ class Parser:
     
     def __str__(self) -> str:
         return f"{self.puzzles}"
+
+    def getPuzzles(self):
+        return self.puzzles
