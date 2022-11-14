@@ -20,12 +20,16 @@ class Board:
             output += "\n"
         return output.strip()
 
+    # Create dictionary for vehicles (i.e. a set with key-value pairs ("Name", Vehicle))
     def __initializeVehicles(self, puzzle: list[str]):
         vehiclesDict = dict()
+
+        # Initialize vehicles with default fuel amount
         for letter in puzzle[0]:
             if letter not in vehiclesDict:
                 vehiclesDict.update({letter: Vehicle(letter, DEFAULT_FUEL)})
 
+        # Look for fuel definitions and if present then set them
         for fuelDefinition in puzzle[1:]:
             vehiclesDict.get(fuelDefinition[0]).setRemainingFuel(
                 int(fuelDefinition[1:])
@@ -36,6 +40,7 @@ class Board:
     def __initializePositions(self, puzzleConfiguration: str):
         puzzleConfigurationAs6x6 = np.array_split(list(puzzleConfiguration), 6)
 
+        # Traverse all puzzle position by position, initialize board
         for i in range(len(puzzleConfigurationAs6x6)):
             for j in range(len(puzzleConfigurationAs6x6)):
                 letterName = puzzleConfigurationAs6x6[i][j]

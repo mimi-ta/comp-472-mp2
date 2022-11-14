@@ -17,7 +17,8 @@ class Position:
         vehicleName = "None" if self.vehicle is None else self.vehicle.letterName
         return f"{vehicleName}@({self.x},{self.y})"
 
-    def __isExit(self):
+    # Returns true if the position is 3f
+    def isExit(self):
         return self.x == "f" and self.y == 3
 
 

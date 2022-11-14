@@ -1,11 +1,17 @@
 from parser import Parser
 from board import Board
+from position import Position
+from vehicle import Vehicle
+
+INPUT_FILE = "./src/sample-input.txt"
 
 
 def main():
-    f = open("./src/sample-input.txt", "r")
+    f = open(INPUT_FILE, "r")
     parser = Parser(f.read())
 
+    p1 = Position(Vehicle(".", 100), 7, 3)
+    print(p1)
     for puzzle in parser.getPuzzles():
         board = Board(puzzle)
         print(board)

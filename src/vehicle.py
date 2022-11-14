@@ -6,10 +6,10 @@ class Vehicle:
     def __str__(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
 
-    def __isAmbulance(self) -> bool:
+    def isAmbulance(self) -> bool:
         return self.letterName == "A"
 
-    def __isVehicle(self) -> bool:
+    def isVehicle(self) -> bool:
         return self.letterName != "."
 
     def setRemainingFuel(self, remainingFuel) -> None:
