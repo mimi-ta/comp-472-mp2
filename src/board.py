@@ -84,9 +84,9 @@ class Board:
             for index, x in enumerate(puzzle):
                 if x == vehicleLetterName:
                     positions.append(index)
-            if positions[0] % 6 == 5:
+            if positions[-1] % 6 == 5:
                 return False
-            if puzzle(positions[0] + 1) != '.':
+            if puzzle(positions[-1] + 1) != '.':
                 return False
             else:
                 return True
