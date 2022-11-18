@@ -37,11 +37,11 @@ class Board:
     # TODO: Implement all these
     # Only moves up one spot atm ( logically, haven't tested)
     def canMoveUp(self, vehicleLetterName: str, puzzle: str) -> bool:
-        positions = []
         if self.vehicles.get(vehicleLetterName).isVertical():
+            positions = []
             for index, x in enumerate(puzzle):
                 if x == vehicleLetterName:
-                    positions.append(x)
+                    positions.append(index)
             if positions[0] < 6:
                 return False
             if puzzle[(positions[0] - 6)] != '.':
@@ -51,11 +51,11 @@ class Board:
         return False
 
     def canMoveDown(self, vehicleLetterName: str, puzzle: str) -> bool:
-        positions = []
         if self.vehicles.get(vehicleLetterName).isVertical():
+            positions = []
             for index, x in enumerate(puzzle):
                 if x == vehicleLetterName:
-                    positions.append(x)
+                    positions.append(index)
             if positions[-1] > 29:
                 return False
             if puzzle[(positions[-1] + 6)] != '.':
@@ -64,15 +64,33 @@ class Board:
                 return True
         return False
 
-    def canMoveLeft(self, vehicleLetterName: str) -> bool:
-        if (not self.vehicles.get(vehicleLetterName).isVertical()):
-            pass
-        pass
+    def canMoveLeft(self, vehicleLetterName: str, puzzle: str) -> bool:
+        if not self.vehicles.get(vehicleLetterName).isVertical():
+            positions = []
+            for index, x in enumerate(puzzle):
+                if x == vehicleLetterName:
+                    positions.append(index)
+            if positions[0]%6 == 0:
+                return False
+            if puzzle(positions[0] - 1) != '.':
+                return False
+            else:
+                return True
+        return False
 
-    def canMoveRight(self, vehicleLetterName: str) -> bool:
-        if (not self.vehicles.get(vehicleLetterName).isVertical()):
-            pass
-        pass
+    def canMoveRight(self, vehicleLetterName: str, puzzle: str) -> bool:
+        if not self.vehicles.get(vehicleLetterName).isVertical():
+            positions = []
+            for index, x in enumerate(puzzle):
+                if x == vehicleLetterName:
+                    positions.append(index)
+            if positions[0] % 6 == 5:
+                return False
+            if puzzle(positions[0] + 1) != '.':
+                return False
+            else:
+                return True
+        return False
 
     def moveUp(self, vehicleLetterName: str):
         if self.canMoveUp(vehicleLetterName):
