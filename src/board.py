@@ -35,15 +35,34 @@ class Board:
         return vehiclesDict
     
     # TODO: Implement all these
-    def canMoveUp(self, vehicleLetterName: str) -> bool:
-        if (self.vehicles.get(vehicleLetterName).isVertical()):
-            pass
-        pass
+    # Only moves up one spot atm ( logically, haven't tested)
+    def canMoveUp(self, vehicleLetterName: str, puzzle: str) -> bool:
+        positions = []
+        if self.vehicles.get(vehicleLetterName).isVertical():
+            for index, x in enumerate(puzzle):
+                if x == vehicleLetterName:
+                    positions.append(x)
+            if positions[0] < 6:
+                return False
+            if puzzle[(positions[0] - 6)] != '.':
+                return False
+            else:
+                return True
+        return False
 
-    def canMoveDown(self, vehicleLetterName: str) -> bool:
-        if (self.vehicles.get(vehicleLetterName).isVertical()):
-            pass
-        pass
+    def canMoveDown(self, vehicleLetterName: str, puzzle: str) -> bool:
+        positions = []
+        if self.vehicles.get(vehicleLetterName).isVertical():
+            for index, x in enumerate(puzzle):
+                if x == vehicleLetterName:
+                    positions.append(x)
+            if positions[-1] > 29:
+                return False
+            if puzzle[(positions[-1] + 6)] != '.':
+                return False
+            else:
+                return True
+        return False
 
     def canMoveLeft(self, vehicleLetterName: str) -> bool:
         if (not self.vehicles.get(vehicleLetterName).isVertical()):
