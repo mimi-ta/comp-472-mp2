@@ -11,7 +11,7 @@ def main():
     for index, puzzle in enumerate(parser.getPuzzles()):
         board = Board(puzzle)
         puzzles.append(board)
-        print(board);
+        print(board)
         # board.printBoard();
         # board.printCars();
         print("")
