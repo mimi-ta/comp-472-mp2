@@ -12,7 +12,7 @@ def main():
         board = Board(puzzle)
 
         puzzles.append(board)
-        # print(board)
+        print(board)
         # board.printBoard();
         # board.printCars();
         print("")
