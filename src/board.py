@@ -24,7 +24,10 @@ class Board:
         # Initialize vehicles with default fuel amount
         for index, letter in enumerate(puzzle[0]):
             if letter not in vehiclesDict:
-                vehiclesDict.update({letter: Vehicle(letter, puzzle[0].count(letter), DEFAULT_FUEL, [index])})
+                if puzzle[0][index+1] == letter:
+                    vehiclesDict.update({letter: Vehicle(letter, puzzle[0].count(letter), DEFAULT_FUEL, [index], True)})
+                else:
+                    vehiclesDict.update({letter: Vehicle(letter, puzzle[0].count(letter), DEFAULT_FUEL, [index], False)})
             elif letter != '.':
                 positions = vehiclesDict.get(letter).getPositions()
                 positions.append(index)
@@ -42,7 +45,7 @@ class Board:
     # TODO: Implement all these
     # Only moves up one spot atm ( logically, haven't tested)
     def canMoveUp(self, vehicleLetterName: str, puzzle: str) -> bool:
-        if self.vehicles.get(vehicleLetterName).isVertical():
+        if not self.vehicles.get(vehicleLetterName).getIsHorizontal():
             positions = self.vehicles.get(vehicleLetterName).getPositions()
             if positions[0] < 6:
                 return False
@@ -53,7 +56,7 @@ class Board:
         return False
 
     def canMoveDown(self, vehicleLetterName: str, puzzle: str) -> bool:
-        if self.vehicles.get(vehicleLetterName).isVertical():
+        if not self.vehicles.get(vehicleLetterName).getIsHorizontal():
             positions = self.vehicles.get(vehicleLetterName).getPositions()
             if positions[-1] > 29:
                 return False
@@ -64,7 +67,7 @@ class Board:
         return False
 
     def canMoveLeft(self, vehicleLetterName: str, puzzle: str) -> bool:
-        if not self.vehicles.get(vehicleLetterName).isVertical():
+        if self.vehicles.get(vehicleLetterName).getIsHorizontal():
             positions = self.vehicles.get(vehicleLetterName).getPositions()
             if positions[0] % 6 == 0:
                 return False
@@ -75,7 +78,7 @@ class Board:
         return False
 
     def canMoveRight(self, vehicleLetterName: str, puzzle: str) -> bool:
-        if not self.vehicles.get(vehicleLetterName).isVertical():
+        if self.vehicles.get(vehicleLetterName).getIsHorizontal():
             positions = self.vehicles.get(vehicleLetterName).getPositions()
             if positions[-1] % 6 == 5:
                 return False
@@ -107,7 +110,7 @@ class Board:
         if self.canMoveLeft(vehicleLetterName):
             updatePositions = self.vehicles.get(vehicleLetterName).getPositions()
             for index, x in enumerate(updatePositions):
-                updatePositions[index] = x + 1
+                updatePositions[index] = x - 1
             self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         pass
 
@@ -115,7 +118,7 @@ class Board:
         if self.canMoveRight(vehicleLetterName):
             updatePositions = self.vehicles.get(vehicleLetterName).getPositions()
             for index, x in enumerate(updatePositions):
-                updatePositions[index] = x - 1
+                updatePositions[index] = x + 1
             self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         pass
 

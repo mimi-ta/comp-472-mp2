@@ -1,7 +1,7 @@
 from parser import Parser
 from board import Board
-
-INPUT_FILE = "./src/sample-input.txt"
+import os
+INPUT_FILE = "sample-input.txt"
 
 
 def main():

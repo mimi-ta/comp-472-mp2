@@ -1,9 +1,10 @@
 class Vehicle:
-    def __init__(self, letterName, size, remainingFuel, positions: list[int]):
+    def __init__(self, letterName, size, remainingFuel, positions: list[int], isHorizontal):
         self.letterName = letterName
         self.size = size
         self.remainingFuel = remainingFuel
         self.positions = positions
+        self.isHorizontal = isHorizontal
 
     def __str__(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
@@ -14,9 +15,6 @@ class Vehicle:
     def isVehicle(self) -> bool:
         return self.letterName != "."
 
-    def isVertical(self) -> bool:
-        pass
-    
     def setRemainingFuel(self, remainingFuel) -> None:
         self.remainingFuel = remainingFuel
 
@@ -28,3 +26,6 @@ class Vehicle:
 
     def getPositions(self) -> list[int]:
         return self.positions
+
+    def getIsHorizontal(self):
+        return self.isHorizontal
