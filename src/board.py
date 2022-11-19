@@ -25,9 +25,14 @@ class Board:
         for car in self.vehicles.values():
             print(car)
 
-    # def testCanMoveUp(self):
-    #     print(self.canMoveUp("I", self.board))
+    def testCanMoveUp(self, letter):
+        print(self.canMoveUp(letter, self.board))
 
+    def testCanMoveLeft(self,letter:str):
+        print(self.canMoveLeft(letter, self.board))
+
+    def testCanMoveRight(self,letter:str):
+        print(self.canMoveRight(letter, self.board))
     #End Of Testing Functions
     def getFinalConfiguration(self) -> str:
         # print the 6x6
@@ -94,7 +99,7 @@ class Board:
             positions = self.vehicles.get(vehicleLetterName).getPositions()
             if positions[0] % 6 == 0:
                 return False
-            if puzzle(positions[0] - 1) != '.':
+            if puzzle[positions[0] - 1] != '.':
                 return False
             else:
                 return True
@@ -105,7 +110,7 @@ class Board:
             positions = self.vehicles.get(vehicleLetterName).getPositions()
             if positions[-1] % 6 == 5:
                 return False
-            if puzzle(positions[-1] + 1) != '.':
+            if puzzle[positions[-1] + 1] != '.':
                 return False
             else:
                 return True
