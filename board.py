@@ -13,14 +13,21 @@ class Board:
     def __str__(self) -> str:
         return self.board
 
-
-
+    def printBoard(self):
+        for index, cell in enumerate(self.board):
+            if index%6 == 5:
+                print(cell)
+            else:
+                print(cell, end=' ')
     def printCars(self):
         for car in self.vehicles.values():
             print(car)
 
     def testCanMoveUp(self, letter):
         print(self.canMoveUp(letter, self.board))
+
+    def testCanMoveDown(self, letter):
+        print(self.canMoveDown(letter, self.board))
 
     def testCanMoveLeft(self,letter:str):
         print(self.canMoveLeft(letter, self.board))
