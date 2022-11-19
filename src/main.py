@@ -10,6 +10,9 @@ def main():
     for puzzle in parser.getPuzzles():
         board = Board(puzzle)
         print(board)
+        board.printBoard();
+        board.printCars();
+        # board.testCanMoveUp();
         print("")
 
 

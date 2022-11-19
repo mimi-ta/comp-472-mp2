@@ -7,7 +7,7 @@ class Vehicle:
         self.isHorizontal = isHorizontal
 
     def __str__(self) -> str:
-        return f"{self.letterName}:{self.remainingFuel}"
+        return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | positions {self.positions} | Horizontal? {self.isHorizontal} "
 
     def isAmbulance(self) -> bool:
         return self.letterName == "A"
