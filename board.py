@@ -13,8 +13,9 @@ class Board:
     def __str__(self) -> str:
         return self.board
 
-
-
+    def getVehicleAtExit(self) -> Vehicle:
+        return self.board[17]
+        
     def printCars(self):
         for car in self.vehicles.values():
             print(car)

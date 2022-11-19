@@ -17,8 +17,5 @@ def main():
         # board.printCars();
         print("")
 
-
-
-
 if __name__ == "__main__":
     main()
