@@ -1,8 +1,9 @@
 class Vehicle:
-    def __init__(self, letterName, size, remainingFuel):
+    def __init__(self, letterName, size, remainingFuel, positions: list[int]):
         self.letterName = letterName
         self.size = size
         self.remainingFuel = remainingFuel
+        self.positions = positions
 
     def __str__(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
@@ -21,3 +22,9 @@ class Vehicle:
 
     def getRemainingFuel(self) -> int:
         return self.remainingFuel
+
+    def setPositions(self, positions) -> None:
+        self.positions = positions
+
+    def getPositions(self) -> list[int]:
+        return self.positions
