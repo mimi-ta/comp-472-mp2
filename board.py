@@ -12,13 +12,7 @@ class Board:
 
     def __str__(self) -> str:
         return self.board
-    #Testing Functions
-    def printBoard(self):
-        for index, cell in enumerate(self.board):
-            if index % 6 == 5:
-                print(cell)
-            else:
-                print(cell, end=' ')
+
 
 
     def printCars(self):
@@ -34,15 +28,10 @@ class Board:
     def testCanMoveRight(self,letter:str):
         print(self.canMoveRight(letter, self.board))
     #End Of Testing Functions
+
     def getFinalConfiguration(self) -> str:
         # print the 6x6
         pass
-
-    def isHorizontal(self, currentLetter, nextLetterInArray):
-        if (currentLetter==nextLetterInArray):
-            return True
-        else:
-            return False
 
     # Create dictionary for vehicles (i.e. a set with key-value pairs ("Name", Vehicle))
     def __initializeVehicles(self, puzzle: list[str]):
@@ -50,13 +39,13 @@ class Board:
 
         # Initialize vehicles with default fuel amount
         for index, letter in enumerate(puzzle[0]):
-            if letter != '.':
+            if letter != ".":
                 if letter not in vehiclesDict:
-                    if self.isHorizontal(letter, puzzle[0][index + 1]):
+                    if puzzle[0][index+1] == letter:
                         vehiclesDict.update({letter: Vehicle(letter, puzzle[0].count(letter), DEFAULT_FUEL, [index], True)})
                     else:
                         vehiclesDict.update({letter: Vehicle(letter, puzzle[0].count(letter), DEFAULT_FUEL, [index], False)})
-                else:
+                elif letter != '.':
                     positions = vehiclesDict.get(letter).getPositions()
                     positions.append(index)
                     vehiclesDict.get(letter).setPositions(positions)

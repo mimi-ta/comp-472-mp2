@@ -1,6 +1,7 @@
 from parser import Parser
+
 from board import Board
-import os
+
 INPUT_FILE = "sample-input.txt"
 
 def main():
@@ -9,6 +10,7 @@ def main():
     puzzles : list[Board] = []
     for index, puzzle in enumerate(parser.getPuzzles()):
         board = Board(puzzle)
+
         puzzles.append(board)
         # print(board)
         # board.printBoard();
