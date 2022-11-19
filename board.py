@@ -19,6 +19,9 @@ class Board:
                 print(cell)
             else:
                 print(cell, end=' ')
+    def getVehicleAtExit(self) -> Vehicle:
+        return self.board[17]
+        
     def printCars(self):
         for car in self.vehicles.values():
             print(car)

@@ -16,7 +16,10 @@ def main():
         # board.printCars()
         print("")
 
+<<<<<<< HEAD
     test(puzzles);
 
+=======
+>>>>>>> 4a8525f96150d3f34cdb204a20801596812baeb1
 if __name__ == "__main__":
     main()
