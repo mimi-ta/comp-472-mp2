@@ -12,10 +12,9 @@ def main():
     for index, puzzle in enumerate(parser.getPuzzles()):
         board = Board(puzzle)
         puzzles.append(board)
-        # board.printBoard()
-        # board.printCars()
-        print("")
+        print(board.boardToString())
         board.allPossibleMoves()
+        
     # test(puzzles);
 
 
