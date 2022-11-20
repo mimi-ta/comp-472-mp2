@@ -14,8 +14,12 @@ class Node:
     def getParentNode(self):
         return self.parentNode
 
-    def generateChildren(self) -> list[Board]:
-        return self.board.allPossibleMoves()
+    def generateChildren(self, closedList: list[Board]) -> list[Board]:
+        children = self.board.allPossibleMoves()
+        for node in closedList:
+            if node in children:
+                children.remove(node)
+        return children
 
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"

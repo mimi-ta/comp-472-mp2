@@ -24,7 +24,7 @@ class Board:
                 output += cell + " "
         return output
 
-    def getVehicleAtExit(self) -> Vehicle:
+    def getVehicleAtExit(self) -> str:
         return self.board[17]
 
     def carsToString(self) -> str:
