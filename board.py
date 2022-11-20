@@ -42,10 +42,6 @@ class Board:
 
     # End Of Testing Functions
 
-    def getFinalConfiguration(self) -> str:
-        # print the 6x6
-        pass
-
     # Create dictionary for vehicles (i.e. a set with key-value pairs ("Name", Vehicle))
     def __initializeVehicles(self, puzzle: list[str]):
         vehiclesDict = dict()
