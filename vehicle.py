@@ -1,5 +1,7 @@
 class Vehicle:
-    def __init__(self, letterName, size, remainingFuel, positions: list[int], isHorizontal):
+    def __init__(
+        self, letterName, size, remainingFuel, positions: list[int], isHorizontal
+    ):
         self.letterName = letterName
         self.size = size
         self.remainingFuel = remainingFuel

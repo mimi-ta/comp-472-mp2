@@ -4,10 +4,11 @@ from testing import test
 
 INPUT_FILE = "sample-input.txt"
 
+
 def main():
     f = open(INPUT_FILE, "r")
     parser = PuzzleParser(f.read())
-    puzzles : list[Board] = []
+    puzzles: list[Board] = []
     for index, puzzle in enumerate(parser.getPuzzles()):
         board = Board(puzzle)
         puzzles.append(board)

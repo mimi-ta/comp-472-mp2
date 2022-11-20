@@ -1,5 +1,7 @@
 from node import Node
 from collections import deque
+
+
 def UCS():
     closed = []
     open = deque()
@@ -7,5 +9,6 @@ def UCS():
     open.append("queen")
     open.popleft()
     print(open)
+
 
 ucd = UCS()

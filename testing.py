@@ -1,6 +1,6 @@
 def unitTestingCanMove(puzzles):
     print("Testing can move up and down on a vertical car w good cars")
-    puzzles[0].printBoard()
+    print(puzzles[0].printBoard())
     puzzles[0].testCanMoveUp("L")
     puzzles[0].testCanMoveDown("M")
 
@@ -10,7 +10,7 @@ def unitTestingCanMove(puzzles):
     puzzles[2].testCanMoveRight("H")
 
     print("Testing can move up and down on a horizontal car")
-    puzzles[0].printBoard()
+    print(puzzles[0].printBoard())
     puzzles[0].testCanMoveUp("C")
     puzzles[0].testCanMoveDown("C")
 
@@ -20,7 +20,7 @@ def unitTestingCanMove(puzzles):
     puzzles[2].testCanMoveRight("N")
 
     print("Testing can move up and down on a vertical car that is blocked")
-    puzzles[0].printBoard()
+    print(puzzles[0].printBoard())
     puzzles[0].testCanMoveUp("K")
     puzzles[0].testCanMoveDown("K")
 
@@ -30,37 +30,38 @@ def unitTestingCanMove(puzzles):
     puzzles[2].testCanMoveRight("G")
 
     print("Testing can move up and down on a vertical car that is at the corner")
-    puzzles[0].printBoard()
+    print(puzzles[0].printBoard())
     puzzles[0].testCanMoveUp("G")
     puzzles[0].testCanMoveDown("G")
 
 
 def unitTestingMove(puzzles):
     print("Testing move left")
-    puzzles[0].printBoard();
-    print(puzzles[0].moveLeft("H", 2));
+    print(puzzles[0].printBoard())
+    print(puzzles[0].moveLeft("H", 2))
     print("After moving left")
-    puzzles[0].printBoard();
+    print(puzzles[0].printBoard())
 
     print("Testing move right")
-    puzzles[0].printBoard();
-    print(puzzles[0].moveRight("H",2));
+    print(puzzles[0].printBoard())
+    print(puzzles[0].moveRight("H", 2))
     print("After moving right")
-    puzzles[0].printBoard();
+    print(puzzles[0].printBoard())
 
     print("Testing move up")
-    puzzles[0].printBoard();
-    puzzles[0].moveUp("L",1);
+    print(puzzles[0].printBoard())
+    puzzles[0].moveUp("L", 1)
     print("After moving up")
-    puzzles[0].printBoard();
+    print(puzzles[0].printBoard())
 
     print("Testing move down")
-    puzzles[0].printBoard();
-    puzzles[0].moveDown("L",1);
+    print(puzzles[0].printBoard())
+    puzzles[0].moveDown("L", 1)
     print("After moving down")
-    puzzles[0].printBoard();
+    print(puzzles[0].printBoard())
+
 
 def test(puzzles):
     print(" ")
     # unitTestingCanMove(puzzles);
-    unitTestingMove(puzzles);
+    unitTestingMove(puzzles)
