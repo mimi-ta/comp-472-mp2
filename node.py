@@ -9,7 +9,9 @@ class Node:
         self.parentNode = parentNode
 
     def __eq__(self, other):
-        return self.board.board == other.board
+        if self and other:
+            return self.board.boardToString() == other.board.boardToString()
+
     def setParentNode(self, parentNode):
         self.parentNode = parentNode
 
@@ -22,14 +24,20 @@ class Node:
         #Create new Nodes
         for oneBoard in childrenBoards:
             newNodes.append(Node(oneBoard,self))
+            
+        nodesToRemove = []
         for node in newNodes:
-            if node.getBoard() in closedListOfNodes:
-                newNodes.remove(node)
-            if node.getBoard() in openListofNodes:
-                newNodes.remove(node)
+            if node in closedListOfNodes:
+                nodesToRemove.append(node)
+            if node in openListofNodes:
+                nodesToRemove.append(node)
+
+        for node in nodesToRemove:
+            newNodes.remove(node)
         return newNodes
 
     def getBoard(self):
         return self.board
+        
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"

@@ -12,10 +12,15 @@ def UCS(initialBoard: Board):
     while(len(open)>0):
 
         #Taking the next node in the open list
+        print("Before popLeft")
         theNode = open.popleft()
+        print("AFter popLeft")
 
+        print(f"Pop board from open list:\n{theNode.board.boardToString()}")
         #Append it to the closed list
+        print("Before append")
         closed.append(theNode)
+        print("After append")
 
         #Check if it is in the goal state
         if theNode.getBoard().getVehicleAtExit() == "A":
@@ -23,29 +28,13 @@ def UCS(initialBoard: Board):
 
         #Append all the children into the end of the open list
         theChildrenOfThisNode = theNode.generateChildren(closed,open)
+        i = 1
+        for child in theChildrenOfThisNode:
+            print(f"Child: {i}")
+            print(child.board.boardToString())
+            i += 1
+
         open.extend(theChildrenOfThisNode)
-
-
-
-
-
-    # theChildrenOfThisNode = open[0].generateChildren(closed)
-    # open.extend(theChildrenOfThisNode)
-    #
-    # for node in theChildrenOfThisNode:
-    #     if node.getBoard() in open:
-    #         open.remove(node)
-    #
-    # printAllBoardsInAListOfNodes(open)
-            # open.append("slay")
-            # open.append("queen")
-            # open.popleft()
-            # print(open)
+        print("*****************************************************************************")
 
     return None;
-# ucs = UCS()
-
-def printAllBoardsInAListOfNodes(ListOfNodes):
-    for eachNode in ListOfNodes:
-        print(eachNode.getBoard().boardToString())
-        print()

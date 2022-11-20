@@ -175,7 +175,7 @@ class Board:
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
 
         # remove car from board
-        if updatePositions[-1] == 17:
+        if updatePositions[-1] == 17 and vehicleLetterName != "A":
             for index, x in enumerate(updatePositions):
                 self.board[int(x)] = "."
             self.vehicles.pop(vehicleLetterName)
@@ -191,7 +191,6 @@ class Board:
                     if self.__canMoveRight(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveRight(vehicle.letterName, i)
-                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
@@ -201,7 +200,6 @@ class Board:
                     if self.__canMoveLeft(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveLeft(vehicle.letterName, i)
-                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
@@ -213,7 +211,6 @@ class Board:
                     if self.__canMoveDown(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveDown(vehicle.letterName, i)
-                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
@@ -223,7 +220,6 @@ class Board:
                     if self.__canMoveUp(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveUp(vehicle.letterName, i)
-                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
