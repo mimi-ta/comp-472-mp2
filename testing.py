@@ -37,28 +37,29 @@ def unitTestingCanMove(puzzles):
 
 def unitTestingMove(puzzles):
     print("Testing move left")
-    puzzles[2].printBoard();
-    puzzles[2].moveLeft("H");
+    puzzles[0].printBoard();
+    print(puzzles[0].moveLeft("H", 2));
     print("After moving left")
-    puzzles[2].printBoard();
+    puzzles[0].printBoard();
 
     print("Testing move right")
-    puzzles[2].printBoard();
-    puzzles[2].moveRight("H");
+    puzzles[0].printBoard();
+    print(puzzles[0].moveRight("H",2));
     print("After moving right")
-    puzzles[2].printBoard();
+    puzzles[0].printBoard();
 
     print("Testing move up")
-    puzzles[2].printBoard();
-    puzzles[2].moveUp("L");
+    puzzles[0].printBoard();
+    puzzles[0].moveUp("L",1);
     print("After moving up")
-    puzzles[2].printBoard();
+    puzzles[0].printBoard();
 
     print("Testing move down")
-    puzzles[2].printBoard();
-    puzzles[2].moveDown("L");
+    puzzles[0].printBoard();
+    puzzles[0].moveDown("L",1);
     print("After moving down")
-    puzzles[2].printBoard();
+    puzzles[0].printBoard();
+
 def test(puzzles):
     print(" ")
     # unitTestingCanMove(puzzles);

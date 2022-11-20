@@ -1,13 +1,12 @@
-
-from parser import Parser
-from testing import test
 from board import Board
+from puzzleParser import PuzzleParser
+from testing import test
 
 INPUT_FILE = "sample-input.txt"
 
 def main():
     f = open(INPUT_FILE, "r")
-    parser = Parser(f.read())
+    parser = PuzzleParser(f.read())
     puzzles : list[Board] = []
     for index, puzzle in enumerate(parser.getPuzzles()):
         board = Board(puzzle)
@@ -15,11 +14,9 @@ def main():
         # board.printBoard()
         # board.printCars()
         print("")
+        board.allPossibleMoves()
+    # test(puzzles);
 
-<<<<<<< HEAD
-    test(puzzles);
 
-=======
->>>>>>> 4a8525f96150d3f34cdb204a20801596812baeb1
 if __name__ == "__main__":
     main()

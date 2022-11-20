@@ -1,4 +1,4 @@
-class Parser:
+class PuzzleParser:
     def __init__(self, input: str) -> None:
         self.puzzles = input.splitlines()
         self.__parse()
