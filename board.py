@@ -118,7 +118,7 @@ class Board:
 
     def __canMoveLeft(self, vehicleLetterName: str, multiplier: int) -> bool:
         positions = self.vehicles.get(vehicleLetterName).getPositions()
-        if positions[0] % 6 == 0:
+        if (positions[0] - multiplier + 1) % 6 == 0:
             return False
         if self.board[positions[0] - multiplier] != ".":
             return False
@@ -127,7 +127,7 @@ class Board:
 
     def __canMoveRight(self, vehicleLetterName: str, multiplier: int) -> bool:
         positions = self.vehicles.get(vehicleLetterName).getPositions()
-        if positions[-1] % 6 == 5:
+        if (positions[-1] + multiplier - 1) % 6 == 5:
             return False
         if self.board[positions[-1] + multiplier] != ".":
             return False
@@ -139,7 +139,7 @@ class Board:
         updatePositions = self.vehicles.get(vehicleLetterName).getPositions()
         for index, x in enumerate(updatePositions):
             self.board[int(x)] = "."
-            updatePositions[index] = x - 6
+            updatePositions[index] = x - 6 * multiplier
         for x in updatePositions:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
@@ -173,6 +173,13 @@ class Board:
         for x in updatePositions:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
+
+        # remove car from board
+        if updatePositions[-1] == 17:
+            for index, x in enumerate(updatePositions):
+                self.board[int(x)] = "."
+            self.vehicles.pop(vehicleLetterName)
+
         return True
 
     def allPossibleMoves(self):
@@ -184,6 +191,7 @@ class Board:
                     if self.__canMoveRight(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveRight(vehicle.letterName, i)
+                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
@@ -193,6 +201,7 @@ class Board:
                     if self.__canMoveLeft(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveLeft(vehicle.letterName, i)
+                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
@@ -204,6 +213,7 @@ class Board:
                     if self.__canMoveDown(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveDown(vehicle.letterName, i)
+                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:
@@ -213,6 +223,7 @@ class Board:
                     if self.__canMoveUp(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveUp(vehicle.letterName, i)
+                        # print(board.boardToString())
                         moves.append(board)
                         i += 1
                     else:

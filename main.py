@@ -13,7 +13,7 @@ def main():
         board = Board(puzzle)
         puzzles.append(board)
         print(board.boardToString())
-        board.allPossibleMoves()
+        print(board.allPossibleMoves())
         
     # test(puzzles);
 
