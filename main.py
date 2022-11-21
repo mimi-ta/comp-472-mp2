@@ -21,6 +21,10 @@ def main():
     else:
         print("No Possible Solution")
 
+    while (theWinningNode.parentNode!=None):
+        print(theWinningNode.board.move)
+        print(theWinningNode.board.boardToString())
+        theWinningNode = theWinningNode.parentNode
 
 
 if __name__ == "__main__":

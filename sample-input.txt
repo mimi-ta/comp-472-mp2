@@ -20,4 +20,5 @@
 # demo 1.6
 #BB.G.HE..G.HEAAG.I..FCCIDDF..I..F...
 
-C.B...C.BHHHAADD........EEGGGF.....F
+#C.B...C.BHHHAADD........EEGGGF.....F
+....F...B.F.AABCF....C.....C....EE.. F2

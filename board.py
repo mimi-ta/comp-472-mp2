@@ -10,7 +10,7 @@ class Board:
     def __init__(self, puzzle: list[str]):
         self.board = list(puzzle[0])
         self.vehicles = self.__initializeVehicles(puzzle)
-        self.move = "B\tleft\t1\t\t99"  # TODO: Implement this
+        self.move = ""  # TODO: Implement this
 
     def __str__(self) -> str:
         return self.board
@@ -95,6 +95,8 @@ class Board:
     # TODO: Implement all these
     # Only moves up one spot atm ( logically, haven't tested)
     def __canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel()<multiplier:
+            return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if positions[0] < 6:
             return False
@@ -106,6 +108,8 @@ class Board:
             return True
 
     def __canMoveDown(self, vehicleLetterName: str, multiplier: int) -> bool:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel()<multiplier:
+            return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if positions[-1] > 29:
             return False
@@ -117,6 +121,8 @@ class Board:
             return True
 
     def __canMoveLeft(self, vehicleLetterName: str, multiplier: int) -> bool:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel() < multiplier:
+            return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if (positions[0] - multiplier + 1) % 6 == 0:
             return False
@@ -126,6 +132,8 @@ class Board:
             return True
 
     def __canMoveRight(self, vehicleLetterName: str, multiplier: int) -> bool:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel() <multiplier:
+            return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if (positions[-1] + multiplier - 1) % 6 == 5:
             return False
@@ -134,7 +142,6 @@ class Board:
         else:
             return True
 
-    # TODO include fuel modification
     def moveUp(self, vehicleLetterName: str, multiplier: int):
         updatePositions = self.vehicles.get(vehicleLetterName).getPositions()
         for index, x in enumerate(updatePositions):
@@ -143,6 +150,9 @@ class Board:
         for x in updatePositions:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
+        self.vehicles.get(vehicleLetterName).setRemainingFuel(
+            self.vehicles.get(vehicleLetterName).getRemainingFuel()-multiplier)
+        self.move = f"{vehicleLetterName} Up {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
         return True
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
@@ -153,6 +163,9 @@ class Board:
         for x in updatePositions:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
+        self.vehicles.get(vehicleLetterName).setRemainingFuel(
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier)
+        self.move = f"{vehicleLetterName} Down {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
         return True
 
     def moveLeft(self, vehicleLetterName: str, multiplier: int):
@@ -163,6 +176,9 @@ class Board:
         for x in updatePositions:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
+        self.vehicles.get(vehicleLetterName).setRemainingFuel(
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier)
+        self.move = f"{vehicleLetterName} Left {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
         return True
 
     def moveRight(self, vehicleLetterName: str, multiplier: int):
@@ -173,13 +189,17 @@ class Board:
         for x in updatePositions:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
+        self.vehicles.get(vehicleLetterName).setRemainingFuel(
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier)
+        self.move = f"{vehicleLetterName} Right {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
 
-        # remove car from board
+
+
+        # remove car from board if it is in the goalstate
         if updatePositions[-1] == 17 and vehicleLetterName != "A":
             for index, x in enumerate(updatePositions):
                 self.board[int(x)] = "."
             self.vehicles.pop(vehicleLetterName)
-
         return True
 
     def allPossibleMoves(self):
@@ -187,7 +207,7 @@ class Board:
         for vehicle in self.vehicles.values():
             if vehicle.getIsHorizontal():
                 i = 1
-                while i < 4:
+                while i < 5:
                     if self.__canMoveRight(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveRight(vehicle.letterName, i)
@@ -196,7 +216,7 @@ class Board:
                     else:
                         break
                 i = 1
-                while i < 4:
+                while i < 5:
                     if self.__canMoveLeft(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveLeft(vehicle.letterName, i)
@@ -207,7 +227,7 @@ class Board:
 
             if not vehicle.getIsHorizontal():
                 i = 1
-                while i < 4:
+                while i < 5:
                     if self.__canMoveDown(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveDown(vehicle.letterName, i)
@@ -216,7 +236,7 @@ class Board:
                     else:
                         break
                 i = 1
-                while i < 4:
+                while i < 5:
                     if self.__canMoveUp(vehicle.letterName, i):
                         board = Board([self.board])
                         board.moveUp(vehicle.letterName, i)
