@@ -1,5 +1,5 @@
 import numpy as np
-
+import copy
 from vehicle import Vehicle
 
 DEFAULT_FUEL: int = 100
@@ -10,7 +10,7 @@ class Board:
     def __init__(self, puzzle: list[str]):
         self.board = list(puzzle[0])
         self.vehicles = self.__initializeVehicles(puzzle)
-        self.move = ""  # TODO: Implement this
+        self.move = ""
 
     def __str__(self) -> str:
         return self.board
@@ -209,7 +209,7 @@ class Board:
                 i = 1
                 while i < 5:
                     if self.__canMoveRight(vehicle.letterName, i):
-                        board = Board([self.board])
+                        board = copy.deepcopy(self)
                         board.moveRight(vehicle.letterName, i)
                         moves.append(board)
                         i += 1
@@ -218,7 +218,7 @@ class Board:
                 i = 1
                 while i < 5:
                     if self.__canMoveLeft(vehicle.letterName, i):
-                        board = Board([self.board])
+                        board = copy.deepcopy(self)
                         board.moveLeft(vehicle.letterName, i)
                         moves.append(board)
                         i += 1
@@ -229,7 +229,7 @@ class Board:
                 i = 1
                 while i < 5:
                     if self.__canMoveDown(vehicle.letterName, i):
-                        board = Board([self.board])
+                        board = copy.deepcopy(self)
                         board.moveDown(vehicle.letterName, i)
                         moves.append(board)
                         i += 1
@@ -238,7 +238,7 @@ class Board:
                 i = 1
                 while i < 5:
                     if self.__canMoveUp(vehicle.letterName, i):
-                        board = Board([self.board])
+                        board = copy.deepcopy(self)
                         board.moveUp(vehicle.letterName, i)
                         moves.append(board)
                         i += 1
