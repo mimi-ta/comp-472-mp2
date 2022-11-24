@@ -26,14 +26,20 @@ class Board:
                 output += cell + " "
         return output
 
-    def getVehicleAtExit(self) -> str:
-        return self.board[17]
-
     def carsToString(self) -> str:
         output = ""
         for car in self.vehicles.values():
             output += car.__str__() + "\n"
         return output
+
+    def getAllCarFuels(self) -> str:
+        output = ""
+        for car in self.vehicles.values():
+            output += car.getFuelString() + " "
+        return output
+
+    def getVehicleAtExit(self) -> str:
+        return self.board[17]
 
     def testCanMoveUp(self, letter):
         print(letter, "can move up : ", self.__canMoveUp(letter))
@@ -155,7 +161,7 @@ class Board:
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
             self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
         )
-        self.move = f"{vehicleLetterName} Up {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} ${self.__str__()}"
+        self.move = f"{vehicleLetterName} Up {multiplier}\t\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} {self.__str__()}"
         return True
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
@@ -169,7 +175,7 @@ class Board:
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
             self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
         )
-        self.move = f"{vehicleLetterName} Down {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} ${self.__str__()}"
+        self.move = f"{vehicleLetterName} Down {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} {self.__str__()}"
         return True
 
     def moveLeft(self, vehicleLetterName: str, multiplier: int):
@@ -183,7 +189,7 @@ class Board:
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
             self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
         )
-        self.move = f"{vehicleLetterName} Left {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} ${self.__str__()}"
+        self.move = f"{vehicleLetterName} Left {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} {self.__str__()}"
         return True
 
     def moveRight(self, vehicleLetterName: str, multiplier: int):

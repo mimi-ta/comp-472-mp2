@@ -11,6 +11,9 @@ class Vehicle:
     def __str__(self) -> str:
         return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | positions {self.positions} | Horizontal? {self.isHorizontal} "
 
+    def getFuelString(self) -> str:
+        return f"{self.letterName}:{self.remainingFuel}"
+
     def isAmbulance(self) -> bool:
         return self.letterName == "A"
 

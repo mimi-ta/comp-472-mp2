@@ -2,3 +2,4 @@
 .idea/
 *pycache*/
 __pycache__/
+output
