@@ -1,31 +1,34 @@
 from board import Board
+from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
 
 INPUT_FILE = "sample-input.txt"
 
 
+def generateUcsOutputFiles(board):
+    pass
+
+
 def main():
     f = open(INPUT_FILE, "r")
     parser = PuzzleParser(f.read())
     puzzles: list[Board] = []
-    for index, puzzle in enumerate(parser.getPuzzles()):
+    for puzzle in parser.getPuzzles():
         board = Board(puzzle)
         puzzles.append(board)
 
-    theWinningNode = UCS(puzzles[0])
+    winningNode = UCS(puzzles[0])
 
-    if(theWinningNode):
+    if type(winningNode) == type(Node(None, None)):
         print("You've Won!")
-        print(theWinningNode.getBoard().boardToString())
-        while (theWinningNode.parentNode != None):
-            print(theWinningNode.board.move)
-            print(theWinningNode.board.boardToString())
-            theWinningNode = theWinningNode.parentNode
+        print(winningNode.getBoard().boardToString())
+        while winningNode.parentNode != None:
+            print(winningNode.board.move)
+            winningNode = winningNode.parentNode
     else:
-        print("No Possible Solution")
-
-
+        print(f"Runtime: {winningNode} seconds")
+        print("No possible solution.")
 
 
 if __name__ == "__main__":

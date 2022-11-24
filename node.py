@@ -7,10 +7,14 @@ class Node:
     def __init__(self, board: Board, parentNode):
         self.board = board
         self.parentNode = parentNode
+        self.runtime = 0
 
     def __eq__(self, other):
         if self and other:
             return self.board.boardToString() == other.board.boardToString()
+
+    def setRuntime(self, runtime):
+        self.runtime = runtime
 
     def setParentNode(self, parentNode):
         self.parentNode = parentNode
@@ -21,10 +25,10 @@ class Node:
     def generateChildren(self, closedListOfNodes, openListofNodes):
         newNodes = []
         childrenBoards = self.board.allPossibleMoves()
-        #Create new Nodes
+        # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard,self))
-            
+            newNodes.append(Node(oneBoard, self))
+
         nodesToRemove = []
         for node in newNodes:
             if node in closedListOfNodes:
@@ -38,6 +42,6 @@ class Node:
 
     def getBoard(self):
         return self.board
-        
+
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"

@@ -1,5 +1,7 @@
-import numpy as np
 import copy
+
+import numpy as np
+
 from vehicle import Vehicle
 
 DEFAULT_FUEL: int = 100
@@ -13,7 +15,7 @@ class Board:
         self.move = ""
 
     def __str__(self) -> str:
-        return self.board
+        return "".join(self.board)
 
     def boardToString(self) -> str:
         output = ""
@@ -95,7 +97,7 @@ class Board:
     # TODO: Implement all these
     # Only moves up one spot atm ( logically, haven't tested)
     def __canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).getRemainingFuel()<multiplier:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel() < multiplier:
             return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if positions[0] < 6:
@@ -108,7 +110,7 @@ class Board:
             return True
 
     def __canMoveDown(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).getRemainingFuel()<multiplier:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel() < multiplier:
             return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if positions[-1] > 29:
@@ -132,7 +134,7 @@ class Board:
             return True
 
     def __canMoveRight(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).getRemainingFuel() <multiplier:
+        if self.vehicles.get(vehicleLetterName).getRemainingFuel() < multiplier:
             return False
         positions = self.vehicles.get(vehicleLetterName).getPositions()
         if (positions[-1] + multiplier - 1) % 6 == 5:
@@ -151,8 +153,9 @@ class Board:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
-            self.vehicles.get(vehicleLetterName).getRemainingFuel()-multiplier)
-        self.move = f"{vehicleLetterName} Up {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
+        )
+        self.move = f"{vehicleLetterName} Up {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} ${self.__str__()}"
         return True
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
@@ -164,8 +167,9 @@ class Board:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
-            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Down {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
+        )
+        self.move = f"{vehicleLetterName} Down {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} ${self.__str__()}"
         return True
 
     def moveLeft(self, vehicleLetterName: str, multiplier: int):
@@ -177,8 +181,9 @@ class Board:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
-            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Left {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
+        )
+        self.move = f"{vehicleLetterName} Left {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} ${self.__str__()}"
         return True
 
     def moveRight(self, vehicleLetterName: str, multiplier: int):
@@ -190,10 +195,9 @@ class Board:
             self.board[x] = vehicleLetterName
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
-            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Right {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()}"
-
-
+            self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
+        )
+        self.move = f"{vehicleLetterName} Right {multiplier}\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} {self.__str__()}"
 
         # remove car from board if it is in the goalstate
         if updatePositions[-1] == 17 and vehicleLetterName != "A":
