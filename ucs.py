@@ -24,7 +24,7 @@ def UCS(initialBoard: Board):
         # Check if it is in the goal state
         if currentNode.getBoard().getVehicleAtExit() == "A":
             stop = timeit.default_timer()
-            currentNode.setRuntime(stop-start)
+            currentNode.setRuntime(stop - start)
             return currentNode
 
         # Append all the children into the end of the open list
