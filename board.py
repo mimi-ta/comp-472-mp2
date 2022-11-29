@@ -220,8 +220,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveRight(vehicle.letterName, i):
                         break
-                    board = Board(['a'], deepcopy(self.vehicles))
-                    board.board = self.board.copy()
+                    board = deepcopy(self)
                     board.moveRight(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -229,8 +228,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveLeft(vehicle.letterName, i):
                         break
-                    board = Board(['a'], deepcopy(self.vehicles))
-                    board.board = self.board.copy()
+                    board = deepcopy(self)
                     board.moveLeft(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -239,8 +237,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveDown(vehicle.letterName, i):
                         break
-                    board = Board(['a'], deepcopy(self.vehicles))
-                    board.board = self.board.copy()
+                    board = deepcopy(self)
                     board.moveDown(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -248,8 +245,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveUp(vehicle.letterName, i):
                         break
-                    board = Board(['a'], deepcopy(self.vehicles))
-                    board.board = self.board.copy()
+                    board = deepcopy(self)
                     board.moveUp(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
