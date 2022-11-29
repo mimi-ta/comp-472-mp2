@@ -3,34 +3,49 @@ from collections import deque
 from board import Board
 import timeit
 
-closed = []
-open = deque()
+class UCS:
+    def __init__(self, winningNode, runtime, searchPathLength):
+        self.winningNode = winningNode
+        self.runtime = runtime
+        self.searchPathLength = searchPathLength
 
-# Returns winning node or returns runtime
-def UCS(initialBoard: Board):
-    start = timeit.default_timer()
-    initialNode = Node(initialBoard, None)
+    def getWinningNode(self):
+        return self.winningNode
 
-    open.append(initialNode)
-    numberOfNodesVisited = 0
-    while len(open) > 0:
-        # Taking the next node in the open list
-        currentNode: Node = open.popleft()
+    def getRuntime(self):
+        return self.runtime
 
-        currentNode.board.boardToString()
-        # Append it to the closed list
-        closed.append(currentNode)
+    def getSearchPathLength(self):
+        return self.searchPathLength
 
-        numberOfNodesVisited+=1
-        # Check if it is in the goal state
-        if currentNode.getBoard().getVehicleAtExit() == "A":
-            stop = timeit.default_timer()
-            currentNode.setRuntime(stop - start)
-            return currentNode, numberOfNodesVisited
+    # Returns winning node or returns runtime
+    def runUCS(initialBoard: Board):
+        start = timeit.default_timer()
+        searchPathLength = 0
+        closed = []
+        open = deque()
 
-        # Append all the children into the end of the open list
-        children = currentNode.generateChildren(closed, open)
+        initialNode = Node(initialBoard, None)
+        open.append(initialNode)
 
-        open.extend(children)
-    stop = timeit.default_timer()
-    return stop - start , numberOfNodesVisited
+        while len(open) > 0:
+            # Taking the next node in the open list
+            currentNode: Node = open.popleft()
+
+            currentNode.board.boardToString()
+            # Append it to the closed list
+            closed.append(currentNode)
+
+            # Check if it is in the goal state
+            if currentNode.getBoard().getVehicleAtExit() == "A":
+                stop = timeit.default_timer()
+                return UCS(currentNode, stop-start, searchPathLength)
+
+            searchPathLength += 1
+
+            # Append all the children into the end of the open list
+            children = currentNode.generateChildren(closed, open)
+
+            open.extend(children)
+        stop = timeit.default_timer()
+        return UCS(None, stop-start, searchPathLength)

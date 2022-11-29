@@ -1,6 +1,7 @@
 import copy
 import re
 from io import TextIOWrapper
+from collections import deque
 
 from board import Board
 from node import Node
@@ -9,40 +10,28 @@ from ucs import UCS
 
 INPUT_FILE = "sample-input.txt"
 
-def countSolutionPath(winningNode:Node, isWin:bool):
-    # -1 because IDK if I should count the original node as a "state visited"
-    count=-1
-    if(isWin):
-        while(winningNode):
-            count+=1
-            winningNode=winningNode.parentNode
 
-    return count
-
-def getRuntimeAndPrintStuffToConsole(winningNode: Node, isWin: bool):
+def printGameOutcomeToConsole(ucsResult: UCS, isWin):
     if isWin:
         print("You've Won!")
-        runtime = winningNode.runtime
-        print(f"Runtime: {runtime} seconds")
-        print(f"Winning board:\n{winningNode.getBoard().boardToString()}")
-
+        print(f"Runtime: {ucsResult.getRuntime()} seconds\n")
+        print(f"Winning board:\n{ucsResult.getWinningNode().getBoard().boardToString()}")
     else:
-        runtime = winningNode
-        print(f"Runtime: {runtime} seconds")
+        print(f"Runtime: {ucsResult.getRuntime()} seconds")
         print("No solution.\n\n")
-    return runtime
 
 
 def writeSolutionPath(winningNode, f: TextIOWrapper):
-    f.write(f"Solution path: ")
     winningNodeIterator = copy.deepcopy(winningNode)
+    solutionPath = []
     while winningNodeIterator.parentNode != None:
-        f.write(
-            re.split(r"\t+", winningNodeIterator.board.move)[0] + "; "
-            if winningNodeIterator.parentNode != None
-            else ""
-        )
+        solutionPath.append(re.split(r"\t+", winningNodeIterator.board.move)[0] + "; " if winningNodeIterator.parentNode != None else "")
         winningNodeIterator = winningNodeIterator.parentNode
+
+    f.write(f"Solution path length: {len(solutionPath)} moves\n")  # TODO
+    f.write(f"Solution path: ")
+    for i in range(len(solutionPath)):
+        f.write(solutionPath.pop())
 
     f.write("\n\n")
 
@@ -61,20 +50,19 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
     print(f"Initial board:\n{board.boardToString()}")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
-    winningNode, numberOfNodesVisited = UCS(board)
-    isWin = type(winningNode) == type(Node(None, None))
-    runtime = getRuntimeAndPrintStuffToConsole(winningNode, isWin)
-    solutionPathLength = countSolutionPath(winningNode,isWin)
-    f.write(f"Runtime: {runtime} seconds\n")
+    ucsResult = UCS.runUCS(board)
+    isWin = type(ucsResult.getWinningNode()) == type(Node(None, None))
+
+    printGameOutcomeToConsole(ucsResult, isWin)
+
+    f.write(f"Runtime: {ucsResult.getRuntime()} seconds\n")
 
     if isWin:
-        f.write(f"Search path length: {numberOfNodesVisited}\n")
-        f.write(f"Solution path length: {solutionPathLength}\n")
-
-        writeSolutionPath(winningNode, f)
+        f.write(f"Search path length: {ucsResult.getSearchPathLength()} states\n")  # TODO
+        writeSolutionPath(ucsResult.getWinningNode(), f)
 
         f.write("\n")
-        f.write(winningNode.getBoard().boardToString())
+        f.write(ucsResult.getWinningNode().getBoard().boardToString())
     else:
         f.write("No solution.")
 
