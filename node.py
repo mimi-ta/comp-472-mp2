@@ -24,7 +24,6 @@ class Node:
     def getParentNode(self):
         return self.parentNode
 
-
     def getBoard(self):
         return self.board
 

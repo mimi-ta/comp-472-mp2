@@ -3,6 +3,7 @@ from collections import deque
 from board import Board
 import timeit
 
+
 class UCS:
     def __init__(self, winningNode, runtime, searchPathLength):
         self.winningNode = winningNode
@@ -25,7 +26,7 @@ class UCS:
         closed = []
         open = deque()
 
-        initialNode = Node(initialBoard, None, 0,0)
+        initialNode = Node(initialBoard, None, 0, 0)
         open.append(initialNode)
 
         while len(open) > 0:
@@ -39,7 +40,7 @@ class UCS:
             # Check if it is in the goal state
             if currentNode.getBoard().getVehicleAtExit() == "A":
                 stop = timeit.default_timer()
-                return UCS(currentNode, stop-start, searchPathLength)
+                return UCS(currentNode, stop - start, searchPathLength)
 
             searchPathLength += 1
 
@@ -48,14 +49,14 @@ class UCS:
 
             open.extend(children)
         stop = timeit.default_timer()
-        return UCS(None, stop-start, searchPathLength)
+        return UCS(None, stop - start, searchPathLength)
 
-    def generateChildren(self, currentNode , closedListOfNodes, openListofNodes):
+    def generateChildren(self, currentNode, closedListOfNodes, openListofNodes):
         newNodes = []
         childrenBoards = currentNode.board.allPossibleMoves()
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode,0,0))
+            newNodes.append(Node(oneBoard, currentNode, 0, 0))
 
         nodesToRemove = []
         for node in newNodes:
@@ -67,4 +68,3 @@ class UCS:
         for node in nodesToRemove:
             newNodes.remove(node)
         return newNodes
-

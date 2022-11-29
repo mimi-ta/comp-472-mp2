@@ -7,8 +7,8 @@ from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
 
-#INPUT_FILE = "sample-input.txt"
-INPUT_FILE = "generatedPuzzles.txt"
+INPUT_FILE = "sample-input.txt"
+# INPUT_FILE = "generatedPuzzles.txt"
 
 
 def printGameOutcomeToConsole(ucsResult: UCS, isWin, initialBoardString):
@@ -17,11 +17,11 @@ def printGameOutcomeToConsole(ucsResult: UCS, isWin, initialBoardString):
         print(f"Runtime: {ucsResult.getRuntime()} seconds\n")
         print(f"Initial board:\n{initialBoardString}")
         print(
-            f"Winning board:\n{ucsResult.getWinningNode().getBoard().boardToString()}\n"
+            f"Winning board:\n{ucsResult.getWinningNode().getBoard().boardToString()}"
         )
     else:
         print(f"Runtime: {ucsResult.getRuntime()} seconds")
-        print("No solution.\n\n")
+        print("No solution.\n")
 
 
 def getSolutionPath(winningNodeIterator) -> list[str]:
@@ -64,9 +64,9 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
     f.write(board.boardToString() + "\n")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
-    UCSa = UCS(None,None,None)
+    UCSa = UCS(None, None, None)
     ucsResult = UCSa.runUCS(board)
-    isWin = type(ucsResult.getWinningNode()) == type(Node(None, None,None, None))
+    isWin = type(ucsResult.getWinningNode()) == type(Node(None, None, None, None))
 
     printGameOutcomeToConsole(ucsResult, isWin, board.boardToString())
 
