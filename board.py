@@ -1,4 +1,4 @@
-import copy
+from copy import deepcopy
 
 import numpy as np
 
@@ -215,41 +215,36 @@ class Board:
         for vehicle in self.vehicles.values():
             if vehicle.getIsHorizontal():
                 i = 1
-                while i < 5:
-                    if self.__canMoveRight(vehicle.letterName, i):
-                        board = copy.deepcopy(self)
-                        board.moveRight(vehicle.letterName, i)
-                        moves.append(board)
-                        i += 1
-                    else:
+                while i < 6-vehicle.size:
+                    if not self.__canMoveRight(vehicle.letterName, i):
                         break
+                    board = deepcopy(self)
+                    board.moveRight(vehicle.letterName, i)
+                    moves.append(board)
+                    i += 1
                 i = 1
-                while i < 5:
-                    if self.__canMoveLeft(vehicle.letterName, i):
-                        board = copy.deepcopy(self)
-                        board.moveLeft(vehicle.letterName, i)
-                        moves.append(board)
-                        i += 1
-                    else:
+                while i < 6-vehicle.size:
+                    if not self.__canMoveLeft(vehicle.letterName, i):
                         break
-
+                    board = deepcopy(self)
+                    board.moveLeft(vehicle.letterName, i)
+                    moves.append(board)
+                    i += 1
             if not vehicle.getIsHorizontal():
                 i = 1
-                while i < 5:
-                    if self.__canMoveDown(vehicle.letterName, i):
-                        board = copy.deepcopy(self)
-                        board.moveDown(vehicle.letterName, i)
-                        moves.append(board)
-                        i += 1
-                    else:
+                while i < 6-vehicle.size:
+                    if not self.__canMoveDown(vehicle.letterName, i):
                         break
+                    board = deepcopy(self)
+                    board.moveDown(vehicle.letterName, i)
+                    moves.append(board)
+                    i += 1
                 i = 1
-                while i < 5:
-                    if self.__canMoveUp(vehicle.letterName, i):
-                        board = copy.deepcopy(self)
-                        board.moveUp(vehicle.letterName, i)
-                        moves.append(board)
-                        i += 1
-                    else:
+                while i < 6-vehicle.size:
+                    if not self.__canMoveUp(vehicle.letterName, i):
                         break
+                    board = deepcopy(self)
+                    board.moveUp(vehicle.letterName, i)
+                    moves.append(board)
+                    i += 1
         return moves

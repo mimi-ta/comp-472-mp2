@@ -1,5 +1,5 @@
-import copy
-import re
+from copy import deepcopy
+from re import split
 from io import TextIOWrapper
 import timeit
 from board import Board
@@ -28,7 +28,7 @@ def getSolutionPath(winningNodeIterator) -> list[str]:
     solutionPath = []
     while winningNodeIterator.parentNode != None:
         solutionPath.append(
-            re.split(r"\t+", winningNodeIterator.board.move)[0] + "; "
+            split(r"\t+", winningNodeIterator.board.move)[0] + "; "
             if winningNodeIterator.parentNode != None
             else ""
         )
@@ -37,7 +37,7 @@ def getSolutionPath(winningNodeIterator) -> list[str]:
 
 
 def writeSolutionPathToFile(winningNode, f: TextIOWrapper):
-    winningNodeIterator = copy.deepcopy(winningNode)
+    winningNodeIterator = deepcopy(winningNode)
     solutionPath = getSolutionPath(winningNodeIterator)
 
     f.write(f"Solution path length: {len(solutionPath)} moves\n")
