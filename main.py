@@ -50,8 +50,9 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
     print(f"Initial board:\n{board.boardToString()}")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
-    ucsResult = UCS.runUCS(board)
-    isWin = type(ucsResult.getWinningNode()) == type(Node(None, None))
+    UCSa = UCS(None,None,None)
+    ucsResult = UCSa.runUCS(board)
+    isWin = type(ucsResult.getWinningNode()) == type(Node(None, None,None, None))
 
     printGameOutcomeToConsole(ucsResult, isWin)
 

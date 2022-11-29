@@ -19,13 +19,13 @@ class UCS:
         return self.searchPathLength
 
     # Returns winning node or returns runtime
-    def runUCS(initialBoard: Board):
+    def runUCS(self, initialBoard: Board):
         start = timeit.default_timer()
         searchPathLength = 0
         closed = []
         open = deque()
 
-        initialNode = Node(initialBoard, None)
+        initialNode = Node(initialBoard, None, 0,0)
         open.append(initialNode)
 
         while len(open) > 0:
@@ -44,8 +44,27 @@ class UCS:
             searchPathLength += 1
 
             # Append all the children into the end of the open list
-            children = currentNode.generateChildren(closed, open)
+            children = self.generateChildren(currentNode, closed, open)
 
             open.extend(children)
         stop = timeit.default_timer()
         return UCS(None, stop-start, searchPathLength)
+
+    def generateChildren(self, currentNode , closedListOfNodes, openListofNodes):
+        newNodes = []
+        childrenBoards = currentNode.board.allPossibleMoves()
+        # Create new Nodes
+        for oneBoard in childrenBoards:
+            newNodes.append(Node(oneBoard, currentNode,0,0))
+
+        nodesToRemove = []
+        for node in newNodes:
+            if node in closedListOfNodes:
+                nodesToRemove.append(node)
+            if node in openListofNodes:
+                nodesToRemove.append(node)
+
+        for node in nodesToRemove:
+            newNodes.remove(node)
+        return newNodes
+

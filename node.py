@@ -4,10 +4,12 @@ from board import Board
 class Node:
     GOAL_POSITION = 17  # array position so like starting from 0
 
-    def __init__(self, board: Board, parentNode):
+    def __init__(self, board: Board, parentNode, gn, hn):
         self.board = board
         self.parentNode = parentNode
         self.runtime = 0
+        self.gn = gn
+        self.hn = hn
 
     def __eq__(self, other):
         if self and other:
@@ -22,23 +24,6 @@ class Node:
     def getParentNode(self):
         return self.parentNode
 
-    def generateChildren(self, closedListOfNodes, openListofNodes):
-        newNodes = []
-        childrenBoards = self.board.allPossibleMoves()
-        # Create new Nodes
-        for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, self))
-
-        nodesToRemove = []
-        for node in newNodes:
-            if node in closedListOfNodes:
-                nodesToRemove.append(node)
-            if node in openListofNodes:
-                nodesToRemove.append(node)
-
-        for node in nodesToRemove:
-            newNodes.remove(node)
-        return newNodes
 
     def getBoard(self):
         return self.board
