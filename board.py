@@ -100,8 +100,6 @@ class Board:
 
         return vehiclesDict
 
-    # TODO: Implement all these
-    # Only moves up one spot atm ( logically, haven't tested)
     def __canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
         if self.vehicles.get(vehicleLetterName).getRemainingFuel() < multiplier:
             return False
