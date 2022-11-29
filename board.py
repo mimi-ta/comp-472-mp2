@@ -93,7 +93,7 @@ class Board:
     def canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
         if self.vehicles.get(vehicleLetterName).remainingFuel < multiplier:
             return False
-        positions = self.vehicles.get(vehicleLetterName).getPositions()
+        positions = vehicle.getPositions()
         if positions[0] < 6:
             return False
         if positions[0] - 6 * multiplier < 0:
@@ -104,9 +104,10 @@ class Board:
             return True
 
     def canMoveDown(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).remainingFuel < multiplier:
+        vehicle = self.vehicles.get(vehicleLetterName)
+        if vehicle.getRemainingFuel() < multiplier:
             return False
-        positions = self.vehicles.get(vehicleLetterName).getPositions()
+        positions = vehicle.getPositions()
         if positions[-1] > 29:
             return False
         if positions[-1] + 6 * multiplier > 35:
@@ -117,9 +118,10 @@ class Board:
             return True
 
     def canMoveLeft(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).remainingFuel < multiplier:
+        vehicle = self.vehicles.get(vehicleLetterName)
+        if vehicle.getRemainingFuel() < multiplier:
             return False
-        positions = self.vehicles.get(vehicleLetterName).getPositions()
+        positions = vehicle.getPositions()
         if (positions[0] - multiplier + 1) % 6 == 0:
             return False
         if self.board[positions[0] - multiplier] != ".":
@@ -128,9 +130,10 @@ class Board:
             return True
 
     def canMoveRight(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).remainingFuel < multiplier:
+        vehicle = self.vehicles.get(vehicleLetterName)
+        if vehicle.getRemainingFuel() < multiplier:
             return False
-        positions = self.vehicles.get(vehicleLetterName).getPositions()
+        positions = vehicle.getPositions()
         if (positions[-1] + multiplier - 1) % 6 == 5:
             return False
         if self.board[positions[-1] + multiplier] != ".":
