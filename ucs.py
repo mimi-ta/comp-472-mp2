@@ -54,6 +54,7 @@ class UCS:
     def generateChildren(self, currentNode, closedListOfNodes, openListofNodes):
         newNodes = []
         childrenBoards = currentNode.board.allPossibleMoves()
+        
         # Create new Nodes
         for oneBoard in childrenBoards:
             newNodes.append(Node(oneBoard, currentNode, 0, 0))

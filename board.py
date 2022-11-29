@@ -150,11 +150,14 @@ class Board:
 
     def moveUp(self, vehicleLetterName: str, multiplier: int):
         updatePositions = self.vehicles.get(vehicleLetterName).getPositions()
+
         for index, x in enumerate(updatePositions):
             self.board[int(x)] = "."
             updatePositions[index] = x - 6 * multiplier
+
         for x in updatePositions:
             self.board[x] = vehicleLetterName
+            
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
             self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier

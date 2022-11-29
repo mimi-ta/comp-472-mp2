@@ -88,9 +88,9 @@ def main():
     parser = PuzzleParser(f.read())
     for i, puzzle in enumerate(parser.getPuzzles()):
         generateUcsOutputFiles(i, puzzle)
-        print("--------------------------------------------")
+        print("------------------------------------------------------------------------------------------")
     stop = timeit.default_timer()
-    print(f"Total runtime for the 50 puzzles: {stop-start} seconds")
+    print(f"Total runtime for the {len(parser.getPuzzles())} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours")
 
 
 if __name__ == "__main__":
