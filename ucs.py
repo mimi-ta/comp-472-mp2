@@ -12,7 +12,7 @@ def UCS(initialBoard: Board):
     initialNode = Node(initialBoard, None)
 
     open.append(initialNode)
-
+    numberOfNodesVisited = 0
     while len(open) > 0:
         # Taking the next node in the open list
         currentNode: Node = open.popleft()
@@ -21,15 +21,16 @@ def UCS(initialBoard: Board):
         # Append it to the closed list
         closed.append(currentNode)
 
+        numberOfNodesVisited+=1
         # Check if it is in the goal state
         if currentNode.getBoard().getVehicleAtExit() == "A":
             stop = timeit.default_timer()
             currentNode.setRuntime(stop - start)
-            return currentNode
+            return currentNode, numberOfNodesVisited
 
         # Append all the children into the end of the open list
         children = currentNode.generateChildren(closed, open)
 
         open.extend(children)
     stop = timeit.default_timer()
-    return stop - start
+    return stop - start , numberOfNodesVisited

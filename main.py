@@ -9,16 +9,28 @@ from ucs import UCS
 
 INPUT_FILE = "sample-input.txt"
 
+def countSolutionPath(winningNode:Node, isWin:bool):
+    # -1 because IDK if I should count the original node as a "state visited"
+    count=-1
+    if(isWin):
+        while(winningNode):
+            count+=1
+            winningNode=winningNode.parentNode
 
-def getRuntimeAndPrintStuffToConsole(winningNode, isWin):
+    return count
+
+def getRuntimeAndPrintStuffToConsole(winningNode: Node, isWin: bool):
     if isWin:
         print("You've Won!")
         runtime = winningNode.runtime
+        print(f"Runtime: {runtime} seconds")
         print(f"Winning board:\n{winningNode.getBoard().boardToString()}")
+
     else:
         runtime = winningNode
         print(f"Runtime: {runtime} seconds")
         print("No solution.\n\n")
+    return runtime
 
 
 def writeSolutionPath(winningNode, f: TextIOWrapper):
@@ -49,15 +61,15 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
     print(f"Initial board:\n{board.boardToString()}")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
-    winningNode = UCS(board)
+    winningNode, numberOfNodesVisited = UCS(board)
     isWin = type(winningNode) == type(Node(None, None))
     runtime = getRuntimeAndPrintStuffToConsole(winningNode, isWin)
-
+    solutionPathLength = countSolutionPath(winningNode,isWin)
     f.write(f"Runtime: {runtime} seconds\n")
 
     if isWin:
-        f.write(f"Search path length: states\n")  # TODO
-        f.write(f"Solution path length: moves\n")  # TODO
+        f.write(f"Search path length: {numberOfNodesVisited}\n")
+        f.write(f"Solution path length: {solutionPathLength}\n")
 
         writeSolutionPath(winningNode, f)
 
