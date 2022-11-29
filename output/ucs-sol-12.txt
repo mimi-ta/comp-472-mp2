@@ -1,0 +1,37 @@
+Initial board configuration: MM..OPBB..OP.CAAOP.C.D..EEFDGG..FQQQ
+
+M M . . O P
+B B . . O P
+. C A A O P
+. C . D . .
+E E F D G G
+. . F Q Q Q
+
+Car fuel available: M:100 O:100 P:100 B:100 C:100 A:100 D:100 E:100 F:100 G:100 Q:100 
+
+Runtime: 78.16939375000004 seconds
+Search path length: 1557 states
+Solution path length: 15 moves
+Solution path: M Right 2; B Right 2; C Up 2; A Left 2; D Up 1; F Up 2; G Left 2; Q Left 2; O Down 3; P Down 3; M Right 2; B Right 2; D Up 2; F Up 2; A Right 4; 
+A Right 4	94 .CFDMM.CFDBB....AA....OPEEGGOP.QQQOP
+F Up 2		96 .CFDMM.CFDBBAA........OPEEGGOP.QQQOP
+D Up 2		97 .C.DMM.C.DBBAAF.....F.OPEEGGOP.QQQOP
+B Right 2	96 .C..MM.C..BBAAFD....FDOPEEGGOP.QQQOP
+M Right 2	96 .C..MM.CBB..AAFD....FDOPEEGGOP.QQQOP
+P Down 3	97 .CMM...CBB..AAFD....FDOPEEGGOP.QQQOP
+O Down 3	97 .CMM.P.CBB.PAAFD.P..FDO.EEGGO..QQQO.
+Q Left 2	98 .CMMOP.CBBOPAAFDOP..FD..EEGG...QQQ..
+G Left 2	98 .CMMOP.CBBOPAAFDOP..FD..EEGG.....QQQ
+F Up 2		98 .CMMOP.CBBOPAAFDOP..FD..EE..GG...QQQ
+D Up 1		99 .CMMOP.CBBOPAA.DOP...D..EEF.GG..FQQQ
+A Left 2	98 .CMMOP.CBBOPAA..OP...D..EEFDGG..FQQQ
+C Up 2		98 .CMMOP.CBBOP..AAOP...D..EEFDGG..FQQQ
+B Right 2	98 ..MMOP..BBOP.CAAOP.C.D..EEFDGG..FQQQ
+M Right 2	98 ..MMOPBB..OP.CAAOP.C.D..EEFDGG..FQQQ
+
+. C F D M M
+. C F D B B
+. . . . A A
+. . . . O P
+E E G G O P
+. Q Q Q O P

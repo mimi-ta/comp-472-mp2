@@ -1,41 +1,56 @@
 import copy
 import re
 from io import TextIOWrapper
-from collections import deque
-
+import timeit
 from board import Board
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
 
-INPUT_FILE = "sample-input.txt"
+#INPUT_FILE = "sample-input.txt"
+INPUT_FILE = "generatedPuzzles.txt"
 
 
-def printGameOutcomeToConsole(ucsResult: UCS, isWin):
+def printGameOutcomeToConsole(ucsResult: UCS, isWin, initialBoardString):
     if isWin:
         print("You've Won!")
         print(f"Runtime: {ucsResult.getRuntime()} seconds\n")
-        print(f"Winning board:\n{ucsResult.getWinningNode().getBoard().boardToString()}")
+        print(f"Initial board:\n{initialBoardString}")
+        print(
+            f"Winning board:\n{ucsResult.getWinningNode().getBoard().boardToString()}\n"
+        )
     else:
         print(f"Runtime: {ucsResult.getRuntime()} seconds")
         print("No solution.\n\n")
 
 
-def writeSolutionPath(winningNode, f: TextIOWrapper):
-    winningNodeIterator = copy.deepcopy(winningNode)
+def getSolutionPath(winningNodeIterator) -> list[str]:
     solutionPath = []
     while winningNodeIterator.parentNode != None:
-        solutionPath.append(re.split(r"\t+", winningNodeIterator.board.move)[0] + "; " if winningNodeIterator.parentNode != None else "")
+        solutionPath.append(
+            re.split(r"\t+", winningNodeIterator.board.move)[0] + "; "
+            if winningNodeIterator.parentNode != None
+            else ""
+        )
         winningNodeIterator = winningNodeIterator.parentNode
+    return solutionPath
 
-    f.write(f"Solution path length: {len(solutionPath)} moves\n")  # TODO
+
+def writeSolutionPathToFile(winningNode, f: TextIOWrapper):
+    winningNodeIterator = copy.deepcopy(winningNode)
+    solutionPath = getSolutionPath(winningNodeIterator)
+
+    f.write(f"Solution path length: {len(solutionPath)} moves\n")
+
     f.write(f"Solution path: ")
     for i in range(len(solutionPath)):
         f.write(solutionPath.pop())
-
     f.write("\n\n")
 
+    # Reset iterator to the winning node (because by now it has become the initial node)
     winningNodeIterator = winningNode
+
+    # Write to file the move and the corresponding board output
     while winningNodeIterator.parentNode != None:
         f.write(winningNodeIterator.board.move + "\n")
         winningNodeIterator = winningNodeIterator.parentNode
@@ -47,20 +62,19 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
 
     board = Board(puzzle)
     f.write(board.boardToString() + "\n")
-    print(f"Initial board:\n{board.boardToString()}")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
     UCSa = UCS(None,None,None)
     ucsResult = UCSa.runUCS(board)
     isWin = type(ucsResult.getWinningNode()) == type(Node(None, None,None, None))
 
-    printGameOutcomeToConsole(ucsResult, isWin)
+    printGameOutcomeToConsole(ucsResult, isWin, board.boardToString())
 
     f.write(f"Runtime: {ucsResult.getRuntime()} seconds\n")
 
     if isWin:
-        f.write(f"Search path length: {ucsResult.getSearchPathLength()} states\n")  # TODO
-        writeSolutionPath(ucsResult.getWinningNode(), f)
+        f.write(f"Search path length: {ucsResult.getSearchPathLength()} states\n")
+        writeSolutionPathToFile(ucsResult.getWinningNode(), f)
 
         f.write("\n")
         f.write(ucsResult.getWinningNode().getBoard().boardToString())
@@ -69,10 +83,14 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
 
 
 def main():
+    start = timeit.default_timer()
     f = open(INPUT_FILE, "r")
     parser = PuzzleParser(f.read())
     for i, puzzle in enumerate(parser.getPuzzles()):
         generateUcsOutputFiles(i, puzzle)
+        print("--------------------------------------------")
+    stop = timeit.default_timer()
+    print(f"Total runtime for the 50 puzzles: {stop-start} seconds")
 
 
 if __name__ == "__main__":

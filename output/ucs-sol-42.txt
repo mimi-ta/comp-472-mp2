@@ -1,0 +1,56 @@
+Initial board configuration: M.OOOBM.PPPBAACD.EFFCD.E...GHH...G..
+
+M . O O O B
+M . P P P B
+A A C D . E
+F F C D . E
+. . . G H H
+. . . G . .
+
+Car fuel available: M:100 O:100 B:100 P:100 A:100 C:100 D:100 E:100 F:100 G:100 H:100 
+
+Runtime: 34.549306708002405 seconds
+Search path length: 1126 states
+Solution path length: 34 moves
+Solution path: C Down 2; A Right 1; F Right 1; M Down 4; O Left 2; P Left 2; A Left 1; D Up 2; F Left 1; C Up 2; G Up 2; H Left 3; E Down 2; B Down 2; G Down 2; D Down 2; O Right 3; P Right 3; C Up 2; A Right 1; F Right 1; M Up 4; A Left 1; F Left 1; H Left 1; C Down 4; A Right 1; F Right 1; M Down 2; O Left 3; P Left 3; B Up 2; D Up 2; A Right 3; 
+A Right 3	92 OOOD.BPPPD.BM...AAMFF...HHCG.E..CG.E
+D Up 2		94 OOOD.BPPPD.BMAA...MFF...HHCG.E..CG.E
+B Up 2		96 OOO..BPPP..BMAAD..MFFD..HHCG.E..CG.E
+P Left 3	92 OOO...PPP...MAAD.BMFFD.BHHCG.E..CG.E
+O Left 3	92 OOO......PPPMAAD.BMFFD.BHHCG.E..CG.E
+M Down 2	90 ...OOO...PPPMAAD.BMFFD.BHHCG.E..CG.E
+F Right 1	95 M..OOOM..PPP.AAD.B.FFD.BHHCG.E..CG.E
+A Right 1	95 M..OOOM..PPP.AAD.BFF.D.BHHCG.E..CG.E
+C Down 4	90 M..OOOM..PPPAA.D.BFF.D.BHHCG.E..CG.E
+H Left 1	96 M.COOOM.CPPPAA.D.BFF.D.BHH.G.E...G.E
+F Left 1	96 M.COOOM.CPPPAA.D.BFF.D.B.HHG.E...G.E
+A Left 1	96 M.COOOM.CPPPAA.D.B.FFD.B.HHG.E...G.E
+M Up 4		92 M.COOOM.CPPP.AAD.B.FFD.B.HHG.E...G.E
+F Right 1	97 ..COOO..CPPP.AAD.B.FFD.BMHHG.EM..G.E
+A Right 1	97 ..COOO..CPPP.AAD.BFF.D.BMHHG.EM..G.E
+C Up 2		94 ..COOO..CPPPAA.D.BFF.D.BMHHG.EM..G.E
+P Right 3	95 ...OOO...PPPAACD.BFFCD.BMHHG.EM..G.E
+O Right 3	95 ...OOOPPP...AACD.BFFCD.BMHHG.EM..G.E
+D Down 2	96 OOO...PPP...AACD.BFFCD.BMHHG.EM..G.E
+G Down 2	96 OOOD..PPPD..AAC..BFFC..BMHHG.EM..G.E
+B Down 2	98 OOOD..PPPD..AACG.BFFCG.BMHH..EM....E
+E Down 2	98 OOOD.BPPPD.BAACG..FFCG..MHH..EM....E
+H Left 3	97 OOOD.BPPPD.BAACG.EFFCG.EMHH...M.....
+G Up 2		98 OOOD.BPPPD.BAACG.EFFCG.EM...HHM.....
+C Up 2		96 OOOD.BPPPD.BAAC..EFFC..EM..GHHM..G..
+F Left 1	98 OOOD.BPPPD.BAA...EFF...EM.CGHHM.CG..
+D Up 2		98 OOOD.BPPPD.BAA...E.FF..EM.CGHHM.CG..
+A Left 1	98 OOO..BPPP..BAA.D.E.FFD.EM.CGHHM.CG..
+P Left 2	98 OOO..BPPP..B.AAD.E.FFD.EM.CGHHM.CG..
+O Left 2	98 OOO..B..PPPB.AAD.E.FFD.EM.CGHHM.CG..
+M Down 4	96 ..OOOB..PPPB.AAD.E.FFD.EM.CGHHM.CG..
+F Right 1	99 M.OOOBM.PPPB.AAD.E.FFD.E..CGHH..CG..
+A Right 1	99 M.OOOBM.PPPB.AAD.EFF.D.E..CGHH..CG..
+C Down 2	98 M.OOOBM.PPPBAA.D.EFF.D.E..CGHH..CG..
+
+O O O D . B
+P P P D . B
+M . . . A A
+M F F . . .
+H H C G . E
+. . C G . E

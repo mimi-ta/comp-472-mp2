@@ -1,0 +1,42 @@
+Initial board configuration: MBBCDDM.EC..AAE...FFOOOPQQQ..PGG...P
+
+M B B C D D
+M . E C . .
+A A E . . .
+F F O O O P
+Q Q Q . . P
+G G . . . P
+
+Car fuel available: M:100 B:100 C:100 D:100 E:100 A:100 F:100 O:100 P:100 Q:100 G:100 
+
+Runtime: 48.34454270799961 seconds
+Search path length: 1250 states
+Solution path length: 20 moves
+Solution path: C Down 1; D Left 1; P Up 3; O Right 1; Q Right 3; G Right 3; E Down 3; A Right 1; F Right 1; M Down 4; B Left 1; A Left 1; F Left 1; E Up 4; O Left 1; Q Left 1; P Down 3; D Right 1; C Up 1; A Right 4; 
+A Right 4	94 BBECDD..EC......AAFFOOOPM.QQQPM..GGP
+C Up 1		98 BBECDD..EC..AA....FFOOOPM.QQQPM..GGP
+D Right 1	98 BBE.DD..EC..AA.C..FFOOOPM.QQQPM..GGP
+P Down 3	94 BBEDD...EC..AA.C..FFOOOPM.QQQPM..GGP
+Q Left 1	96 BBEDDP..EC.PAA.C.PFFOOO.M.QQQ.M..GG.
+O Left 1	98 BBEDDP..EC.PAA.C.PFFOOO.M..QQQM..GG.
+E Up 4		93 BBEDDP..EC.PAA.C.PFF.OOOM..QQQM..GG.
+F Left 1	98 BB.DDP...C.PAA.C.PFF.OOOM.EQQQM.EGG.
+A Left 1	98 BB.DDP...C.PAA.C.P.FFOOOM.EQQQM.EGG.
+B Left 1	99 BB.DDP...C.P.AAC.P.FFOOOM.EQQQM.EGG.
+M Down 4	96 .BBDDP...C.P.AAC.P.FFOOOM.EQQQM.EGG.
+F Right 1	99 MBBDDPM..C.P.AAC.P.FFOOO..EQQQ..EGG.
+A Right 1	99 MBBDDPM..C.P.AAC.PFF.OOO..EQQQ..EGG.
+E Down 3	97 MBBDDPM..C.PAA.C.PFF.OOO..EQQQ..EGG.
+G Right 3	97 MBBDDPM.EC.PAAEC.PFF.OOO...QQQ...GG.
+Q Right 3	97 MBBDDPM.EC.PAAEC.PFF.OOO...QQQGG....
+O Right 1	99 MBBDDPM.EC.PAAEC.PFF.OOOQQQ...GG....
+P Up 3		97 MBBDDPM.EC.PAAEC.PFFOOO.QQQ...GG....
+D Left 1	99 MBBDD.M.EC..AAEC..FFOOOPQQQ..PGG...P
+C Down 1	99 MBB.DDM.EC..AAEC..FFOOOPQQQ..PGG...P
+
+B B E C D D
+. . E C . .
+. . . . A A
+F F O O O P
+M . Q Q Q P
+M . . G G P
