@@ -9,9 +9,9 @@ GOAL_POSITION = 17  # array position so like starting from 0
 
 
 class Board:
-    def __init__(self, puzzle: list[str]):
+    def __init__(self, puzzle: list[str], cars = None):
         self.board = list(puzzle[0])
-        self.vehicles = self.__initializeVehicles(puzzle)
+        self.vehicles = cars or self.__initializeVehicles(puzzle)
         self.move = ""
 
     def __str__(self) -> str:
@@ -163,7 +163,6 @@ class Board:
             self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
         )
         self.move = f"{vehicleLetterName} Up {multiplier}\t\t{self.vehicles.get(vehicleLetterName).getRemainingFuel()} {self.__str__()}"
-        return True
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
         updatePositions = self.vehicles.get(vehicleLetterName).getPositions()
@@ -221,7 +220,8 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveRight(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = Board(['a'], deepcopy(self.vehicles))
+                    board.board = self.board.copy()
                     board.moveRight(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -229,7 +229,8 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveLeft(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = Board(['a'], deepcopy(self.vehicles))
+                    board.board = self.board.copy()
                     board.moveLeft(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -238,7 +239,8 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveDown(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = Board(['a'], deepcopy(self.vehicles))
+                    board.board = self.board.copy()
                     board.moveDown(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -246,8 +248,10 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveUp(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = Board(['a'], deepcopy(self.vehicles))
+                    board.board = self.board.copy()
                     board.moveUp(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
         return moves
+

@@ -87,6 +87,7 @@ def main():
     f = open(INPUT_FILE, "r")
     parser = PuzzleParser(f.read())
     for i, puzzle in enumerate(parser.getPuzzles()):
+        print(i)
         generateUcsOutputFiles(i, puzzle)
         print("------------------------------------------------------------------------------------------")
     stop = timeit.default_timer()
