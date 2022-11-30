@@ -144,10 +144,10 @@ def main():
             "------------------------------------------------------------------------------------------"
         )
     stop = timeit.default_timer()
-    workbook.close()
     print(
         f"Total runtime for the {len(parser.getPuzzles())} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours"
     )
+    workbook.close()
 
 
 if __name__ == "__main__":
