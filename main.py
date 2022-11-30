@@ -6,6 +6,7 @@ from board import Board
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
+import xlsxwriter
 
 INPUT_FILE = "sample-input.txt"
 # INPUT_FILE = "generatedPuzzles.txt"
@@ -36,14 +37,14 @@ def getSolutionPath(winningNodeIterator) -> list[str]:
     return solutionPath
 
 
-def writeSolutionPathToFile(winningNode, f: TextIOWrapper):
+def getNumMovesWriteSolutionPathToFile(winningNode, f: TextIOWrapper):
     winningNodeIterator = deepcopy(winningNode)
     solutionPath = getSolutionPath(winningNodeIterator)
-
-    f.write(f"Solution path length: {len(solutionPath)} moves\n")
+    solutionPathLength = len(solutionPath)
+    f.write(f"Solution path length: {solutionPathLength} moves\n")
 
     f.write(f"Solution path: ")
-    for i in range(len(solutionPath)):
+    for i in range(solutionPathLength):
         f.write(solutionPath.pop())
     f.write("\n\n")
 
@@ -55,8 +56,20 @@ def writeSolutionPathToFile(winningNode, f: TextIOWrapper):
         f.write(winningNodeIterator.board.move + "\n")
         winningNodeIterator = winningNodeIterator.parentNode
 
+    return solutionPathLength
 
-def generateUcsOutputFiles(i, puzzle: list[str]):
+
+def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
+    PUZZLE_NUMBER = "puzzleNumber"
+    ALGORITHM = "algo"
+    HEURISTIC = "heuristic"
+    SOLUTION_LENGTH = "solutionLength"
+    SEARCH_PATH_LENGTH = "searchPathLength"
+    EXECUTION_TIME = "executionTime"
+
+    output = dict()
+    output.update({PUZZLE_NUMBER: i + 1, ALGORITHM: "UCS", HEURISTIC: "N/A"})
+
     f = open(f"./output/ucs-sol-{i+1}.txt", "w")
     f.write(f"Initial board configuration: {' '.join(puzzle)}\n\n")
 
@@ -74,23 +87,68 @@ def generateUcsOutputFiles(i, puzzle: list[str]):
 
     if isWin:
         f.write(f"Search path length: {ucsResult.getSearchPathLength()} states\n")
-        writeSolutionPathToFile(ucsResult.getWinningNode(), f)
-
+        solutionLength = getNumMovesWriteSolutionPathToFile(
+            ucsResult.getWinningNode(), f
+        )
+        output.update(
+            {
+                SOLUTION_LENGTH: solutionLength,
+                SEARCH_PATH_LENGTH: ucsResult.getSearchPathLength(),
+                EXECUTION_TIME: ucsResult.getRuntime(),
+            }
+        )
         f.write("\n")
         f.write(ucsResult.getWinningNode().getBoard().boardToString())
+
+        for j, element in enumerate(output.values()):
+            excelsheet.write(excelRow, j, element)
     else:
         f.write("No solution.")
+        output.update(
+            {
+                SOLUTION_LENGTH: "No solution.",
+                SEARCH_PATH_LENGTH: ucsResult.getSearchPathLength(),
+                EXECUTION_TIME: ucsResult.getRuntime(),
+            }
+        )
+        for j, element in enumerate(output.values()):
+            excelsheet.write(excelRow, j, element)
+    return excelRow + 1
 
 
 def main():
     start = timeit.default_timer()
     f = open(INPUT_FILE, "r")
     parser = PuzzleParser(f.read())
+
+    # Initialize excel spreadsheet
+    workbook = xlsxwriter.Workbook("analysis.xlsx")
+    excelsheet = workbook.add_worksheet()
+
+    # Write headers to file
+    col = 0
+    for header in [
+        "Puzzle Number",
+        "Algorithm",
+        "Heuristic",
+        "Length of the solution",
+        "Length of the search path",
+        "Execution time (seconds)",
+    ]:
+        excelsheet.write(0, col, header)
+        col += 1
+
+    excelRow = 1
     for i, puzzle in enumerate(parser.getPuzzles()):
-        generateUcsOutputFiles(i, puzzle)
-        print("------------------------------------------------------------------------------------------")
+        excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
+        print(
+            "------------------------------------------------------------------------------------------"
+        )
     stop = timeit.default_timer()
-    print(f"Total runtime for the {len(parser.getPuzzles())} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours")
+    print(
+        f"Total runtime for the {len(parser.getPuzzles())} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours"
+    )
+    workbook.close()
 
 
 if __name__ == "__main__":

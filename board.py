@@ -5,7 +5,7 @@ GOAL_POSITION = 17  # array position so like starting from 0
 
 
 class Board:
-    def __init__(self, puzzle: list[str], cars = None):
+    def __init__(self, puzzle: list[str], cars=None):
         if puzzle:
             self.board = list(puzzle[0])
         else:
@@ -19,7 +19,9 @@ class Board:
     def __copy__(self):
         tempBoard = Board(None, None)
         tempBoard.board = [str(element) for element in self.board]
-        tempBoard.vehicles = {key: Vehicle.DEEZNUTS(value) for key, value in self.vehicles.items()}
+        tempBoard.vehicles = {
+            key: Vehicle.DEEZNUTS(value) for key, value in self.vehicles.items()
+        }
         return tempBoard
 
     def boardToString(self) -> str:
@@ -153,7 +155,7 @@ class Board:
 
         for x in updatePositions:
             self.board[x] = vehicleLetterName
-            
+
         self.vehicles.get(vehicleLetterName).setPositions(updatePositions)
         self.vehicles.get(vehicleLetterName).setRemainingFuel(
             self.vehicles.get(vehicleLetterName).getRemainingFuel() - multiplier
@@ -211,9 +213,9 @@ class Board:
     def allPossibleMoves(self):
         moves = []
         for vehicle in self.vehicles.values():
-            if vehicle.getIsHorizontal():
+            if vehicle.isHorizontal:
                 i = 1
-                while i < 6-vehicle.size:
+                while i < 6 - vehicle.size:
                     if not self.__canMoveRight(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -221,7 +223,7 @@ class Board:
                     moves.append(board)
                     i += 1
                 i = 1
-                while i < 6-vehicle.size:
+                while i < 6 - vehicle.size:
                     if not self.__canMoveLeft(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -230,7 +232,7 @@ class Board:
                     i += 1
             else:
                 i = 1
-                while i < 6-vehicle.size:
+                while i < 6 - vehicle.size:
                     if not self.__canMoveDown(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -238,7 +240,7 @@ class Board:
                     moves.append(board)
                     i += 1
                 i = 1
-                while i < 6-vehicle.size:
+                while i < 6 - vehicle.size:
                     if not self.__canMoveUp(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -246,4 +248,3 @@ class Board:
                     moves.append(board)
                     i += 1
         return moves
-
