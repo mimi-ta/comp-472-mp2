@@ -20,9 +20,7 @@ class Board:
     def __copy__(self):
         tempBoard = Board(None, None)
         tempBoard.board = [str(element) for element in self.board]
-        tempBoard.vehicles = {
-            key: Vehicle.DEEZNUTS(value) for key, value in self.vehicles.items()
-        }
+        tempBoard.vehicles = {key: copy(value) for key, value in self.vehicles.items()}
         return tempBoard
 
     def boardToString(self) -> str:
