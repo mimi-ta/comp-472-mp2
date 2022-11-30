@@ -2,8 +2,6 @@ from board import Board
 
 
 class Node:
-    GOAL_POSITION = 17  # array position so like starting from 0
-
     def __init__(self, board: Board, parentNode, gn, hn):
         self.board = board
         self.parentNode = parentNode
