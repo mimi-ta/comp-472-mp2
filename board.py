@@ -1,7 +1,3 @@
-from copy import deepcopy
-
-import numpy as np
-
 from vehicle import Vehicle
 
 DEFAULT_FUEL: int = 100
@@ -23,8 +19,7 @@ class Board:
     def __copy__(self):
         tempBoard = Board(None, None)
         tempBoard.board = [str(element) for element in self.board]
-        tempBoard.vehicles = {key: Vehicle.__copy__(value) for key, value in self.vehicles.items()}
-        tempBoard.move = self.move
+        tempBoard.vehicles = {key: Vehicle.DEEZNUTS(value) for key, value in self.vehicles.items()}
         return tempBoard
 
     def boardToString(self) -> str:

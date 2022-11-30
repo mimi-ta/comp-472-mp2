@@ -1,3 +1,4 @@
+from copy import copy
 class Vehicle:
     def __init__(
         self, letterName, size, remainingFuel, positions: list[int], isHorizontal
@@ -11,13 +12,9 @@ class Vehicle:
     def __str__(self) -> str:
         return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | positions {self.positions} | Horizontal? {self.isHorizontal} "
 
-    def __copy__(self):
-        tempVehicle = Vehicle(None, None, None, None, False)
-        tempVehicle.letterName = self.letterName
-        tempVehicle.size = self.size
-        tempVehicle.remainingFuel = self.remainingFuel
+    def DEEZNUTS(self):
+        tempVehicle = copy(self)
         tempVehicle.positions = [int(element) for element in self.positions] 
-        tempVehicle.isHorizontal = self.isHorizontal
         return tempVehicle
         
     def getFuelString(self) -> str:
