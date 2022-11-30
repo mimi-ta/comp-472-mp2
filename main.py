@@ -25,7 +25,7 @@ def printGameOutcomeToConsole(ucsResult: UCS, isWin, initialBoardString):
         print("You've Won!")
         print(f"Runtime: {ucsResult.runtime} seconds\n")
         print(f"Initial board:\n{initialBoardString}")
-        print(f"Winning board:\n{ucsResult.winningNode.getBoard().boardToString()}")
+        print(f"Winning board:\n{ucsResult.winningNode.board.boardToString()}")
     else:
         print(f"Runtime: {ucsResult.runtime} seconds")
         print("No solution.\n")
@@ -95,7 +95,7 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
             }
         )
         f.write("\n")
-        f.write(ucsResult.winningNode.getBoard().boardToString())
+        f.write(ucsResult.winningNode.board.boardToString())
 
         for j, element in enumerate(output.values()):
             excelsheet.write(excelRow, j, element)
@@ -136,14 +136,14 @@ def main():
         excelsheet.write(0, i, header)
 
     excelRow = 1  # Row that is not header
-    for i, puzzle in enumerate(parser.getPuzzles()):
+    for i, puzzle in enumerate(parser.puzzles):
         excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
         print(
             "------------------------------------------------------------------------------------------"
         )
     stop = timeit.default_timer()
     print(
-        f"Total runtime for the {len(parser.getPuzzles())} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours"
+        f"Total runtime for the {len(parser.puzzles)} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours"
     )
     workbook.close()
 

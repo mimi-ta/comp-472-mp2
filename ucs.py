@@ -29,7 +29,7 @@ class UCS:
             closed.append(currentNode)
 
             # Check if it is in the goal state
-            if currentNode.getBoard().getVehicleAtExit() == "A":
+            if currentNode.board.getVehicleAtExit() == "A":
                 stop = timeit.default_timer()
                 return UCS(currentNode, stop - start, searchPathLength)
 

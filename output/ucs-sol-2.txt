@@ -9,5 +9,9 @@ A A B C F .
 
 Car fuel available: F:2 B:100 A:100 C:100 E:100 
 
+<<<<<<< HEAD
 Runtime: 5.968093167 seconds
+=======
+Runtime: 5.942449417 seconds
+>>>>>>> 8568ccc (Remove the rest of the getters and setters i think)
 No solution.

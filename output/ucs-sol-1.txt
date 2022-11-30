@@ -9,7 +9,11 @@ E E G G G F
 
 Car fuel available: C:100 B:100 H:100 A:100 D:100 E:100 G:100 F:100 
 
+<<<<<<< HEAD
 Runtime: 0.058962666999999996 seconds
+=======
+Runtime: 0.058994291000000004 seconds
+>>>>>>> 8568ccc (Remove the rest of the getters and setters i think)
 Search path length: 37 states
 Solution path length: 3 moves
 Solution path: D Right 2; A Right 1; A Right 3; 
