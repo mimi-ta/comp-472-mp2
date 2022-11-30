@@ -30,10 +30,7 @@ class Vehicle:
 
     def setRemainingFuel(self, remainingFuel) -> None:
         self.remainingFuel = remainingFuel
-
-    def getRemainingFuel(self) -> int:
-        return self.remainingFuel
-
+        
     def setPositions(self, positions) -> None:
         self.positions = positions
 
