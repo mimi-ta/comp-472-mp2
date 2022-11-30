@@ -37,7 +37,3 @@ class Vehicle:
 
     def getPositions(self) -> list[int]:
         return self.positions
-
-    def getIsHorizontal(self):
-        return self.isHorizontal
-
