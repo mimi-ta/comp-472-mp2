@@ -1,5 +1,6 @@
-from vehicle import Vehicle
 from copy import copy
+
+from vehicle import Vehicle
 
 DEFAULT_FUEL: int = 100
 

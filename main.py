@@ -10,6 +10,7 @@ from gbfs import GBFS
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
+from gbfs import GBFS
 
 INPUT_FILE = "sample-input.txt"
 # INPUT_FILE = "generatedPuzzles.txt"
