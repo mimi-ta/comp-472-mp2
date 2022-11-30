@@ -10,15 +10,6 @@ class UCS:
         self.runtime = runtime
         self.searchPathLength = searchPathLength
 
-    def getWinningNode(self):
-        return self.winningNode
-
-    def getRuntime(self):
-        return self.runtime
-
-    def getSearchPathLength(self):
-        return self.searchPathLength
-
     # Returns winning node or returns runtime
     def runUCS(self, initialBoard: Board):
         start = timeit.default_timer()
@@ -54,7 +45,7 @@ class UCS:
     def generateChildren(self, currentNode, closedListOfNodes, openListofNodes):
         newNodes = []
         childrenBoards = currentNode.board.allPossibleMoves()
-        
+
         # Create new Nodes
         for oneBoard in childrenBoards:
             newNodes.append(Node(oneBoard, currentNode, 0, 0))

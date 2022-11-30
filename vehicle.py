@@ -22,15 +22,6 @@ class Vehicle:
     def getFuelString(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
 
-    def isAmbulance(self) -> bool:
-        return self.letterName == "A"
-
-    def isVehicle(self) -> bool:
-        return self.letterName != "."
-
-    def setRemainingFuel(self, remainingFuel) -> None:
-        self.remainingFuel = remainingFuel
-        
     def setPositions(self, positions) -> None:
         self.positions = positions
 

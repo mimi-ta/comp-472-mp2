@@ -1,12 +1,14 @@
-from copy import deepcopy
-from re import split
-from io import TextIOWrapper
 import timeit
+from copy import deepcopy
+from io import TextIOWrapper
+from re import split
+
+import xlsxwriter
+
 from board import Board
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
-import xlsxwriter
 
 INPUT_FILE = "sample-input.txt"
 # INPUT_FILE = "generatedPuzzles.txt"
@@ -21,13 +23,11 @@ EXECUTION_TIME = "executionTime"
 def printGameOutcomeToConsole(ucsResult: UCS, isWin, initialBoardString):
     if isWin:
         print("You've Won!")
-        print(f"Runtime: {ucsResult.getRuntime()} seconds\n")
+        print(f"Runtime: {ucsResult.runtime} seconds\n")
         print(f"Initial board:\n{initialBoardString}")
-        print(
-            f"Winning board:\n{ucsResult.getWinningNode().getBoard().boardToString()}"
-        )
+        print(f"Winning board:\n{ucsResult.winningNode.getBoard().boardToString()}")
     else:
-        print(f"Runtime: {ucsResult.getRuntime()} seconds")
+        print(f"Runtime: {ucsResult.runtime} seconds")
         print("No solution.\n")
 
 
@@ -78,26 +78,24 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
 
     UCSa = UCS(None, None, None)
     ucsResult = UCSa.runUCS(board)
-    isWin = type(ucsResult.getWinningNode()) == type(Node(None, None, None, None))
+    isWin = type(ucsResult.winningNode) == type(Node(None, None, None, None))
 
     printGameOutcomeToConsole(ucsResult, isWin, board.boardToString())
 
-    f.write(f"Runtime: {ucsResult.getRuntime()} seconds\n")
+    f.write(f"Runtime: {ucsResult.runtime} seconds\n")
 
     if isWin:
-        f.write(f"Search path length: {ucsResult.getSearchPathLength()} states\n")
-        solutionLength = getNumMovesWriteSolutionPathToFile(
-            ucsResult.getWinningNode(), f
-        )
+        f.write(f"Search path length: {ucsResult.searchPathLength} states\n")
+        solutionLength = getNumMovesWriteSolutionPathToFile(ucsResult.winningNode, f)
         output.update(
             {
                 SOLUTION_LENGTH: solutionLength,
-                SEARCH_PATH_LENGTH: ucsResult.getSearchPathLength(),
-                EXECUTION_TIME: ucsResult.getRuntime(),
+                SEARCH_PATH_LENGTH: ucsResult.searchPathLength,
+                EXECUTION_TIME: ucsResult.runtime,
             }
         )
         f.write("\n")
-        f.write(ucsResult.getWinningNode().getBoard().boardToString())
+        f.write(ucsResult.winningNode.getBoard().boardToString())
 
         for j, element in enumerate(output.values()):
             excelsheet.write(excelRow, j, element)
@@ -106,8 +104,8 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
         output.update(
             {
                 SOLUTION_LENGTH: "No solution.",
-                SEARCH_PATH_LENGTH: ucsResult.getSearchPathLength(),
-                EXECUTION_TIME: ucsResult.getRuntime(),
+                SEARCH_PATH_LENGTH: ucsResult.searchPathLength,
+                EXECUTION_TIME: ucsResult.runtime,
             }
         )
         for j, element in enumerate(output.values()):
