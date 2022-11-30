@@ -1,4 +1,5 @@
 from vehicle import Vehicle
+from copy import copy
 
 DEFAULT_FUEL: int = 100
 GOAL_POSITION = 17  # array position so like starting from 0
@@ -58,8 +59,9 @@ class Board:
                                         letter,
                                         puzzle[0].count(letter),
                                         DEFAULT_FUEL,
-                                        [index],
                                         True,
+                                        index,
+                                        (puzzle[0].count(letter) + index) -1
                                     )
                                 }
                             )
@@ -70,15 +72,16 @@ class Board:
                                         letter,
                                         puzzle[0].count(letter),
                                         DEFAULT_FUEL,
-                                        [index],
                                         False,
+                                        index,
+                                        (puzzle[0].count(letter) - 1) * 6 + index
                                     )
                                 }
                             )
-                    elif letter != ".":
-                        positions = vehiclesDict.get(letter).getPositions()
-                        positions.append(index)
-                        vehiclesDict.get(letter).setPositions(positions)
+                    # elif letter != ".":
+                    #     positions = vehiclesDict.get(letter).getPositions()
+                    #     positions.append(index)
+                    #     vehiclesDict.get(letter).setPositions(positions)
 
             # Look for fuel definitions and if present then set them
             for fuelDefinition in puzzle[1:]:
@@ -93,12 +96,12 @@ class Board:
     def canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
         if self.vehicles.get(vehicleLetterName).remainingFuel < multiplier:
             return False
-        positions = vehicle.getPositions()
-        if positions[0] < 6:
+        head = vehicle.getHead()
+        if head < 6:
             return False
-        if positions[0] - 6 * multiplier < 0:
+        if head - 6 * multiplier < 0:
             return False
-        if self.board[(positions[0] - 6 * multiplier)] != ".":
+        if self.board[(head - 6 * multiplier)] != ".":
             return False
         else:
             return True
@@ -107,12 +110,12 @@ class Board:
         vehicle = self.vehicles.get(vehicleLetterName)
         if vehicle.getRemainingFuel() < multiplier:
             return False
-        positions = vehicle.getPositions()
-        if positions[-1] > 29:
+        tail = vehicle.tail
+        if tail > 29:
             return False
-        if positions[-1] + 6 * multiplier > 35:
+        if tail + 6 * multiplier > 35:
             return False
-        if self.board[(positions[-1] + 6 * multiplier)] != ".":
+        if self.board[(tail + 6 * multiplier)] != ".":
             return False
         else:
             return True
@@ -121,10 +124,10 @@ class Board:
         vehicle = self.vehicles.get(vehicleLetterName)
         if vehicle.getRemainingFuel() < multiplier:
             return False
-        positions = vehicle.getPositions()
-        if (positions[0] - multiplier + 1) % 6 == 0:
+        head = vehicle.getHead()
+        if (head - multiplier + 1) % 6 == 0:
             return False
-        if self.board[positions[0] - multiplier] != ".":
+        if self.board[head - multiplier] != ".":
             return False
         else:
             return True
@@ -133,40 +136,79 @@ class Board:
         vehicle = self.vehicles.get(vehicleLetterName)
         if vehicle.getRemainingFuel() < multiplier:
             return False
-        positions = vehicle.getPositions()
-        if (positions[-1] + multiplier - 1) % 6 == 5:
+        tail = vehicle.getTail()
+        if (tail + multiplier - 1) % 6 == 5:
             return False
-        if self.board[positions[-1] + multiplier] != ".":
+        if self.board[tail + multiplier] != ".":
             return False
         else:
             return True
 
     def moveUp(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
-        updatePositions = vehicle.getPositions()
+        newHead = vehicle.getHead() - multiplier * 6
+        newTail = vehicle.getTail() - multiplier * 6
+        size = vehicle.getSize()
 
-        for index, x in enumerate(updatePositions):
-            self.board[int(x)] = "."
-            updatePositions[index] = x - 6 * multiplier
+        if multiplier == 1:
+            self.board[vehicle.tail] = "."
+            self.board[newHead] = vehicleLetterName
+        elif multiplier == 2:
+            self.board[vehicle.tail] = "."
+            self.board[vehicle.tail - 6] = "."
+            self.board[vehicle.head - 6] = vehicleLetterName
+            self.board[newHead] = vehicleLetterName
+        else:
+            if size == 3:
+                self.board[vehicle.tail] = "."
+                self.board[vehicle.tail - 6] = "."
+                self.board[vehicle.head] = "."
+                self.board[newTail] = vehicleLetterName
+                self.board[newTail - 6] = vehicleLetterName
+                self.board[newHead] = vehicleLetterName
+            elif size == 2:
+                self.board[vehicle.tail] = "."
+                self.board[vehicle.head] = "."
+                self.board[newHead] = vehicleLetterName
+                self.board[newTail] = vehicleLetterName
 
-        for x in updatePositions:
-            self.board[x] = vehicleLetterName
+        vehicle.setHead(newHead)
+        vehicle.setTail(newTail)
 
-        vehicle.setPositions(updatePositions)
         vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
         self.move = f"{vehicleLetterName} Up {multiplier}\t\t{vehicle.getRemainingFuel()} {self.__str__()}"
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
+        newHead = vehicle.getHead() + multiplier * 6
+        newTail = vehicle.getTail() + multiplier * 6
+        size = vehicle.getSize()
 
-        updatePositions = vehicle.getPositions()
-        for index, x in enumerate(updatePositions):
-            self.board[int(x)] = "."
-            updatePositions[index] = x + 6 * multiplier
-        for x in updatePositions:
-            self.board[x] = vehicleLetterName
+        if multiplier == 1:
+            self.board[vehicle.head] = "."
+            self.board[newTail] = vehicleLetterName
+        elif multiplier == 2:
+            self.board[vehicle.head] = "."
+            self.board[vehicle.head + 6] = "."
+            self.board[vehicle.tail + 6] = vehicleLetterName
+            self.board[newTail] = vehicleLetterName
+        else:
+            if size == 3:
+                self.board[vehicle.head] = "."
+                self.board[vehicle.head + 6] = "."
+                self.board[vehicle.tail] = "."
+                self.board[newTail] = vehicleLetterName
+                self.board[newTail + 6] = vehicleLetterName
+                self.board[newHead] = vehicleLetterName
+            elif size == 2:
+                self.board[vehicle.tail] = "."
+                self.board[vehicle.head] = "."
+                self.board[newHead] = vehicleLetterName
+                self.board[newTail] = vehicleLetterName
 
-        vehicle.setPositions(updatePositions)
+        vehicle.setHead(newHead)
+        vehicle.setTail(newTail)
+
         vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
         self.move = f"{vehicleLetterName} Down {multiplier}\t{vehicle.getRemainingFuel()} {self.__str__()}"
 
@@ -174,38 +216,88 @@ class Board:
 
     def moveLeft(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
+        newHead = vehicle.getHead() - multiplier
+        newTail = vehicle.getTail() - multiplier
+        size = vehicle.getSize()
 
-        updatePositions = vehicle.getPositions()
-        for index, x in enumerate(updatePositions):
-            self.board[int(x)] = "."
-            updatePositions[index] = x - 1 * multiplier
-        for x in updatePositions:
-            self.board[x] = vehicleLetterName
+        if multiplier == 1:
+            self.board[vehicle.tail] = "."
+            self.board[newHead] = vehicleLetterName
+        elif multiplier == 2:
+            self.board[vehicle.tail] = "."
+            self.board[vehicle.tail - 1] = "."
+            self.board[vehicle.head - 1] = vehicleLetterName
+            self.board[newHead] = vehicleLetterName
+        else:
+            if size == 3:
+                self.board[vehicle.tail] = "."
+                self.board[vehicle.tail - 1] = "."
+                self.board[vehicle.head] = "."
+                self.board[newHead] = vehicleLetterName
+                self.board[newTail - 1] = vehicleLetterName
+                self.board[newTail] = vehicleLetterName
+            elif size == 2:
+                self.board[vehicle.tail] = "."
+                self.board[vehicle.head] = "."
+                self.board[newHead] = vehicleLetterName
+                self.board[newTail] = vehicleLetterName
 
-        vehicle.setPositions(updatePositions)
+        vehicle.setHead(newHead)
+        vehicle.setTail(newTail)
+
         vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
         self.move = f"{vehicleLetterName} Left {multiplier}\t{vehicle.getRemainingFuel()} {self.__str__()}"
         return True
 
     def moveRight(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
+        newHead = vehicle.getHead() + multiplier
+        newTail = vehicle.getTail() + multiplier
+        size = vehicle.getSize()
 
-        updatePositions = vehicle.getPositions()
-        for index, x in enumerate(updatePositions):
-            self.board[int(x)] = "."
-            updatePositions[index] = x + 1 * multiplier
-        for x in updatePositions:
-            self.board[x] = vehicleLetterName
+        if multiplier == 1:
+            self.board[vehicle.head] = "."
+            self.board[newTail] = vehicleLetterName
+        elif multiplier == 2:
+            self.board[vehicle.head] = "."
+            self.board[vehicle.head + 1] = "."
+            self.board[vehicle.tail + 1] = vehicleLetterName
+            self.board[newTail] = vehicleLetterName
+        else:
+            if size == 3:
+                self.board[vehicle.head] = "."
+                self.board[vehicle.head + 1] = "."
+                self.board[vehicle.tail] = "."
+                self.board[newTail] = vehicleLetterName
+                self.board[newHead + 1] = vehicleLetterName
+                self.board[newHead] = vehicleLetterName
+            elif size == 2:
+                self.board[vehicle.tail] = "."
+                self.board[vehicle.head] = "."
+                self.board[newHead] = vehicleLetterName
+                self.board[newTail] = vehicleLetterName
 
-        vehicle.setPositions(updatePositions)
+        vehicle.setHead(newHead)
+        vehicle.setTail(newTail)
+
+        # vehicle = self.vehicles.get(vehicleLetterName)
+        #
+        # updatePositions = vehicle.getPositions()
+        # for index, x in enumerate(updatePositions):
+        #     self.board[int(x)] = "."
+        #     updatePositions[index] = x + 1 * multiplier
+        # for x in updatePositions:
+        #     self.board[x] = vehicleLetterName
+        #
+        # vehicle.setPositions(updatePositions)
         vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
         self.move = f"{vehicleLetterName} Right {multiplier}\t{vehicle.getRemainingFuel()} {self.__str__()}"
 
         # remove car from board if it is in the goalstate
-        if updatePositions[-1] == 17 and vehicleLetterName != "A":
-            for index, x in enumerate(updatePositions):
-                self.board[int(x)] = "."
-            self.vehicles.pop(vehicleLetterName)
+        # if updatePositions[-1] == 17 and vehicleLetterName != "A":
+        #     for index, x in enumerate(updatePositions):
+        #         self.board[int(x)] = "."
+        #     self.vehicles.pop(vehicleLetterName)
         return True
 
     def allPossibleMoves(self):

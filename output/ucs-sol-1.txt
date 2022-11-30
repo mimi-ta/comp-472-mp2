@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Initial board configuration: C.B...C.BHHHAADD........EEGGGF.....F
 
 C . B . . .
@@ -24,3 +25,5 @@ C . B H H H
 . . . . . .
 E E G G G F
 . . . . . F
+=======
+>>>>>>> 8409211 (attempt #1)

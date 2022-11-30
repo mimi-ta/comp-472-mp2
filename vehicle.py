@@ -3,20 +3,27 @@ from copy import copy
 
 class Vehicle:
     def __init__(
-        self, letterName, size, remainingFuel, positions: list[int], isHorizontal
+            self, letterName, size, remainingFuel, isHorizontal, head, tail
     ):
         self.letterName = letterName
         self.size = size
         self.remainingFuel = remainingFuel
-        self.positions = positions
         self.isHorizontal = isHorizontal
+        self.head = head
+        self.tail = tail
 
     def __str__(self) -> str:
-        return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | positions {self.positions} | Horizontal? {self.isHorizontal} "
+        return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | Horizontal? {self.isHorizontal} | " \
+               f"head-{self.head} | tail-{self.tail} "
 
     def DEEZNUTS(self):
         tempVehicle = copy(self)
         tempVehicle.positions = [int(element) for element in self.positions]
+        # TODO Change to a shallow copy
+        #
+        #
+        #
+        # tempVehicle.positions = [int(element) for element in self.positions]
         return tempVehicle
 
     def getFuelString(self) -> str:
