@@ -10,12 +10,22 @@ GOAL_POSITION = 17  # array position so like starting from 0
 
 class Board:
     def __init__(self, puzzle: list[str], cars = None):
-        self.board = list(puzzle[0])
+        if puzzle:
+            self.board = list(puzzle[0])
+        else:
+            self.board = []
         self.vehicles = cars or self.__initializeVehicles(puzzle)
         self.move = ""
 
     def __str__(self) -> str:
         return "".join(self.board)
+
+    def __copy__(self):
+        tempBoard = Board(None, None)
+        tempBoard.board = [str(element) for element in self.board]
+        tempBoard.vehicles = {key: Vehicle.__copy__(value) for key, value in self.vehicles.items()}
+        tempBoard.move = self.move
+        return tempBoard
 
     def boardToString(self) -> str:
         output = ""
@@ -57,48 +67,51 @@ class Board:
 
     # Create dictionary for vehicles (i.e. a set with key-value pairs ("Name", Vehicle))
     def __initializeVehicles(self, puzzle: list[str]):
-        vehiclesDict = dict()
+        if puzzle:
+            vehiclesDict = dict()
 
-        # Initialize vehicles with default fuel amount
-        for index, letter in enumerate(puzzle[0]):
-            if letter != ".":
-                if letter not in vehiclesDict:
-                    if puzzle[0][index + 1] == letter:
-                        vehiclesDict.update(
-                            {
-                                letter: Vehicle(
-                                    letter,
-                                    puzzle[0].count(letter),
-                                    DEFAULT_FUEL,
-                                    [index],
-                                    True,
-                                )
-                            }
-                        )
-                    else:
-                        vehiclesDict.update(
-                            {
-                                letter: Vehicle(
-                                    letter,
-                                    puzzle[0].count(letter),
-                                    DEFAULT_FUEL,
-                                    [index],
-                                    False,
-                                )
-                            }
-                        )
-                elif letter != ".":
-                    positions = vehiclesDict.get(letter).getPositions()
-                    positions.append(index)
-                    vehiclesDict.get(letter).setPositions(positions)
+            # Initialize vehicles with default fuel amount
+            for index, letter in enumerate(puzzle[0]):
+                if letter != ".":
+                    if letter not in vehiclesDict:
+                        if puzzle[0][index + 1] == letter:
+                            vehiclesDict.update(
+                                {
+                                    letter: Vehicle(
+                                        letter,
+                                        puzzle[0].count(letter),
+                                        DEFAULT_FUEL,
+                                        [index],
+                                        True,
+                                    )
+                                }
+                            )
+                        else:
+                            vehiclesDict.update(
+                                {
+                                    letter: Vehicle(
+                                        letter,
+                                        puzzle[0].count(letter),
+                                        DEFAULT_FUEL,
+                                        [index],
+                                        False,
+                                    )
+                                }
+                            )
+                    elif letter != ".":
+                        positions = vehiclesDict.get(letter).getPositions()
+                        positions.append(index)
+                        vehiclesDict.get(letter).setPositions(positions)
 
-        # Look for fuel definitions and if present then set them
-        for fuelDefinition in puzzle[1:]:
-            vehiclesDict.get(fuelDefinition[0]).setRemainingFuel(
-                int(fuelDefinition[1:])
-            )
+            # Look for fuel definitions and if present then set them
+            for fuelDefinition in puzzle[1:]:
+                vehiclesDict.get(fuelDefinition[0]).setRemainingFuel(
+                    int(fuelDefinition[1:])
+                )
 
-        return vehiclesDict
+            return vehiclesDict
+        else:
+            return dict()
 
     def __canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
         if self.vehicles.get(vehicleLetterName).getRemainingFuel() < multiplier:
@@ -220,7 +233,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveRight(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = self.__copy__()
                     board.moveRight(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -228,7 +241,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveLeft(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = self.__copy__()
                     board.moveLeft(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -237,7 +250,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveDown(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = self.__copy__()
                     board.moveDown(vehicle.letterName, i)
                     moves.append(board)
                     i += 1
@@ -245,7 +258,7 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveUp(vehicle.letterName, i):
                         break
-                    board = deepcopy(self)
+                    board = self.__copy__()
                     board.moveUp(vehicle.letterName, i)
                     moves.append(board)
                     i += 1

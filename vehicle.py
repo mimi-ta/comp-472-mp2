@@ -11,6 +11,15 @@ class Vehicle:
     def __str__(self) -> str:
         return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | positions {self.positions} | Horizontal? {self.isHorizontal} "
 
+    def __copy__(self):
+        tempVehicle = Vehicle(None, None, None, None, False)
+        tempVehicle.letterName = self.letterName
+        tempVehicle.size = self.size
+        tempVehicle.remainingFuel = self.remainingFuel
+        tempVehicle.positions = self.positions
+        tempVehicle.isHorizontal = self.isHorizontal
+        return tempVehicle
+        
     def getFuelString(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
 
