@@ -16,7 +16,7 @@ class Vehicle:
         tempVehicle.letterName = self.letterName
         tempVehicle.size = self.size
         tempVehicle.remainingFuel = self.remainingFuel
-        tempVehicle.positions = self.positions
+        tempVehicle.positions = [int(element) for element in self.positions] 
         tempVehicle.isHorizontal = self.isHorizontal
         return tempVehicle
         
@@ -43,3 +43,4 @@ class Vehicle:
 
     def getIsHorizontal(self):
         return self.isHorizontal
+

@@ -51,18 +51,6 @@ class Board:
     def getVehicleAtExit(self) -> str:
         return self.board[17]
 
-    def testCanMoveUp(self, letter):
-        print(letter, "can move up : ", self.__canMoveUp(letter))
-
-    def testCanMoveDown(self, letter):
-        print(letter, "can move down : ", self.__canMoveDown(letter))
-
-    def testCanMoveLeft(self, letter: str):
-        print(letter, "can move left : ", self.__canMoveLeft(letter))
-
-    def testCanMoveRight(self, letter: str):
-        print(letter, "can move right : ", self.__canMoveRight(letter))
-
     # End Of Testing Functions
 
     # Create dictionary for vehicles (i.e. a set with key-value pairs ("Name", Vehicle))
@@ -233,34 +221,34 @@ class Board:
                 while i < 6-vehicle.size:
                     if not self.__canMoveRight(vehicle.letterName, i):
                         break
-                    board = self.__copy__()
-                    board.moveRight(vehicle.letterName, i)
-                    moves.append(board)
-                    i += 1
+                        board = self.__copy__()
+                        board.moveRight(vehicle.letterName, i)
+                        moves.append(board)
+                        i += 1
                 i = 1
                 while i < 6-vehicle.size:
                     if not self.__canMoveLeft(vehicle.letterName, i):
                         break
-                    board = self.__copy__()
-                    board.moveLeft(vehicle.letterName, i)
-                    moves.append(board)
+                        board = self.__copy__()
+                        board.moveLeft(vehicle.letterName, i)
+                        moves.append(board)
                     i += 1
             if not vehicle.getIsHorizontal():
                 i = 1
                 while i < 6-vehicle.size:
                     if not self.__canMoveDown(vehicle.letterName, i):
                         break
-                    board = self.__copy__()
-                    board.moveDown(vehicle.letterName, i)
-                    moves.append(board)
+                        board = self.__copy__()
+                        board.moveDown(vehicle.letterName, i)
+                        moves.append(board)
                     i += 1
                 i = 1
                 while i < 6-vehicle.size:
                     if not self.__canMoveUp(vehicle.letterName, i):
                         break
-                    board = self.__copy__()
-                    board.moveUp(vehicle.letterName, i)
-                    moves.append(board)
+                        board = self.__copy__()
+                        board.moveUp(vehicle.letterName, i)
+                        moves.append(board)
                     i += 1
         return moves
 
