@@ -10,6 +10,12 @@ import xlsxwriter
 
 INPUT_FILE = "sample-input.txt"
 # INPUT_FILE = "generatedPuzzles.txt"
+PUZZLE_NUMBER = "puzzleNumber"
+ALGORITHM = "algo"
+HEURISTIC = "heuristic"
+SOLUTION_LENGTH = "solutionLength"
+SEARCH_PATH_LENGTH = "searchPathLength"
+EXECUTION_TIME = "executionTime"
 
 
 def printGameOutcomeToConsole(ucsResult: UCS, isWin, initialBoardString):
@@ -60,20 +66,13 @@ def getNumMovesWriteSolutionPathToFile(winningNode, f: TextIOWrapper):
 
 
 def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
-    PUZZLE_NUMBER = "puzzleNumber"
-    ALGORITHM = "algo"
-    HEURISTIC = "heuristic"
-    SOLUTION_LENGTH = "solutionLength"
-    SEARCH_PATH_LENGTH = "searchPathLength"
-    EXECUTION_TIME = "executionTime"
-
     output = dict()
     output.update({PUZZLE_NUMBER: i + 1, ALGORITHM: "UCS", HEURISTIC: "N/A"})
 
+    board = Board(puzzle)
+
     f = open(f"./output/ucs-sol-{i+1}.txt", "w")
     f.write(f"Initial board configuration: {' '.join(puzzle)}\n\n")
-
-    board = Board(puzzle)
     f.write(board.boardToString() + "\n")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
@@ -126,29 +125,29 @@ def main():
     excelsheet = workbook.add_worksheet()
 
     # Write headers to file
-    col = 0
-    for header in [
-        "Puzzle Number",
-        "Algorithm",
-        "Heuristic",
-        "Length of the solution",
-        "Length of the search path",
-        "Execution time (seconds)",
-    ]:
-        excelsheet.write(0, col, header)
-        col += 1
+    for i, header in enumerate(
+        [
+            "Puzzle Number",
+            "Algorithm",
+            "Heuristic",
+            "Length of the solution",
+            "Length of the search path",
+            "Execution time (seconds)",
+        ]
+    ):
+        excelsheet.write(0, i, header)
 
-    excelRow = 1
+    excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.getPuzzles()):
         excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
         print(
             "------------------------------------------------------------------------------------------"
         )
     stop = timeit.default_timer()
+    workbook.close()
     print(
         f"Total runtime for the {len(parser.getPuzzles())} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours"
     )
-    workbook.close()
 
 
 if __name__ == "__main__":
