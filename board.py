@@ -76,10 +76,6 @@ class Board:
                                     )
                                 }
                             )
-                    # elif letter != ".":
-                    #     positions = vehiclesDict.get(letter).getPositions()
-                    #     positions.append(index)
-                    #     vehiclesDict.get(letter).setPositions(positions)
 
             # Look for fuel definitions and if present then set them
             for fuelDefinition in puzzle[1:]:
