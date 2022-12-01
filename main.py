@@ -59,7 +59,7 @@ def getNumMovesWriteSolutionPathToFile(winningNode, f: TextIOWrapper):
     winningNodeIterator = winningNode
 
     # Write to file the move and the corresponding board output
-    while winningNodeIterator.parentNode != None:
+    while winningNodeIterator.parentNode:
         f.write(winningNodeIterator.board.move + "\n")
         winningNodeIterator = winningNodeIterator.parentNode
 
@@ -113,12 +113,18 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
             excelsheet.write(excelRow, j, element)
     return excelRow + 1
 
+def runSolver(input:str, puzzle):
+    board= Board(puzzle)
+    solver = GBFS(1)
+    if(input == "GBFS"):
+        solver = GBFS(1);
+    winningNodeIterator, timeLength, pathLength = solver.run(board)
 
-def runSolver(input: str, puzzle):
-    if input == "GBFS":
-        solver = GBFS(1)
-    solver.run(puzzle)
-
+    print(pathLength)
+    while winningNodeIterator.parentNode:
+        print(winningNodeIterator.board.move + "\n")
+        print(winningNodeIterator.board.boardToString())
+        winningNodeIterator = winningNodeIterator.parentNode
 
 def main():
     start = timeit.default_timer()

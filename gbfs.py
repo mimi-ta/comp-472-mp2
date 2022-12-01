@@ -1,7 +1,8 @@
-from node import Node
-from queue import PriorityQueue
-from board import Board
 import timeit
+from queue import PriorityQueue
+
+from board import Board
+from node import Node
 
 
 class GBFS:
@@ -62,9 +63,9 @@ class GBFS:
             return self.heuristic1(aBoard)
 
     def heuristic1(self, aBoard: Board):
-        setOfBlockingCars = {}
+        setOfBlockingCars = set()
         for x in range(12, 18):
-            if aBoard.board[x] != "A" or aBoard.board[x] != ".":
+            if aBoard.board[x] != "A" and aBoard.board[x] != ".":
                 setOfBlockingCars.add(aBoard.board[x])
         # Im returning -1 because priority queue returns from descending order so like a set
         # 3 8 5 2 will return 8 as the first element of a priority queue
