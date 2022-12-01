@@ -2,9 +2,7 @@ from copy import copy
 
 
 class Vehicle:
-    def __init__(
-            self, letterName, size, remainingFuel, isHorizontal, head, tail
-    ):
+    def __init__(self, letterName, size, remainingFuel, isHorizontal, head, tail):
         self.letterName = letterName
         self.size = size
         self.remainingFuel = remainingFuel
@@ -13,9 +11,10 @@ class Vehicle:
         self.tail = tail
 
     def __str__(self) -> str:
-        return f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | Horizontal? {self.isHorizontal} | " \
-               f"head-{self.head} | tail-{self.tail} "
+        return (
+            f"{self.letterName} | fuel-{self.remainingFuel} | size-{self.size} | Horizontal? {self.isHorizontal} | "
+            f"head-{self.head} | tail-{self.tail} "
+        )
 
     def getFuelString(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
-

@@ -6,6 +6,7 @@ from re import split
 import xlsxwriter
 
 from board import Board
+from gbfs import GBFS
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
@@ -113,6 +114,12 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
     return excelRow + 1
 
 
+def runSolver(input: str, puzzle):
+    if input == "GBFS":
+        solver = GBFS(1)
+    solver.run(puzzle)
+
+
 def main():
     start = timeit.default_timer()
     f = open(INPUT_FILE, "r")
@@ -138,6 +145,7 @@ def main():
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
         excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
+        runSolver("GBFS", puzzle)
         print(
             "------------------------------------------------------------------------------------------"
         )
