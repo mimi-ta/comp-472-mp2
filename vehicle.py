@@ -19,8 +19,3 @@ class Vehicle:
     def getFuelString(self) -> str:
         return f"{self.letterName}:{self.remainingFuel}"
 
-    def setPositions(self, positions) -> None:
-        self.positions = positions
-
-    def getPositions(self) -> list[int]:
-        return self.positions

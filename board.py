@@ -2,8 +2,6 @@ from vehicle import Vehicle
 from copy import copy
 
 DEFAULT_FUEL: int = 100
-GOAL_POSITION = 17  # array position so like starting from 0
-
 
 class Board:
     def __init__(self, puzzle: list[str], cars=None):
