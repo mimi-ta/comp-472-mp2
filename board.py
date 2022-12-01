@@ -83,18 +83,16 @@ class Board:
 
             # Look for fuel definitions and if present then set them
             for fuelDefinition in puzzle[1:]:
-                vehiclesDict.get(fuelDefinition[0]).remainingFuel = int(
-                    fuelDefinition[1:]
-                )
-
+                vehiclesDict.get(fuelDefinition[0]).remainingFuel = int(fuelDefinition[1:])
             return vehiclesDict
         else:
             return dict()
 
     def canMoveUp(self, vehicleLetterName: str, multiplier: int) -> bool:
-        if self.vehicles.get(vehicleLetterName).remainingFuel < multiplier:
+        vehicle = self.vehicles.get(vehicleLetterName)
+        if vehicle.remainingFuel < multiplier:
             return False
-        head = vehicle.getHead()
+        head = vehicle.head
         if head < 6:
             return False
         if head - 6 * multiplier < 0:
@@ -106,7 +104,7 @@ class Board:
 
     def canMoveDown(self, vehicleLetterName: str, multiplier: int) -> bool:
         vehicle = self.vehicles.get(vehicleLetterName)
-        if vehicle.getRemainingFuel() < multiplier:
+        if vehicle.remainingFuel < multiplier:
             return False
         tail = vehicle.tail
         if tail > 29:
@@ -120,9 +118,9 @@ class Board:
 
     def canMoveLeft(self, vehicleLetterName: str, multiplier: int) -> bool:
         vehicle = self.vehicles.get(vehicleLetterName)
-        if vehicle.getRemainingFuel() < multiplier:
+        if vehicle.remainingFuel < multiplier:
             return False
-        head = vehicle.getHead()
+        head = vehicle.head
         if (head - multiplier + 1) % 6 == 0:
             return False
         if self.board[head - multiplier] != ".":
@@ -132,9 +130,9 @@ class Board:
 
     def canMoveRight(self, vehicleLetterName: str, multiplier: int) -> bool:
         vehicle = self.vehicles.get(vehicleLetterName)
-        if vehicle.getRemainingFuel() < multiplier:
+        if vehicle.remainingFuel < multiplier:
             return False
-        tail = vehicle.getTail()
+        tail = vehicle.tail
         if (tail + multiplier - 1) % 6 == 5:
             return False
         if self.board[tail + multiplier] != ".":
@@ -144,9 +142,9 @@ class Board:
 
     def moveUp(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
-        newHead = vehicle.getHead() - multiplier * 6
-        newTail = vehicle.getTail() - multiplier * 6
-        size = vehicle.getSize()
+        newHead = vehicle.head - multiplier * 6
+        newTail = vehicle.tail - multiplier * 6
+        size = vehicle.size
 
         if multiplier == 1:
             self.board[vehicle.tail] = "."
@@ -170,17 +168,17 @@ class Board:
                 self.board[newHead] = vehicleLetterName
                 self.board[newTail] = vehicleLetterName
 
-        vehicle.setHead(newHead)
-        vehicle.setTail(newTail)
+        vehicle.head = newHead
+        vehicle.tail = newTail
 
-        vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Up {multiplier}\t\t{vehicle.getRemainingFuel()} {self.__str__()}"
+        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        self.move = f"{vehicleLetterName} Up {multiplier}\t\t{vehicle.remainingFuel} {self.__str__()}"
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
-        newHead = vehicle.getHead() + multiplier * 6
-        newTail = vehicle.getTail() + multiplier * 6
-        size = vehicle.getSize()
+        newHead = vehicle.head + multiplier * 6
+        newTail = vehicle.tail + multiplier * 6
+        size = vehicle.size
 
         if multiplier == 1:
             self.board[vehicle.head] = "."
@@ -204,19 +202,17 @@ class Board:
                 self.board[newHead] = vehicleLetterName
                 self.board[newTail] = vehicleLetterName
 
-        vehicle.setHead(newHead)
-        vehicle.setTail(newTail)
+        vehicle.head = newHead
+        vehicle.tail = newTail
 
-        vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Down {multiplier}\t{vehicle.getRemainingFuel()} {self.__str__()}"
-
-        return True
+        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        self.move = f"{vehicleLetterName} Down {multiplier}\t{vehicle.remainingFuel} {self.__str__()}"
 
     def moveLeft(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
-        newHead = vehicle.getHead() - multiplier
-        newTail = vehicle.getTail() - multiplier
-        size = vehicle.getSize()
+        newHead = vehicle.head - multiplier
+        newTail = vehicle.tail - multiplier
+        size = vehicle.size
 
         if multiplier == 1:
             self.board[vehicle.tail] = "."
@@ -240,18 +236,17 @@ class Board:
                 self.board[newHead] = vehicleLetterName
                 self.board[newTail] = vehicleLetterName
 
-        vehicle.setHead(newHead)
-        vehicle.setTail(newTail)
+        vehicle.head = newHead
+        vehicle.tail = newTail
 
-        vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Left {multiplier}\t{vehicle.getRemainingFuel()} {self.__str__()}"
-        return True
+        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        self.move = f"{vehicleLetterName} Left {multiplier}\t{vehicle.remainingFuel} {self.__str__()}"
 
     def moveRight(self, vehicleLetterName: str, multiplier: int):
         vehicle = self.vehicles.get(vehicleLetterName)
-        newHead = vehicle.getHead() + multiplier
-        newTail = vehicle.getTail() + multiplier
-        size = vehicle.getSize()
+        newHead = vehicle.head + multiplier
+        newTail = vehicle.tail + multiplier
+        size = vehicle.size
 
         if multiplier == 1:
             self.board[vehicle.head] = "."
@@ -275,28 +270,22 @@ class Board:
                 self.board[newHead] = vehicleLetterName
                 self.board[newTail] = vehicleLetterName
 
-        vehicle.setHead(newHead)
-        vehicle.setTail(newTail)
+        vehicle.head = newHead
+        vehicle.tail = newTail
 
-        # vehicle = self.vehicles.get(vehicleLetterName)
-        #
-        # updatePositions = vehicle.getPositions()
-        # for index, x in enumerate(updatePositions):
-        #     self.board[int(x)] = "."
-        #     updatePositions[index] = x + 1 * multiplier
-        # for x in updatePositions:
-        #     self.board[x] = vehicleLetterName
-        #
-        # vehicle.setPositions(updatePositions)
-        vehicle.setRemainingFuel(vehicle.getRemainingFuel() - multiplier)
-        self.move = f"{vehicleLetterName} Right {multiplier}\t{vehicle.getRemainingFuel()} {self.__str__()}"
+        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        self.move = f"{vehicleLetterName} Right {multiplier}\t{vehicle.remainingFuel} {self.__str__()}"
 
         # remove car from board if it is in the goalstate
-        # if updatePositions[-1] == 17 and vehicleLetterName != "A":
-        #     for index, x in enumerate(updatePositions):
-        #         self.board[int(x)] = "."
-        #     self.vehicles.pop(vehicleLetterName)
-        return True
+        if vehicle.tail == 17 and vehicleLetterName != "A":
+            self.board[vehicle.head] = "."
+            self.board[vehicle.tail] = "."
+            if size == 3:
+                self.board[vehicle.head + 1] = "."
+            else:
+                self.board[vehicle.head + 1] = "."
+                self.board[vehicle.head + 2] = "."
+            self.vehicles.pop(vehicleLetterName)
 
     def allPossibleMoves(self):
         moves = []
