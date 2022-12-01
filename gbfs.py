@@ -27,7 +27,7 @@ class GBFS:
             closed.append(currentNode)
 
             # Check if it is in the goal state
-            if currentNode.getBoard().getVehicleAtExit() == "A":
+            if currentNode.board.getVehicleAtExit() == "A":
                 stop = timeit.default_timer()
                 return (currentNode, stop - start, searchPathLength)
 
@@ -47,7 +47,7 @@ class GBFS:
         childrenBoards = currentNode.board.allPossibleMoves()
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, 0, 0))
+            newNodes.append(Node(oneBoard, currentNode,0,self.heuristicPicker(oneBoard)))
 
         nodesToRemove = []
         for node in newNodes:

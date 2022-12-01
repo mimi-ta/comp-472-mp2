@@ -113,11 +113,12 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
             excelsheet.write(excelRow, j, element)
     return excelRow + 1
 
-def runSolver(input:str, puzzle):
-    board= Board(puzzle)
+
+def runSolver(input: str, puzzle):
+    board = Board(puzzle)
     solver = GBFS(1)
-    if(input == "GBFS"):
-        solver = GBFS(1);
+    if input == "GBFS":
+        solver = GBFS(1)
     winningNodeIterator, timeLength, pathLength = solver.run(board)
 
     print(pathLength)
@@ -125,6 +126,7 @@ def runSolver(input:str, puzzle):
         print(winningNodeIterator.board.move + "\n")
         print(winningNodeIterator.board.boardToString())
         winningNodeIterator = winningNodeIterator.parentNode
+
 
 def main():
     start = timeit.default_timer()
