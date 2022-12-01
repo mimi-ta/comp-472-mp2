@@ -59,7 +59,7 @@ class Board:
                                         DEFAULT_FUEL,
                                         True,
                                         index,
-                                        (puzzle[0].count(letter) + index) -1
+                                        (puzzle[0].count(letter) + index) - 1
                                     )
                                 }
                             )
@@ -289,7 +289,7 @@ class Board:
             if vehicle.isHorizontal:
                 i = 1
                 while i < 6 - vehicle.size:
-                    if not self.canMoveRight(vehicle.letterName, i):
+                    if not self.__canMoveRight(vehicle.letterName, i):
                         break
                     board = self.__copy__()
                     board.moveRight(vehicle.letterName, i)
@@ -297,7 +297,7 @@ class Board:
                     i += 1
                 i = 1
                 while i < 6 - vehicle.size:
-                    if not self.canMoveLeft(vehicle.letterName, i):
+                    if not self.__canMoveLeft(vehicle.letterName, i):
                         break
                     board = self.__copy__()
                     board.moveLeft(vehicle.letterName, i)
@@ -306,7 +306,7 @@ class Board:
             else:
                 i = 1
                 while i < 6 - vehicle.size:
-                    if not self.canMoveDown(vehicle.letterName, i):
+                    if not self.__canMoveDown(vehicle.letterName, i):
                         break
                     board = self.__copy__()
                     board.moveDown(vehicle.letterName, i)
@@ -314,7 +314,7 @@ class Board:
                     i += 1
                 i = 1
                 while i < 6 - vehicle.size:
-                    if not self.canMoveUp(vehicle.letterName, i):
+                    if not self.__canMoveUp(vehicle.letterName, i):
                         break
                     board = self.__copy__()
                     board.moveUp(vehicle.letterName, i)
