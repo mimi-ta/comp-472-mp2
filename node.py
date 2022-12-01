@@ -13,17 +13,5 @@ class Node:
         if self and other:
             return self.board.boardToString() == other.board.boardToString()
 
-    def setRuntime(self, runtime):
-        self.runtime = runtime
-
-    def setParentNode(self, parentNode):
-        self.parentNode = parentNode
-
-    def getParentNode(self):
-        return self.parentNode
-
-    def getBoard(self):
-        return self.board
-
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"
