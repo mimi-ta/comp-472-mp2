@@ -33,19 +33,26 @@ class GBFS:
 
             searchPathLength += 1
 
-            # Append all the children into the end of the open list
-            children = self.generateChildren(currentNode, closed, open)
+            childrenBoards = currentNode.board.allPossibleMoves()
 
-            open.extend(children)
+            for board in childrenBoards:
+                if board in closedListOfNodes:
+                    nodesToRemove.append(node)
+                if board in openListofNodes:
+                    nodesToRemove.append(node)
+            # Append all the children into the end of the open list
+            # children = self.generateChildren(currentNode, closed, open)
+
+            # open.extend(children)
         stop = timeit.default_timer()
         return (None, stop-start, searchPathLength)
 
     def generateChildren(self, currentNode , closedListOfNodes, openListofNodes):
-        newNodes = []
+        newNodes = PriorityQueue
         childrenBoards = currentNode.board.allPossibleMoves()
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.put(1,Node(oneBoard, currentNode,0,0))
+            newNodes.put((self.heuristicPicker(oneBoard),Node(oneBoard, currentNode,0,0)))
 
         nodesToRemove = []
         for node in newNodes:
@@ -58,9 +65,15 @@ class GBFS:
             newNodes.remove(node)
         return newNodes
 
+    def heuristicPicker(self, aBoard: Board):
+        if(self.heuristic == "1"):
+            return self.heuristic1(aBoard)
     def heuristic1(self, aBoard: Board):
         setOfBlockingCars = {}
         for x in range(12,18):
-            if aBoard.board[x] != 'A' or aBoard[x]!='.':
+            if aBoard.board[x] != 'A' or aBoard.board[x]!='.':
                 setOfBlockingCars.add(aBoard.board[x])
-        return len(setOfBlockingCars)
+        #Im returning -1 because priority queue returns from descending order so like a set
+        #3 8 5 2 will return 8 as the first element of a priority queue
+        #but we want the opposite
+        return len(setOfBlockingCars)*-1
