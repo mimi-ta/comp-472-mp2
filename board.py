@@ -320,3 +320,6 @@ class Board:
                     moves.append(board)
                     i += 1
         return moves
+
+
+
