@@ -11,7 +11,7 @@ class UCS:
         self.searchPathLength = searchPathLength
 
     # Returns winning node or returns runtime
-    def runUCS(self, initialBoard: Board):
+    def run(self, initialBoard: Board):
         start = timeit.default_timer()
         searchPathLength = 1
         closed = []
@@ -31,7 +31,7 @@ class UCS:
             # Check if it is in the goal state
             if currentNode.board.getVehicleAtExit() == "A":
                 stop = timeit.default_timer()
-                return UCS(currentNode, stop - start, searchPathLength)
+                return currentNode, stop - start, searchPathLength
 
             searchPathLength += 1
 
@@ -40,11 +40,15 @@ class UCS:
 
             open.extend(children)
         stop = timeit.default_timer()
-        return UCS(None, stop - start, searchPathLength)
+        return None, stop - start, searchPathLength
 
     def generateChildren(self, currentNode, closedListOfNodes, openListofNodes):
         newNodes = []
         childrenBoards = currentNode.board.allPossibleMoves()
+
+        #Rush hour strategy says that maximum possible moves should be 93 so any nodes that have depth of 94+ cannot be a solution
+        if(currentNode.gn>93):
+            return newNodes
 
         # Create new Nodes
         for oneBoard in childrenBoards:

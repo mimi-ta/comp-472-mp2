@@ -22,8 +22,8 @@
 
 
 #C.B...C.BHHHAADD........EEGGGF.....F
-#....F...B.F.AABCF....C.....C....EE.. F2
+....F...B.F.AABCF....C.....C....EE.. F2
 
 .BBCCC..EEKLAAIJKLH.IJFFHGGG.M.....M K6 M0
 
-#...GF...BGF.AABCF....CDD...C....EE..
+...GF...BGF.AABCF....CDD...C....EE..
