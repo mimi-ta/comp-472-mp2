@@ -95,4 +95,4 @@ class GBFS:
         return self.heuristic1(aBoard)*multiplier
 
     def heuristic4(self, aBoard:Board):
-        return len(aBoard.allPossibleMoves())*-1
+        return (len(aBoard.allPossibleMoves()) - self.heuristic1(aBoard) - self.heuristic2(aBoard))*-1

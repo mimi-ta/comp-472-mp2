@@ -122,10 +122,13 @@ def runSolver( puzzle: list[str]):
         print(f"CHECKED :{pathLength} STATES")
         print(f"TIME TAKEN :{timeLength} ")
         if(winningNodeIterator):
+            count = 0
             while winningNodeIterator.parentNode:
                 print(winningNodeIterator.board.move + "\n")
                 print(winningNodeIterator.board.boardToString())
                 winningNodeIterator = winningNodeIterator.parentNode
+                count+=1
+            print(f"The number of steps {count} ")
         else:
             print("No Solution")
 
