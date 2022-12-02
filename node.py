@@ -35,3 +35,29 @@ class Node:
 
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"
+
+    def h1(self):
+        board = self.board.board
+        ambulanceTail = self.board.vehicles.get("A").tail
+        iterator = (17 - ambulanceTail)
+        counter = 0
+        for x in range(iterator):
+            position = ambulanceTail + 1 + x
+            previous = position - 1
+            if not board[position] == "." and not board[position] == board[previous]:
+                counter += 1
+        return counter
+
+    def h2(self):
+        board = self.board.board
+        ambulanceTail = self.board.vehicles.get("A").tail
+        iterator = (17 - ambulanceTail)
+        counter = 0
+        for x in range(iterator):
+            position = ambulanceTail + 1 + x
+            if not board[position] == ".":
+                counter += 1
+        return counter
+
+    def h3(self):
+        return 3 * self.h1()

@@ -1,6 +1,3 @@
-from copy import copy
-
-
 class Vehicle:
     def __init__(
             self, letterName, size, remainingFuel, isHorizontal, head, tail

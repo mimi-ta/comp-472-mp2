@@ -90,7 +90,7 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
         output.update(
             {
                 SOLUTION_LENGTH: solutionLength,
-                SEARCH_PATH_LENGTH: ucsResult.searchPathLength,
+                SEARCH_PATH_LENGTH: ucsResult.winningNode.gn,
                 EXECUTION_TIME: ucsResult.runtime,
             }
         )
