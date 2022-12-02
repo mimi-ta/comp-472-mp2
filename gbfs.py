@@ -29,15 +29,22 @@ class GBFS:
                 stop = timeit.default_timer()
                 return (currentNode, stop-start, searchPathLength)
 
-            searchPathLength += 1
+
 
             # Append all the children into the end of the open list
             children = self.generateChildren(currentNode, closed)
+
+            #If the return value is of type DUPLICATE then there is no need to add it to the closed list
+            #The algorithm should just continue
+            if(children == "DUPLICATE"):
+                continue
+
             for eachChild in children:
                 open.put(eachChild)
 
             #Append to closed list
             closed.append(currentNode)
+            searchPathLength += 1
 
         #No solution found
         stop = timeit.default_timer()
@@ -47,7 +54,7 @@ class GBFS:
     def generateChildren(self, currentNode , closedListOfNodes):
 
         if(currentNode in closedListOfNodes or currentNode.depth>93):
-            return []
+            return "DUPLICATE"
 
         newNodes = []
 
