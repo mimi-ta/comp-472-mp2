@@ -13,7 +13,7 @@ class UCS:
     # Returns winning node or returns runtime
     def runUCS(self, initialBoard: Board):
         start = timeit.default_timer()
-        searchPathLength = 0
+        searchPathLength = 1
         closed = []
         open = deque()
 
