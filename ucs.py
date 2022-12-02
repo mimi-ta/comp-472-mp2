@@ -48,7 +48,7 @@ class UCS:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, 0, 0))
+            newNodes.append(Node(oneBoard, currentNode, currentNode.gn+1, 0))
 
         nodesToRemove = []
         for node in newNodes:
