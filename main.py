@@ -164,7 +164,7 @@ def main():
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
+        # excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
         runSolver(i, puzzle, excelsheet, excelRow,"GBFS2")
         print(
             "------------------------------------------------------------------------------------------"
