@@ -9,5 +9,5 @@ A A B C F .
 
 Car fuel available: F:2 B:100 A:100 C:100 E:100 
 
-Runtime: 29.735569500000565 seconds
+Runtime: 20.787933458999994 seconds
 No solution.
