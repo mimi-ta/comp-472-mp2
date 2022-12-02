@@ -70,8 +70,10 @@ def generateOutputFiles(i, puzzle: list[str], excelsheet, excelRow:int, algorith
     output.update({PUZZLE_NUMBER: i + 1, ALGORITHM: algorithmName, HEURISTIC: heuristic})
 
     board = Board(puzzle)
-
-    f = open(f"./output/{algorithmName}-sol-{i+1}.txt", "w")
+    if(algorithmName=="UCS"):
+        f = open(f"./output/{algorithmName}/{algorithmName}-sol-{i+1}.txt", "w")
+    else:
+        f = open(f"./output/{algorithmName}/heuristic-{heuristic}/{algorithmName}-sol-{i + 1}.txt", "w")
     f.write(f"Initial board configuration: {' '.join(puzzle)}\n\n")
     f.write(board.boardToString() + "\n")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
@@ -111,30 +113,6 @@ def generateOutputFiles(i, puzzle: list[str], excelsheet, excelRow:int, algorith
             excelsheet.write(excelRow, j, element)
     return excelRow + 1
 
-# def runSolver(i, puzzle: list[str], excelsheet, excelRow):
-#     board= Board(puzzle)
-#     for i in range(4):
-#         algorithm = GBFS(i+1)
-#         winningNodeIterator, timeLength, pathLength = algorithm.run(board)
-#
-#         #This is just for debugging it will be gone when its over
-#         print(f"CHECKED :{pathLength} STATES")
-#         print(f"TIME TAKEN :{timeLength} ")
-#
-#         if(winningNodeIterator):
-#             count = 0
-#             while winningNodeIterator.parentNode:
-#                 print(winningNodeIterator.board.move + "\n")
-#                 print(winningNodeIterator.board.boardToString())
-#                 winningNodeIterator = winningNodeIterator.parentNode
-#                 count+=1
-#             print(f"The number of steps {count} ")
-#         else:
-#             print("No Solution")
-#
-#         print(
-#             "------------------------------------------------------------------------------------------"
-#         )
 def main():
     start = timeit.default_timer()
     f = open(INPUT_FILE, "r")
@@ -160,13 +138,10 @@ def main():
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
         excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow,"UCS", UCS(None,None,None), "N/A")
-        # runSolver(i, puzzle, excelsheet, excelRow)
 
         for HEURISTICNUMBER in range(4):
             excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "GBFS", GBFS(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
 
-            # algorithm = GBFS(i + 1)
-            # winningNodeIterator, timeLength, pathLength = algorithm.run(board)
         print(
             "------------------------------------------------------------------------------------------"
         )

@@ -2,12 +2,13 @@ from board import Board
 
 
 class Node:
-    def __init__(self, board: Board, parentNode, gn, hn):
+    def __init__(self, board: Board, parentNode, gn, hn, depth=None):
         self.board = board
         self.parentNode = parentNode
         self.runtime = 0
         self.gn = gn
         self.hn = hn
+        self.depth = depth
 
     def __eq__(self, other):
         if self and other:
