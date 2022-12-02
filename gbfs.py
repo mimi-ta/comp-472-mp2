@@ -11,7 +11,7 @@ class GBFS:
 
     def run(self, initialBoard: Board):
         start = timeit.default_timer()
-        searchPathLength = 0
+        searchPathLength = 1
 
         closed = []
         open = PriorityQueue()
