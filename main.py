@@ -112,27 +112,26 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
             excelsheet.write(excelRow, j, element)
     return excelRow + 1
 
-def runSolver(input:str, puzzle):
+def runSolver( puzzle: list[str]):
     board= Board(puzzle)
+    for i in range(4):
+        solver = GBFS(i+1)
+        winningNodeIterator, timeLength, pathLength = solver.run(board)
 
-    if(input == "GBFS1"):
-        solver = GBFS(1)
-    elif(input == "GBFS2"):
-        solver = GBFS(2)
-    elif(input == "GBFS3"):
-        solver = GBFS(3)
-    winningNodeIterator, timeLength, pathLength = solver.run(board)
+        #This is just for debugging it will be gone when its over
+        print(f"CHECKED :{pathLength} STATES")
+        print(f"TIME TAKEN :{timeLength} ")
+        if(winningNodeIterator):
+            while winningNodeIterator.parentNode:
+                print(winningNodeIterator.board.move + "\n")
+                print(winningNodeIterator.board.boardToString())
+                winningNodeIterator = winningNodeIterator.parentNode
+        else:
+            print("No Solution")
 
-    #This is just for debugging it will be gone when its over
-    print(f"CHECKED :{pathLength} STATES")
-    print(f"TIME TAKEN :{timeLength} ")
-    if(winningNodeIterator):
-        while winningNodeIterator.parentNode:
-            print(winningNodeIterator.board.move + "\n")
-            print(winningNodeIterator.board.boardToString())
-            winningNodeIterator = winningNodeIterator.parentNode
-    else:
-        print("No Solution")
+        print(
+            "------------------------------------------------------------------------------------------"
+        )
 def main():
     start = timeit.default_timer()
     f = open(INPUT_FILE, "r")
@@ -158,7 +157,7 @@ def main():
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
         # excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
-        runSolver("GBFS3", puzzle)
+        runSolver(puzzle)
         print(
             "------------------------------------------------------------------------------------------"
         )

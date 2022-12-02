@@ -13,23 +13,16 @@ class GBFS:
         start = timeit.default_timer()
         searchPathLength = 0
 
-
         closed = []
         open = PriorityQueue()
 
         initialNode = Node(initialBoard, None, 0, 0)
         open.put(initialNode)
 
-
         while (not open.empty()):
-            # TODO DELETE LATER
-            print(f"GBFS :{searchPathLength} STATES")
+
             # Taking the next node in the open list
             currentNode: Node = open.get()
-
-            # currentNode.board.boardToString()
-            # Append it to the closed list
-
 
             # Check if it is in the goal state
             if currentNode.board.getVehicleAtExit() == "A":
@@ -43,16 +36,22 @@ class GBFS:
             for eachChild in children:
                 open.put(eachChild)
 
+            #Append to closed list
             closed.append(currentNode)
+
+        #No solution found
         stop = timeit.default_timer()
         return (None, stop-start, searchPathLength)
 
     def generateChildren(self, currentNode , closedListOfNodes):
 
-        newNodes = []
         if(currentNode in closedListOfNodes):
             return []
+
+        newNodes = []
+
         childrenBoards = currentNode.board.allPossibleMoves()
+
         # Create new Nodes
         for oneBoard in childrenBoards:
             newNodes.append(Node(oneBoard, currentNode, 0, self.heuristicPicker(oneBoard)))
@@ -62,19 +61,20 @@ class GBFS:
             if node in closedListOfNodes:
                 nodesToRemove.append(node)
 
-
         for node in nodesToRemove:
             newNodes.remove(node)
+
         return newNodes
 
     def heuristicPicker(self, aBoard: Board):
-
         if(self.heuristic == 1):
             return self.heuristic1(aBoard)
         if(self.heuristic == 2):
             return self.heuristic2(aBoard)
         if (self.heuristic == 3):
             return self.heuristic3(aBoard)
+        if (self.heuristic == 4):
+            return self.heuristic4(aBoard)
     def heuristic1(self, aBoard: Board):
         setOfBlockingCars = set()
         tail = aBoard.vehicles.get('A').tail
@@ -93,3 +93,6 @@ class GBFS:
     def heuristic3(self,aBoard: Board):
         multiplier = 2
         return self.heuristic1(aBoard)*multiplier
+
+    def heuristic4(self, aBoard:Board):
+        return len(aBoard.allPossibleMoves())*-1

@@ -1,0 +1,11 @@
+Initial board configuration: .BBCCC..EEKLAAIJKLH.IJFFHGGG.M.....M K6 M0
+
+. B B C C C
+. . E E K L
+A A I J K L
+H . I J F F
+H G G G . M
+. . . . . M
+
+Car fuel available: B:100 C:100 E:100 K:6 L:100 A:100 I:100 J:100 H:100 F:100 G:100 M:0 
+

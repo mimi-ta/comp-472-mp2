@@ -3,7 +3,6 @@ from copy import copy
 
 DEFAULT_FUEL: int = 100
 
-
 class Board:
     def __init__(self, puzzle: list[str], cars=None):
         if puzzle:
@@ -189,7 +188,7 @@ class Board:
                 self.board[vehicle.head + 6] = "."
                 self.board[vehicle.tail] = "."
                 self.board[newTail] = vehicleLetterName
-                self.board[newTail + 6] = vehicleLetterName
+                self.board[newHead + 6] = vehicleLetterName
                 self.board[newHead] = vehicleLetterName
             elif size == 2:
                 self.board[vehicle.tail] = "."
@@ -320,6 +319,3 @@ class Board:
                     moves.append(board)
                     i += 1
         return moves
-
-
-
