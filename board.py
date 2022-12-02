@@ -188,7 +188,7 @@ class Board:
                 self.board[vehicle.head + 6] = "."
                 self.board[vehicle.tail] = "."
                 self.board[newTail] = vehicleLetterName
-                self.board[newTail + 6] = vehicleLetterName
+                self.board[newHead + 6] = vehicleLetterName
                 self.board[newHead] = vehicleLetterName
             elif size == 2:
                 self.board[vehicle.tail] = "."
@@ -286,7 +286,7 @@ class Board:
         for vehicle in self.vehicles.values():
             if vehicle.isHorizontal:
                 i = 1
-                while i < 6 - vehicle.size:
+                while i <= (6 - vehicle.size):
                     if not self.canMoveRight(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -294,7 +294,7 @@ class Board:
                     moves.append(board)
                     i += 1
                 i = 1
-                while i < 6 - vehicle.size:
+                while i <= (6 - vehicle.size):
                     if not self.canMoveLeft(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -303,7 +303,7 @@ class Board:
                     i += 1
             else:
                 i = 1
-                while i < 6 - vehicle.size:
+                while i <= (6 - vehicle.size):
                     if not self.canMoveDown(vehicle.letterName, i):
                         break
                     board = self.__copy__()
@@ -311,7 +311,7 @@ class Board:
                     moves.append(board)
                     i += 1
                 i = 1
-                while i < 6 - vehicle.size:
+                while i <= (6 - vehicle.size):
                     if not self.canMoveUp(vehicle.letterName, i):
                         break
                     board = self.__copy__()
