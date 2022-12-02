@@ -89,8 +89,8 @@ def generateUcsOutputFiles(i, puzzle: list[str], excelsheet, excelRow):
         solutionLength = getNumMovesWriteSolutionPathToFile(ucsResult.winningNode, f)
         output.update(
             {
-                SOLUTION_LENGTH: solutionLength,
-                SEARCH_PATH_LENGTH: ucsResult.winningNode.gn,
+                SOLUTION_LENGTH: ucsResult.winningNode.gn,
+                SEARCH_PATH_LENGTH: ucsResult.searchPathLength,
                 EXECUTION_TIME: ucsResult.runtime,
             }
         )
@@ -159,8 +159,8 @@ def main():
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        # excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
-        runSolver(puzzle)
+        excelRow = generateUcsOutputFiles(i, puzzle, excelsheet, excelRow)
+        # runSolver(puzzle)
         print(
             "------------------------------------------------------------------------------------------"
         )
