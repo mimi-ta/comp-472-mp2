@@ -13,6 +13,26 @@ class Node:
         if self and other:
             return self.board.boardToString() == other.board.boardToString()
 
+    def __ne__(self, other):
+        if self and other:
+            return not (self.board.boardToString() == other.board.boardToString())
+
+    def __lt__(self, other):
+        if self and other:
+            return (self.gn+self.hn < other.gn+other.hn)
+
+    def __gt__(self, other):
+        if self and other:
+            return (self.gn+self.hn> other.gn+other.hn)
+
+    def __le__(self, other):
+        if self and other:
+            return (self.gn+self.hn < other) or (self.gn+self.hn  == other.gn+other.hn)
+
+    def __ge__(self, other):
+        if self and other:
+            return (self.gn+self.hn > other.gn+other.hn) or (self.gn+self.hn  == other.gn+other.hn)
+
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"
 
