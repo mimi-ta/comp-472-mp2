@@ -31,7 +31,7 @@ class Node:
 
     def __ge__(self, other):
         if self and other:
-            return (self.gn+self.hn > other.gn+other.hn) or (self.gn+self.hn  == other.gn+other.hn)
+            return (self.gn+self.hn > other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
 
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"
