@@ -16,7 +16,7 @@ class GBFS:
         closed = []
         open = PriorityQueue()
 
-        initialNode = Node(initialBoard, None, 0, 0)
+        initialNode = Node(initialBoard, None, 0, 0, 0)
         open.put(initialNode)
 
         while (not open.empty()):
@@ -41,11 +41,12 @@ class GBFS:
 
         #No solution found
         stop = timeit.default_timer()
+        print(f"Searched through {searchPathLength} states")
         return (None, stop-start, searchPathLength)
 
     def generateChildren(self, currentNode , closedListOfNodes):
 
-        if(currentNode in closedListOfNodes):
+        if(currentNode in closedListOfNodes or currentNode.depth>93):
             return []
 
         newNodes = []
@@ -54,7 +55,7 @@ class GBFS:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, 0, self.heuristicPicker(oneBoard)))
+            newNodes.append(Node(oneBoard, currentNode, 0, self.heuristicPicker(oneBoard), currentNode.depth+1))
 
         nodesToRemove = []
         for node in newNodes:
