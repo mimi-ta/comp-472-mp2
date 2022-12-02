@@ -9,3 +9,15 @@ H G G G . M
 
 Car fuel available: B:100 C:100 E:100 K:6 L:100 A:100 I:100 J:100 H:100 F:100 G:100 M:0 
 
+Runtime: 101.54302549999557 seconds
+Search path length: 1591 states
+Solution path length: 0 moves
+Solution path: 
+
+
+B B C C C L
+E E I . . L
+H . I . A A
+H . F F K .
+G G G J K M
+. . . J . M
