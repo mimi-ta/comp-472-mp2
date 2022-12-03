@@ -1,6 +1,5 @@
 import heapq
 from node import Node
-from queue import PriorityQueue
 from board import Board
 import timeit
 
@@ -22,7 +21,6 @@ class ASTAR:
         heapq.heappush(open, initialNode)
 
         while not len(open) == 0:
-            heapq.heapify(open)
 
             # Taking the next node in the open list
             currentNode: Node = heapq.heappop(open)
@@ -73,8 +71,6 @@ class ASTAR:
                     heapq.heapify(openList)
                 else:
                     nodesToRemove.append(node)
-
-        heapq.heapify(openList)
 
         for node in nodesToRemove:
             newNodes.remove(node)
