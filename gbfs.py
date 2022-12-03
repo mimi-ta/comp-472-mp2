@@ -16,7 +16,7 @@ class GBFS:
         closed = []
         open = PriorityQueue()
 
-        initialNode = Node(initialBoard, None, 0, 0, 0, 0)
+        initialNode = Node(initialBoard, None, 0, 0, 0)
         open.put(initialNode)
 
         while (not open.empty()):

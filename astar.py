@@ -18,7 +18,7 @@ class ASTAR:
         open = []
         heapq.heapify(open)
 
-        initialNode = Node(initialBoard, None, 0, 0, 0, 0)
+        initialNode = Node(initialBoard, None, 0, 0, 0)
         heapq.heappush(open, initialNode)
 
         while not len(open) == 0:
@@ -58,20 +58,21 @@ class ASTAR:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            # print(currentNode.tn)
-            test = currentNode.tn + self.heuristicPicker(oneBoard)
-            newNodes.append(Node(oneBoard, currentNode, currentNode.gn + 1, test, 0, currentNode.depth + 1))
+            newNodes.append(Node(oneBoard, currentNode, currentNode.gn + 1, self.heuristicPicker(oneBoard),
+                                 currentNode.depth + 1))
 
         nodesToRemove = []
         for node in newNodes:
             if node in closedListOfNodes:
-                if not ((node.gn + node.hn) < (closedListOfNodes[closedListOfNodes.index(node)].gn +
-                                          closedListOfNodes[closedListOfNodes.index(node)].hn)):
+                if ((node.gn + node.hn) > (closedListOfNodes[closedListOfNodes.index(node)].gn +
+                                           closedListOfNodes[closedListOfNodes.index(node)].hn)):
                     nodesToRemove.append(node)
             elif node in openList:
                 if (openList[openList.index(node)].gn + openList[openList.index(node)].hn) > (node.gn + node.hn):
                     openList.remove(node)
                     heapq.heapify(openList)
+                else:
+                    nodesToRemove.append(node)
 
         heapq.heapify(openList)
 
