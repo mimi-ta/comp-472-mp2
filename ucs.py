@@ -1,7 +1,8 @@
-from node import Node
-from collections import deque
-from board import Board
 import timeit
+from collections import deque
+
+from board import Board
+from node import Node
 
 
 class UCS:
@@ -46,13 +47,13 @@ class UCS:
         newNodes = []
         childrenBoards = currentNode.board.allPossibleMoves()
 
-        #Rush hour strategy says that maximum possible moves should be 93 so any nodes that have depth of 94+ cannot be a solution
-        if(currentNode.gn>93):
+        # Rush hour strategy says that maximum possible moves should be 93 so any nodes that have depth of 94+ cannot be a solution
+        if currentNode.gn > 93:
             return newNodes
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, currentNode.gn+1, 0, 0))
+            newNodes.append(Node(oneBoard, currentNode, currentNode.gn + 1, 0, 0))
 
         nodesToRemove = []
         for node in newNodes:

@@ -28,11 +28,15 @@ class Node:
 
     def __le__(self, other):
         if self and other:
-            return (self.gn+self.hn <= other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
+            return (self.gn + self.hn <= other.gn + other.hn) or (
+                self.gn + self.hn == other.gn + other.hn
+            )
 
     def __ge__(self, other):
         # if self and other:
-            return (self.gn+self.hn > other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
+        return (self.gn + self.hn > other.gn + other.hn) or (
+            self.gn + self.hn == other.gn + other.hn
+        )
 
     def __str__(self) -> str:
         return f"Current node: \n{self.board.boardToString()} \nParent Node: \n{self.parentNode.board.boardToString()}"
@@ -40,7 +44,7 @@ class Node:
     def h1(self):
         board = self.board.board
         ambulanceTail = self.board.vehicles.get("A").tail
-        iterator = (17 - ambulanceTail)
+        iterator = 17 - ambulanceTail
         counter = 0
         for x in range(iterator):
             position = ambulanceTail + 1 + x
@@ -52,7 +56,7 @@ class Node:
     def h2(self):
         board = self.board.board
         ambulanceTail = self.board.vehicles.get("A").tail
-        iterator = (17 - ambulanceTail)
+        iterator = 17 - ambulanceTail
         counter = 0
         for x in range(iterator):
             position = ambulanceTail + 1 + x
