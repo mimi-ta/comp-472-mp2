@@ -33,11 +33,12 @@ class ASTAR:
 
             # Append all the children into the end of the open list
             children = self.generateChildren(currentNode, closed, open)
-            for eachChild in children:
-                heapq.heappush(open, eachChild)
 
             if children == "DUPLICATE":
                 continue
+
+            for eachChild in children:
+                heapq.heappush(open, eachChild)
 
             # Append to closed list
             closed.append(currentNode)
