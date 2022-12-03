@@ -1,0 +1,13 @@
+Initial board configuration: ....F...B.F.AABCF....C.....C....EE.. F2
+
+. . . . F .
+. . B . F .
+A A B C F .
+. . . C . .
+. . . C . .
+. . E E . .
+
+Car fuel available: F:2 B:100 A:100 C:100 E:100 
+
+Runtime: 37.9443095 seconds
+No solution.

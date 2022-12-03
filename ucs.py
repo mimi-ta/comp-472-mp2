@@ -17,7 +17,7 @@ class UCS:
         closed = []
         open = deque()
 
-        initialNode = Node(initialBoard, None, 0, 0)
+        initialNode = Node(initialBoard, None, 0, 0, 0)
         open.append(initialNode)
 
         while len(open) > 0:
@@ -52,7 +52,7 @@ class UCS:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, currentNode.gn+1, 0))
+            newNodes.append(Node(oneBoard, currentNode, currentNode.gn+1, 0, 0))
 
         nodesToRemove = []
         for node in newNodes:

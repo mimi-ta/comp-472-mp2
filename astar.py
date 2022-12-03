@@ -1,11 +1,10 @@
-import timeit
-from queue import PriorityQueue
-
-from board import Board
+import heapq
 from node import Node
+from board import Board
+import timeit
 
 
-class GBFS:
+class ASTAR:
     def __init__(self, heuristic=1):
         print(f"USING HEURISTIC #{heuristic}")
         self.heuristic = heuristic
@@ -15,31 +14,29 @@ class GBFS:
         searchPathLength = 1
 
         closed = []
-        open = PriorityQueue()
+        open = []
+        heapq.heapify(open)
 
         initialNode = Node(initialBoard, None, 0, 0, 0)
-        open.put(initialNode)
+        heapq.heappush(open, initialNode)
 
-        while not open.empty():
+        while not len(open) == 0:
 
             # Taking the next node in the open list
-            currentNode: Node = open.get()
+            currentNode: Node = heapq.heappop(open)
 
             # Check if it is in the goal state
             if currentNode.board.getVehicleAtExit() == "A":
                 stop = timeit.default_timer()
-                return (currentNode, stop - start, searchPathLength)
+                return currentNode, stop - start, searchPathLength
 
             # Append all the children into the end of the open list
-            children = self.generateChildren(currentNode, closed)
+            children = self.generateChildren(currentNode, closed, open)
+            for eachChild in children:
+                heapq.heappush(open, eachChild)
 
-            # If the return value is of type DUPLICATE then there is no need to add it to the closed list
-            # The algorithm should just continue
             if children == "DUPLICATE":
                 continue
-
-            for eachChild in children:
-                open.put(eachChild)
 
             # Append to closed list
             closed.append(currentNode)
@@ -48,9 +45,9 @@ class GBFS:
         # No solution found
         stop = timeit.default_timer()
         print(f"Searched through {searchPathLength} states")
-        return (None, stop - start, searchPathLength)
+        return None, stop - start, searchPathLength
 
-    def generateChildren(self, currentNode, closedListOfNodes):
+    def generateChildren(self, currentNode, closedListOfNodes, openList):
 
         if currentNode in closedListOfNodes or currentNode.depth > 93:
             return "DUPLICATE"
@@ -61,21 +58,21 @@ class GBFS:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-
-            newNodes.append(
-                Node(
-                    oneBoard,
-                    currentNode,
-                    0,
-                    self.heuristicPicker(oneBoard),
-                    currentNode.depth + 1,
-                )
-            )
+            newNodes.append(Node(oneBoard, currentNode, currentNode.gn + 1, self.heuristicPicker(oneBoard),
+                                 currentNode.depth + 1))
 
         nodesToRemove = []
         for node in newNodes:
             if node in closedListOfNodes:
-                nodesToRemove.append(node)
+                if ((node.gn + node.hn) > (closedListOfNodes[closedListOfNodes.index(node)].gn +
+                                           closedListOfNodes[closedListOfNodes.index(node)].hn)):
+                    nodesToRemove.append(node)
+            elif node in openList:
+                if (openList[openList.index(node)].gn + openList[openList.index(node)].hn) > (node.gn + node.hn):
+                    openList.remove(node)
+                    heapq.heapify(openList)
+                else:
+                    nodesToRemove.append(node)
 
         for node in nodesToRemove:
             newNodes.remove(node)
@@ -94,17 +91,17 @@ class GBFS:
 
     def heuristic1(self, aBoard: Board):
         setOfBlockingCars = set()
-        tail = aBoard.vehicles.get("A").tail
+        tail = aBoard.vehicles.get('A').tail
         for x in range(tail, 18):
-            if aBoard.board[x] != ".":
+            if aBoard.board[x] != '.':
                 setOfBlockingCars.add(aBoard.board[x])
         return len(setOfBlockingCars)
 
     def heuristic2(self, aBoard: Board):
         count = 0
-        tail = aBoard.vehicles.get("A").tail
+        tail = aBoard.vehicles.get('A').tail
         for x in range(tail, 18):
-            if aBoard.board[x] != ".":
+            if aBoard.board[x] != '.':
                 count += 1
         return count
 
@@ -113,8 +110,4 @@ class GBFS:
         return self.heuristic1(aBoard) * multiplier
 
     def heuristic4(self, aBoard: Board):
-        return (
-            len(aBoard.allPossibleMoves())
-            - self.heuristic1(aBoard)
-            - self.heuristic2(aBoard)
-        ) * -1
+        return (len(aBoard.allPossibleMoves()) - self.heuristic1(aBoard) - self.heuristic2(aBoard)) * -1

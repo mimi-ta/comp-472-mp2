@@ -20,18 +20,18 @@ class Node:
 
     def __lt__(self, other):
         if self and other:
-            return (self.gn+self.hn < other.gn+other.hn)
+            return self.gn + self.hn < other.gn + other.hn
 
     def __gt__(self, other):
         if self and other:
-            return (self.gn+self.hn> other.gn+other.hn)
+            return self.gn + self.hn > other.gn + other.hn
 
     def __le__(self, other):
         if self and other:
-            return (self.gn+self.hn < other) or (self.gn+self.hn  == other.gn+other.hn)
+            return (self.gn+self.hn <= other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
 
     def __ge__(self, other):
-        if self and other:
+        # if self and other:
             return (self.gn+self.hn > other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
 
     def __str__(self) -> str:

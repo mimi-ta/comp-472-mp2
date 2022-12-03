@@ -10,6 +10,7 @@ from gbfs import GBFS
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
+from astar import ASTAR
 
 # INPUT_FILE = "sample-input.txt"
 INPUT_FILE = "generatedPuzzles.txt"
@@ -67,13 +68,13 @@ def getNumMovesWriteSolutionPathToFile(winningNode, f: TextIOWrapper):
 
 
 def generateOutputFiles(
-    i,
-    puzzle: list[str],
-    excelsheet,
-    excelRow: int,
-    algorithmName: str,
-    algorithm,
-    heuristic: str,
+        i,
+        puzzle: list[str],
+        excelsheet,
+        excelRow: int,
+        algorithmName: str,
+        algorithm,
+        heuristic: str,
 ):
     output = dict()
     output.update(
@@ -82,7 +83,7 @@ def generateOutputFiles(
 
     board = Board(puzzle)
     if algorithmName == "UCS":
-        f = open(f"./output/{algorithmName}/{algorithmName}-sol-{i+1}.txt", "w")
+        f = open(f"./output/{algorithmName}/{algorithmName}-sol-{i + 1}.txt", "w")
     else:
         f = open(
             f"./output/{algorithmName}/heuristic-{heuristic}/{algorithmName}-sol-{i + 1}.txt",
@@ -93,7 +94,7 @@ def generateOutputFiles(
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
     winningNode, runtime, searchPathLength = algorithm.run(board)
-    isWin = type(winningNode) == type(Node(None, None, None, None))
+    isWin = type(winningNode) == type(Node(None, None, None, None, None))
 
     printGameOutcomeToConsole(winningNode, runtime, isWin, board.boardToString())
 
@@ -134,25 +135,25 @@ def main():
     parser = PuzzleParser(f.read())
 
     # Initialize excel spreadsheet
-    workbook = xlsxwriter.Workbook("analysis.xlsx")
+    workbook = xlsxwriter.Workbook("test.xlsx")
     excelsheet = workbook.add_worksheet()
 
     # Write headers to file
     for i, header in enumerate(
-        [
-            "Puzzle Number",
-            "Algorithm",
-            "Heuristic",
-            "Length of the solution",
-            "Length of the search path",
-            "Execution time (seconds)",
-        ]
+            [
+                "Puzzle Number",
+                "Algorithm",
+                "Heuristic",
+                "Length of the solution",
+                "Length of the search path",
+                "Execution time (seconds)",
+            ]
     ):
         excelsheet.write(0, i, header)
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        # excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow,"UCS", UCS(None,None,None), "N/A")
+        excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A")
 
         for HEURISTICNUMBER in range(4):
             excelRow = generateOutputFiles(
@@ -162,15 +163,25 @@ def main():
                 excelRow,
                 "GBFS",
                 GBFS(HEURISTICNUMBER + 1),
-                f"{HEURISTICNUMBER+1}",
+                f"{HEURISTICNUMBER + 1}",
             )
 
+        for HEURISTICNUMBER in range(4):
+            excelRow = generateOutputFiles(
+                i,
+                puzzle,
+                excelsheet,
+                excelRow,
+                "AA",
+                ASTAR(HEURISTICNUMBER + 1),
+                f"{HEURISTICNUMBER + 1}",
+            )
         print(
             "------------------------------------------------------------------------------------------"
         )
     stop = timeit.default_timer()
     print(
-        f"Total runtime for the {len(parser.puzzles)} puzzles: {stop-start} seconds or {(stop-start)/60/60} hours"
+        f"Total runtime for the {len(parser.puzzles)} puzzles: {stop - start} seconds or {(stop - start) / 60 / 60} hours"
     )
     workbook.close()
 
