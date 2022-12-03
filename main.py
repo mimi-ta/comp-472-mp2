@@ -9,6 +9,7 @@ from board import Board
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
+from astar import ASTAR
 
 INPUT_FILE = "sample-input.txt"
 # INPUT_FILE = "generatedPuzzles.txt"
@@ -79,7 +80,7 @@ def generateOutputFiles(i, puzzle: list[str], excelsheet, excelRow:int, algorith
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
 
     winningNode, runtime, searchPathLength = algorithm.run(board)
-    isWin = type(winningNode) == type(Node(None, None, None, None))
+    isWin = type(winningNode) == type(Node(None, None, None, None, None))
 
     printGameOutcomeToConsole(winningNode, runtime, isWin, board.boardToString())
 
@@ -119,7 +120,7 @@ def main():
     parser = PuzzleParser(f.read())
 
     # Initialize excel spreadsheet
-    workbook = xlsxwriter.Workbook("analysis.xlsx")
+    workbook = xlsxwriter.Workbook("test.xlsx")
     excelsheet = workbook.add_worksheet()
 
     # Write headers to file
@@ -137,10 +138,13 @@ def main():
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow,"UCS", UCS(None,None,None), "N/A")
+        # excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow,"UCS", UCS(None,None,None), "N/A")
+
+        # for HEURISTICNUMBER in range(4):
+        #     excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "GBFS", GBFS(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
 
         for HEURISTICNUMBER in range(4):
-            excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "GBFS", GBFS(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
+            excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "AA", ASTAR(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
 
         print(
             "------------------------------------------------------------------------------------------"

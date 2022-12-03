@@ -2,13 +2,14 @@ from board import Board
 
 
 class Node:
-    def __init__(self, board: Board, parentNode, gn, hn, depth=None):
+    def __init__(self, board: Board, parentNode, gn, hn, tn, depth=None):
         self.board = board
         self.parentNode = parentNode
         self.runtime = 0
         self.gn = gn
         self.hn = hn
         self.depth = depth
+        self.tn = tn
 
     def __eq__(self, other):
         if self and other:
@@ -20,18 +21,18 @@ class Node:
 
     def __lt__(self, other):
         if self and other:
-            return (self.gn+self.hn < other.gn+other.hn)
+            return self.gn + self.hn < other.gn + other.hn
 
     def __gt__(self, other):
         if self and other:
-            return (self.gn+self.hn> other.gn+other.hn)
+            return self.gn + self.hn > other.gn + other.hn
 
     def __le__(self, other):
         if self and other:
-            return (self.gn+self.hn < other) or (self.gn+self.hn  == other.gn+other.hn)
+            return (self.gn+self.hn <= other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
 
     def __ge__(self, other):
-        if self and other:
+        # if self and other:
             return (self.gn+self.hn > other.gn+other.hn) or (self.gn+self.hn == other.gn+other.hn)
 
     def __str__(self) -> str:

@@ -16,7 +16,7 @@ class GBFS:
         closed = []
         open = PriorityQueue()
 
-        initialNode = Node(initialBoard, None, 0, 0, 0)
+        initialNode = Node(initialBoard, None, 0, 0, 0, 0)
         open.put(initialNode)
 
         while (not open.empty()):
@@ -55,7 +55,7 @@ class GBFS:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, 0, self.heuristicPicker(oneBoard), currentNode.depth+1))
+            newNodes.append(Node(oneBoard, currentNode, 0, self.heuristicPicker(oneBoard), 0, currentNode.depth+1))
 
         nodesToRemove = []
         for node in newNodes:
