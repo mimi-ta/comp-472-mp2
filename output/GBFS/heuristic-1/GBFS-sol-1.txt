@@ -1,17 +1,23 @@
-Initial board configuration: ....F...B.F.AABCF....C.....C....EE.. F2
+Initial board configuration: .....O...MMOAAP.BO..P.B...P.CC...... B3 P2
 
-. . . . F .
-. . B . F .
-A A B C F .
-. . . C . .
-. . . C . .
-. . E E . .
+. . . . . O
+. . . M M O
+A A P . B O
+. . P . B .
+. . P . C C
+. . . . . .
 
-Car fuel available: F:2 B:100 A:100 C:100 E:100 
+Car fuel available: O:100 M:100 A:100 P:2 B:3 C:100 
 
-<<<<<<< HEAD
-Runtime: 10.990253099997062 seconds
-=======
-Runtime: 21.018073917 seconds
->>>>>>> 467898879bf775f9509e879f98311f2d4f918635
-No solution.
+Runtime: 0.008930125000000004 seconds
+Search path length: 15 states
+Solution path length: 7 moves
+Solution path: P Down 1; C Left 1; O Down 3; M Left 1; B Up 2; A Right 2; A Right 2; 
+
+
+. . . . B .
+. . M M B .
+. . . . A A
+. . P . . O
+. . P C C O
+. . P . . O

@@ -4,14 +4,15 @@ from io import TextIOWrapper
 from re import split
 
 import xlsxwriter
-from gbfs import GBFS
+
 from board import Board
+from gbfs import GBFS
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
 
-INPUT_FILE = "sample-input.txt"
-# INPUT_FILE = "generatedPuzzles.txt"
+# INPUT_FILE = "sample-input.txt"
+INPUT_FILE = "generatedPuzzles.txt"
 PUZZLE_NUMBER = "puzzleNumber"
 ALGORITHM = "algo"
 HEURISTIC = "heuristic"
@@ -65,15 +66,28 @@ def getNumMovesWriteSolutionPathToFile(winningNode, f: TextIOWrapper):
     return solutionPathLength
 
 
-def generateOutputFiles(i, puzzle: list[str], excelsheet, excelRow:int, algorithmName:str, algorithm, heuristic:str):
+def generateOutputFiles(
+    i,
+    puzzle: list[str],
+    excelsheet,
+    excelRow: int,
+    algorithmName: str,
+    algorithm,
+    heuristic: str,
+):
     output = dict()
-    output.update({PUZZLE_NUMBER: i + 1, ALGORITHM: algorithmName, HEURISTIC: heuristic})
+    output.update(
+        {PUZZLE_NUMBER: i + 1, ALGORITHM: algorithmName, HEURISTIC: heuristic}
+    )
 
     board = Board(puzzle)
-    if(algorithmName=="UCS"):
+    if algorithmName == "UCS":
         f = open(f"./output/{algorithmName}/{algorithmName}-sol-{i+1}.txt", "w")
     else:
-        f = open(f"./output/{algorithmName}/heuristic-{heuristic}/{algorithmName}-sol-{i + 1}.txt", "w")
+        f = open(
+            f"./output/{algorithmName}/heuristic-{heuristic}/{algorithmName}-sol-{i + 1}.txt",
+            "w",
+        )
     f.write(f"Initial board configuration: {' '.join(puzzle)}\n\n")
     f.write(board.boardToString() + "\n")
     f.write(f"Car fuel available: {board.getAllCarFuels()}\n\n")
@@ -113,6 +127,7 @@ def generateOutputFiles(i, puzzle: list[str], excelsheet, excelRow:int, algorith
             excelsheet.write(excelRow, j, element)
     return excelRow + 1
 
+
 def main():
     start = timeit.default_timer()
     f = open(INPUT_FILE, "r")
@@ -137,10 +152,18 @@ def main():
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow,"UCS", UCS(None,None,None), "N/A")
+        # excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow,"UCS", UCS(None,None,None), "N/A")
 
         for HEURISTICNUMBER in range(4):
-            excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "GBFS", GBFS(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
+            excelRow = generateOutputFiles(
+                i,
+                puzzle,
+                excelsheet,
+                excelRow,
+                "GBFS",
+                GBFS(HEURISTICNUMBER + 1),
+                f"{HEURISTICNUMBER+1}",
+            )
 
         print(
             "------------------------------------------------------------------------------------------"

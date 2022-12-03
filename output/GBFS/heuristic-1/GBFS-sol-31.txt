@@ -1,0 +1,13 @@
+Initial board configuration: ...MM....BB.AA.C.....C..DD.OOO...... C1
+
+. . . M M .
+. . . B B .
+A A . C . .
+. . . C . .
+D D . O O O
+. . . . . .
+
+Car fuel available: M:100 B:100 A:100 C:1 D:100 O:100 
+
+Runtime: 2.4443625830008386 seconds
+No solution.

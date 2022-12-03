@@ -1,0 +1,23 @@
+Initial board configuration: MMB.O...BCO.AADCOP..DEEPFGGH.PFIIHJJ
+
+M M B . O .
+. . B C O .
+A A D C O P
+. . D E E P
+F G G H . P
+F I I H J J
+
+Car fuel available: M:100 B:100 O:100 C:100 A:100 D:100 P:100 E:100 F:100 G:100 H:100 I:100 J:100 
+
+Runtime: 79.75769633299933 seconds
+Search path length: 1601 states
+Solution path length: 90 moves
+Solution path: C Up 1; P Up 1; P Up 1; E Right 1; H Up 1; F Up 1; H Up 1; J Left 1; F Down 1; G Right 3; D Down 1; H Down 1; A Right 1; F Up 1; A Left 1; J Right 1; H Down 1; I Left 1; E Left 1; D Down 1; P Down 1; A Right 2; F Up 2; E Left 2; H Up 1; J Left 1; F Down 2; J Right 1; A Left 2; P Up 1; A Right 1; O Down 1; F Up 1; H Down 1; E Right 1; F Down 1; A Left 1; B Down 1; P Down 1; O Up 1; E Right 1; P Up 1; D Up 1; I Right 1; E Right 1; I Left 1; C Down 2; I Right 1; F Down 1; C Up 1; E Left 1; F Up 1; I Left 1; P Down 1; D Down 1; E Left 2; C Down 1; P Up 1; O Down 1; P Down 1; M Right 4; B Up 1; C Up 2; A Right 2; H Up 1; F Up 2; H Down 1; F Up 1; E Left 1; E Right 2; A Left 2; E Left 2; D Up 1; I Right 1; H Up 1; I Left 1; H Up 1; J Left 2; G Left 1; P Down 2; J Right 1; D Down 1; D Up 2; G Left 2; H Down 1; G Left 1; D Down 1; J Left 1; O Down 2; A Right 4; 
+
+
+F . B C M M
+F . B C . .
+. . . . A A
+E E D H O P
+G G D H O P
+I I J J O P
