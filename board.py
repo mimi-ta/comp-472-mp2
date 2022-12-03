@@ -1,7 +1,9 @@
-from vehicle import Vehicle
 from copy import copy
 
+from vehicle import Vehicle
+
 DEFAULT_FUEL: int = 100
+
 
 class Board:
     def __init__(self, puzzle: list[str], cars=None):
@@ -57,7 +59,7 @@ class Board:
                                         DEFAULT_FUEL,
                                         True,
                                         index,
-                                        (puzzle[0].count(letter) + index) - 1
+                                        (puzzle[0].count(letter) + index) - 1,
                                     )
                                 }
                             )
@@ -70,14 +72,16 @@ class Board:
                                         DEFAULT_FUEL,
                                         False,
                                         index,
-                                        (puzzle[0].count(letter) - 1) * 6 + index
+                                        (puzzle[0].count(letter) - 1) * 6 + index,
                                     )
                                 }
                             )
 
             # Look for fuel definitions and if present then set them
             for fuelDefinition in puzzle[1:]:
-                vehiclesDict.get(fuelDefinition[0]).remainingFuel = int(fuelDefinition[1:])
+                vehiclesDict.get(fuelDefinition[0]).remainingFuel = int(
+                    fuelDefinition[1:]
+                )
             return vehiclesDict
         else:
             return dict()
@@ -165,7 +169,7 @@ class Board:
         vehicle.head = newHead
         vehicle.tail = newTail
 
-        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        vehicle.remainingFuel = vehicle.remainingFuel - multiplier
         self.move = f"{vehicleLetterName} Up {multiplier}\t\t{vehicle.remainingFuel} {self.__str__()}"
 
     def moveDown(self, vehicleLetterName: str, multiplier: int):
@@ -199,7 +203,7 @@ class Board:
         vehicle.head = newHead
         vehicle.tail = newTail
 
-        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        vehicle.remainingFuel = vehicle.remainingFuel - multiplier
         self.move = f"{vehicleLetterName} Down {multiplier}\t{vehicle.remainingFuel} {self.__str__()}"
 
     def moveLeft(self, vehicleLetterName: str, multiplier: int):
@@ -233,7 +237,7 @@ class Board:
         vehicle.head = newHead
         vehicle.tail = newTail
 
-        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        vehicle.remainingFuel = vehicle.remainingFuel - multiplier
         self.move = f"{vehicleLetterName} Left {multiplier}\t{vehicle.remainingFuel} {self.__str__()}"
 
     def moveRight(self, vehicleLetterName: str, multiplier: int):
@@ -267,7 +271,7 @@ class Board:
         vehicle.head = newHead
         vehicle.tail = newTail
 
-        vehicle.remainingFuel = (vehicle.remainingFuel - multiplier)
+        vehicle.remainingFuel = vehicle.remainingFuel - multiplier
         self.move = f"{vehicleLetterName} Right {multiplier}\t{vehicle.remainingFuel} {self.__str__()}"
 
         # remove car from board if it is in the goalstate

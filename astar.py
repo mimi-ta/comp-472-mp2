@@ -1,7 +1,8 @@
 import heapq
-from node import Node
-from board import Board
 import timeit
+
+from board import Board
+from node import Node
 
 
 class ASTAR:
@@ -32,11 +33,12 @@ class ASTAR:
 
             # Append all the children into the end of the open list
             children = self.generateChildren(currentNode, closed, open)
-            for eachChild in children:
-                heapq.heappush(open, eachChild)
 
             if children == "DUPLICATE":
                 continue
+
+            for eachChild in children:
+                heapq.heappush(open, eachChild)
 
             # Append to closed list
             closed.append(currentNode)
@@ -58,17 +60,29 @@ class ASTAR:
 
         # Create new Nodes
         for oneBoard in childrenBoards:
-            newNodes.append(Node(oneBoard, currentNode, currentNode.gn + 1, self.heuristicPicker(oneBoard),
-                                 currentNode.depth + 1))
+            newNodes.append(
+                Node(
+                    oneBoard,
+                    currentNode,
+                    currentNode.gn + 1,
+                    self.heuristicPicker(oneBoard),
+                    currentNode.depth + 1,
+                )
+            )
 
         nodesToRemove = []
         for node in newNodes:
             if node in closedListOfNodes:
-                if ((node.gn + node.hn) > (closedListOfNodes[closedListOfNodes.index(node)].gn +
-                                           closedListOfNodes[closedListOfNodes.index(node)].hn)):
+                if (node.gn + node.hn) > (
+                    closedListOfNodes[closedListOfNodes.index(node)].gn
+                    + closedListOfNodes[closedListOfNodes.index(node)].hn
+                ):
                     nodesToRemove.append(node)
             elif node in openList:
-                if (openList[openList.index(node)].gn + openList[openList.index(node)].hn) > (node.gn + node.hn):
+                if (
+                    openList[openList.index(node)].gn
+                    + openList[openList.index(node)].hn
+                ) > (node.gn + node.hn):
                     openList.remove(node)
                     heapq.heapify(openList)
                 else:
@@ -91,17 +105,17 @@ class ASTAR:
 
     def heuristic1(self, aBoard: Board):
         setOfBlockingCars = set()
-        tail = aBoard.vehicles.get('A').tail
+        tail = aBoard.vehicles.get("A").tail
         for x in range(tail, 18):
-            if aBoard.board[x] != '.':
+            if aBoard.board[x] != ".":
                 setOfBlockingCars.add(aBoard.board[x])
         return len(setOfBlockingCars)
 
     def heuristic2(self, aBoard: Board):
         count = 0
-        tail = aBoard.vehicles.get('A').tail
+        tail = aBoard.vehicles.get("A").tail
         for x in range(tail, 18):
-            if aBoard.board[x] != '.':
+            if aBoard.board[x] != ".":
                 count += 1
         return count
 
@@ -110,4 +124,8 @@ class ASTAR:
         return self.heuristic1(aBoard) * multiplier
 
     def heuristic4(self, aBoard: Board):
-        return (len(aBoard.allPossibleMoves()) - self.heuristic1(aBoard) - self.heuristic2(aBoard)) * -1
+        return (
+            len(aBoard.allPossibleMoves())
+            - self.heuristic1(aBoard)
+            - self.heuristic2(aBoard)
+        ) * -1

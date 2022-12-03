@@ -5,12 +5,12 @@ from re import split
 
 import xlsxwriter
 
+from astar import ASTAR
 from board import Board
 from gbfs import GBFS
 from node import Node
 from puzzleParser import PuzzleParser
 from ucs import UCS
-from astar import ASTAR
 
 # INPUT_FILE = "sample-input.txt"
 INPUT_FILE = "generatedPuzzles.txt"
@@ -68,13 +68,13 @@ def getNumMovesWriteSolutionPathToFile(winningNode, f: TextIOWrapper):
 
 
 def generateOutputFiles(
-        i,
-        puzzle: list[str],
-        excelsheet,
-        excelRow: int,
-        algorithmName: str,
-        algorithm,
-        heuristic: str,
+    i,
+    puzzle: list[str],
+    excelsheet,
+    excelRow: int,
+    algorithmName: str,
+    algorithm,
+    heuristic: str,
 ):
     output = dict()
     output.update(
@@ -140,31 +140,31 @@ def main():
 
     # Write headers to file
     for i, header in enumerate(
-            [
-                "Puzzle Number",
-                "Algorithm",
-                "Heuristic",
-                "Length of the solution",
-                "Length of the search path",
-                "Execution time (seconds)",
-            ]
+        [
+            "Puzzle Number",
+            "Algorithm",
+            "Heuristic",
+            "Length of the solution",
+            "Length of the search path",
+            "Execution time (seconds)",
+        ]
     ):
         excelsheet.write(0, i, header)
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A")
+        # excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A")
 
-        for HEURISTICNUMBER in range(4):
-            excelRow = generateOutputFiles(
-                i,
-                puzzle,
-                excelsheet,
-                excelRow,
-                "GBFS",
-                GBFS(HEURISTICNUMBER + 1),
-                f"{HEURISTICNUMBER + 1}",
-            )
+        # for HEURISTICNUMBER in range(4):
+        #     excelRow = generateOutputFiles(
+        #         i,
+        #         puzzle,
+        #         excelsheet,
+        #         excelRow,
+        #         "GBFS",
+        #         GBFS(HEURISTICNUMBER + 1),
+        #         f"{HEURISTICNUMBER + 1}",
+        #     )
 
         for HEURISTICNUMBER in range(4):
             excelRow = generateOutputFiles(
