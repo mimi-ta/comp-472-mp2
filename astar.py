@@ -30,15 +30,17 @@ class ASTAR:
                 stop = timeit.default_timer()
                 return currentNode, stop - start, searchPathLength
 
-            searchPathLength += 1
-
             # Append all the children into the end of the open list
             children = self.generateChildren(currentNode, closed, open)
             for eachChild in children:
                 heapq.heappush(open, eachChild)
 
+            if children == "DUPLICATE":
+                continue
+
             # Append to closed list
             closed.append(currentNode)
+            searchPathLength += 1
 
         # No solution found
         stop = timeit.default_timer()
@@ -48,7 +50,7 @@ class ASTAR:
     def generateChildren(self, currentNode, closedListOfNodes, openList):
 
         if currentNode in closedListOfNodes or currentNode.depth > 93:
-            return []
+            return "DUPLICATE"
 
         newNodes = []
 

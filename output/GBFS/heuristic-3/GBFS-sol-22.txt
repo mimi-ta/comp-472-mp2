@@ -1,0 +1,13 @@
+Initial board configuration: OOO.PQMM..PQBAA.PQBR..CCDREEFFDRGGHH O2 H1 G2 C1
+
+O O O . P Q
+M M . . P Q
+B A A . P Q
+B R . . C C
+D R E E F F
+D R G G H H
+
+Car fuel available: O:2 P:100 Q:100 M:100 B:100 A:100 R:100 C:1 D:100 E:100 F:100 G:2 H:1 
+
+Runtime: 16.122633916999803 seconds
+No solution.
