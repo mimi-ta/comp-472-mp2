@@ -143,6 +143,9 @@ def main():
         # for HEURISTICNUMBER in range(4):
         #     excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "GBFS", GBFS(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
 
+        # for HEURISTICNUMBER in range(4):
+        #     excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "AASTAR", ASTAR(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
+
         for HEURISTICNUMBER in range(4):
             excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "AA", ASTAR(HEURISTICNUMBER+1), f"{HEURISTICNUMBER+1}")
 
