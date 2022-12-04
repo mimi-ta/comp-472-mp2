@@ -1,4 +1,4 @@
-Initial board configuration: M.BOOOM.BC.DAA.C.D.EFFPQ.E..PQ.RRRPQ
+Initial board configuration: M.BOOOM.BC.DAA.C.D.EFFPQ.E..PQ.RRRPQ O1 B2 F2 P2 R1
 
 M . B O O O
 M . B C . D
@@ -7,36 +7,7 @@ A A . C . D
 . E . . P Q
 . R R R P Q
 
-Car fuel available: M:100 B:100 O:100 C:100 D:100 A:100 E:100 F:100 P:100 Q:100 R:100 
+Car fuel available: M:100 B:2 O:1 C:100 D:100 A:100 E:100 F:2 P:2 Q:100 R:1 
 
-Runtime: 310.55304799999794 seconds
-Search path length: 3110 states
-Solution path length: 20 moves
-Solution path: B Down 1; O Left 2; D Up 1; P Up 3; F Right 1; Q Up 1; R Right 2; B Down 3; A Right 1; M Down 1; O Left 1; C Up 1; A Right 1; E Up 2; F Left 3; B Up 1; R Left 2; P Down 3; Q Down 1; A Right 2; 
-A Right 2	96 OOOC.DME.C.DME..AAFFB.PQ..B.PQ.RRRPQ
-Q Down 1	98 OOOC.DME.C.DMEAA..FFB.PQ..B.PQ.RRRPQ
-P Down 3	94 OOOC.DME.C.DMEAA.QFFB.PQ..B.PQ.RRRP.
-R Left 2	96 OOOCPDME.CPDMEAAPQFFB..Q..B..Q.RRR..
-B Up 1		95 OOOCPDME.CPDMEAAPQFFB..Q..B..Q...RRR
-F Left 3	96 OOOCPDME.CPDMEAAPQFF...Q..B..Q..BRRR
-E Up 2		98 OOOCPDME.CPDMEAAPQ...FFQ..B..Q..BRRR
-A Right 1	98 OOOCPDM..CPDM.AAPQ.E.FFQ.EB..Q..BRRR
-C Up 1		99 OOOCPDM..CPDMAA.PQ.E.FFQ.EB..Q..BRRR
-O Left 1	97 OOO.PDM..CPDMAACPQ.E.FFQ.EB..Q..BRRR
-M Down 1	99 .OOOPDM..CPDMAACPQ.E.FFQ.EB..Q..BRRR
-A Right 1	99 MOOOPDM..CPD.AACPQ.E.FFQ.EB..Q..BRRR
-B Down 3	96 MOOOPDM..CPDAA.CPQ.E.FFQ.EB..Q..BRRR
-R Right 2	98 MOOOPDM.BCPDAABCPQ.E.FFQ.E...Q...RRR
-Q Up 1		99 MOOOPDM.BCPDAABCPQ.E.FFQ.E...Q.RRR..
-F Right 1	99 MOOOPDM.BCPDAABCP..E.FFQ.E...Q.RRR.Q
-P Up 3		97 MOOOPDM.BCPDAABCP..EFF.Q.E...Q.RRR.Q
-D Up 1		99 MOOO.DM.BC.DAABC...EFFPQ.E..PQ.RRRPQ
-O Left 2	98 MOOO..M.BC.DAABC.D.EFFPQ.E..PQ.RRRPQ
-B Down 1	99 M..OOOM.BC.DAABC.D.EFFPQ.E..PQ.RRRPQ
-
-O O O C . D
-M E . C . D
-M E . . A A
-F F B . P Q
-. . B . P Q
-. R R R P Q
+Runtime: 3.03122550000262 seconds
+No solution.

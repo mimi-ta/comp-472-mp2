@@ -1,27 +1,23 @@
-Initial board configuration: .BBCCC..EEKLAAIJKLH.IJFFHGGG.M.....M K6 M0
+Initial board configuration: ....O..M..OB.MAAOB.CPDD..CP.....P... D3 M4
 
-. B B C C C
-. . E E K L
-A A I J K L
-H . I J F F
-H G G G . M
-. . . . . M
+. . . . O .
+. M . . O B
+. M A A O B
+. C P D D .
+. C P . . .
+. . P . . .
 
-Car fuel available: B:100 C:100 E:100 K:6 L:100 A:100 I:100 J:100 H:100 F:100 G:100 M:0 
+Car fuel available: O:100 M:4 B:100 A:100 C:100 P:100 D:3 
 
-<<<<<<< HEAD
-Runtime: 98.23130200000014 seconds
-=======
-Runtime: 72.07558837500001 seconds
->>>>>>> 467898879bf775f9509e879f98311f2d4f918635
-Search path length: 1592 states
-Solution path length: 14 moves
-Solution path: B Left 1; E Left 2; I Up 2; A Right 1; H Up 1; G Left 1; J Down 2; F Left 2; K Down 2; A Right 2; I Down 1; C Left 1; L Up 1; A Right 1; 
+Runtime: 2.7160411670010944 seconds
+Search path length: 302 states
+Solution path length: 9 moves
+Solution path: M Up 1; B Down 2; A Left 2; C Down 1; P Up 3; D Left 3; O Down 3; P Down 3; A Right 4; 
 
 
-B B C C C L
-E E I . . L
-H . I . A A
-H . F F K .
-G G G J K M
-. . . J . M
+. M . . . .
+. M . . . .
+. . . . A A
+D D P . O B
+. C P . O B
+. C P . O .

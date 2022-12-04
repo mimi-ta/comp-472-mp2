@@ -153,20 +153,20 @@ def main():
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        excelRow = generateOutputFiles(
-            i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A"
-        )
+        # excelRow = generateOutputFiles(
+        #     i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A"
+        # )
 
-        for HEURISTICNUMBER in range(4):
-            excelRow = generateOutputFiles(
-                i,
-                puzzle,
-                excelsheet,
-                excelRow,
-                "GBFS",
-                GBFS(HEURISTICNUMBER + 1),
-                f"{HEURISTICNUMBER + 1}",
-            )
+        # for HEURISTICNUMBER in range(4):
+        #     excelRow = generateOutputFiles(
+        #         i,
+        #         puzzle,
+        #         excelsheet,
+        #         excelRow,
+        #         "GBFS",
+        #         GBFS(HEURISTICNUMBER + 1),
+        #         f"{HEURISTICNUMBER + 1}",
+        #     )
 
         for HEURISTICNUMBER in range(4):
             excelRow = generateOutputFiles(

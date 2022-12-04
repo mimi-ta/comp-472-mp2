@@ -9,22 +9,11 @@ P . . E . .
 
 Car fuel available: M:100 O:100 B:100 C:100 A:100 P:100 D:100 E:100 F:100 
 
-Runtime: 117.56449041700034 seconds
-Search path length: 1792 states
+Runtime: 99.62683820800157 seconds
+Search path length: 1793 states
 Solution path length: 12 moves
 Solution path: M Right 2; C Up 2; A Left 1; P Up 2; D Left 1; E Up 2; F Left 2; O Down 3; B Down 3; M Right 2; E Up 2; A Right 3; 
-A Right 3	96 .C.EMMPC.E..P...AAP...OBDDFFOB....O.
-E Up 2		96 .C.EMMPC.E..PAA...P...OBDDFFOB....O.
-M Right 2	96 .C..MMPC....PAAE..P..EOBDDFFOB....O.
-B Down 3	97 .CMM..PC....PAAE..P..EOBDDFFOB....O.
-O Down 3	97 .CMM.BPC...BPAAE..P..EO.DDFFO.....O.
-F Left 2	98 .CMMOBPC..OBPAAEO.P..E..DDFF........
-E Up 2		98 .CMMOBPC..OBPAAEO.P..E..DD..FF......
-D Left 1	99 .CMMOBPC..OBPAA.O.P.....DD.EFF...E..
-P Up 2		98 .CMMOBPC..OBPAA.O.P......DDEFF...E..
-A Left 1	99 .CMMOB.C..OB.AA.O.P.....PDDEFFP..E..
-C Up 2		98 .CMMOB.C..OB..AAO.P.....PDDEFFP..E..
-M Right 2	98 ..MMOB....OB.CAAO.PC....PDDEFFP..E..
+
 
 . C . E M M
 P C . E . .

@@ -1,4 +1,4 @@
-Initial board configuration: OMMBBPO..CCPO.AADPEEFQD...FQGG...Q..
+Initial board configuration: OMMBBPO..CCPO.AADPEEFQD...FQGG...Q.. M2 P1 Q2
 
 O M M B B P
 O . . C C P
@@ -7,34 +7,7 @@ E E F Q D .
 . . F Q G G
 . . . Q . .
 
-Car fuel available: O:100 M:100 B:100 P:100 C:100 A:100 D:100 E:100 F:100 Q:100 G:100 
+Car fuel available: O:100 M:2 B:100 P:1 C:100 A:100 D:100 E:100 F:100 Q:2 G:100 
 
-Runtime: 315.22458375000133 seconds
-Search path length: 3051 states
-Solution path length: 18 moves
-Solution path: P Down 1; B Right 1; F Down 1; E Right 1; O Down 3; M Left 1; C Left 3; A Left 2; D Up 1; Q Up 3; E Right 2; F Up 4; E Left 2; G Left 3; P Down 2; D Down 2; Q Down 3; A Right 4; 
-A Right 4	94 MMF.BBCCF.......AAOEEQDPOGGQDPO..Q.P
-Q Down 3	94 MMF.BBCCF...AA....OEEQDPOGGQDPO..Q.P
-D Down 2	97 MMFQBBCCFQ..AA.Q..OEE.DPOGG.DPO....P
-P Down 2	97 MMFQBBCCFQD.AA.QD.OEE..POGG..PO....P
-G Left 3	97 MMFQBBCCFQDPAA.QDPOEE..POGG...O.....
-E Left 2	95 MMFQBBCCFQDPAA.QDPOEE..PO...GGO.....
-F Up 4		95 MMFQBBCCFQDPAA.QDPO..EEPO...GGO.....
-E Right 2	97 MM.QBBCC.QDPAA.QDPO..EEPO.F.GGO.F...
-Q Up 3		97 MM.QBBCC.QDPAA.QDPOEE..PO.F.GGO.F...
-D Up 1		99 MM..BBCC..DPAA..DPOEEQ.PO.FQGGO.FQ..
-A Left 2	98 MM..BBCC...PAA..DPOEEQDPO.FQGGO.FQ..
-C Left 3	97 MM..BBCC...P..AADPOEEQDPO.FQGGO.FQ..
-M Left 1	99 MM..BB...CCP..AADPOEEQDPO.FQGGO.FQ..
-O Down 3	97 .MM.BB...CCP..AADPOEEQDPO.FQGGO.FQ..
-E Right 1	99 OMM.BBO..CCPO.AADP.EEQDP..FQGG..FQ..
-F Down 1	99 OMM.BBO..CCPO.AADPEE.QDP..FQGG..FQ..
-B Right 1	99 OMM.BBO..CCPO.AADPEEFQDP..FQGG...Q..
-P Down 1	99 OMMBB.O..CCPO.AADPEEFQDP..FQGG...Q..
-
-M M F . B B
-C C F . . .
-. . . . A A
-O E E Q D P
-O G G Q D P
-O . . Q . P
+Runtime: 39.39391108300333 seconds
+No solution.
