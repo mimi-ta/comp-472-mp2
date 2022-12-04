@@ -1,0 +1,13 @@
+Initial board configuration: M.BOOOM.BC.DAA.C.D.EFFPQ.E..PQ.RRRPQ O1 B2 F2 P2 R1
+
+M . B O O O
+M . B C . D
+A A . C . D
+. E F F P Q
+. E . . P Q
+. R R R P Q
+
+Car fuel available: M:100 B:2 O:1 C:100 D:100 A:100 E:100 F:2 P:2 Q:100 R:1 
+
+Runtime: 6.9401456660052645 seconds
+No solution.

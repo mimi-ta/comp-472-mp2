@@ -1,0 +1,13 @@
+Initial board configuration: OOOMMP...BCPAA.BCP.........QQQ...... Q1 O0 M1
+
+O O O M M P
+. . . B C P
+A A . B C P
+. . . . . .
+. . . Q Q Q
+. . . . . .
+
+Car fuel available: O:0 M:1 P:100 B:100 C:100 A:100 Q:1 
+
+Runtime: 0.45654225000180304 seconds
+No solution.

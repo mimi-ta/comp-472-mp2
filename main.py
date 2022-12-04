@@ -135,7 +135,7 @@ def main():
     parser = PuzzleParser(f.read())
 
     # Initialize excel spreadsheet
-    workbook = xlsxwriter.Workbook("test.xlsx")
+    workbook = xlsxwriter.Workbook("analysis.xlsx")
     excelsheet = workbook.add_worksheet()
 
     # Write headers to file
@@ -153,7 +153,9 @@ def main():
 
     excelRow = 1  # Row that is not header
     for i, puzzle in enumerate(parser.puzzles):
-        excelRow = generateOutputFiles(i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A")
+        excelRow = generateOutputFiles(
+            i, puzzle, excelsheet, excelRow, "UCS", UCS(None, None, None), "N/A"
+        )
 
         for HEURISTICNUMBER in range(4):
             excelRow = generateOutputFiles(
